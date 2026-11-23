@@ -79,6 +79,13 @@ has no details of its own: it uses the values of the rules it relies on.
   be right and the code wrong, leaves the records of the past alone, and suggests checks that
   would catch the same drift next time. It relies on `writing.md` and `commits.md`, and uses
   `roadmap-and-docs.md` where it is adopted.
+- [`skills/draw-diagrams/`](skills/draw-diagrams/SKILL.md): `/draw-diagrams [file or view]`
+  draws formal architecture diagrams of the project as Mermaid in Markdown, in `diagram/` or the
+  folder `roadmap-and-docs.md` names: C4 views, UML class, component, and sequence diagrams,
+  data-flow, state, data-model, and deployment diagrams. Built parts are solid and planned ones
+  dashed with their task, and every file records the commit it was drawn from, so later runs
+  rebuild only the diagrams whose sources changed. It relies on `roadmap-and-docs.md`,
+  `commits.md`, and `writing.md`.
 
 ## Adopt a rule in a repository
 

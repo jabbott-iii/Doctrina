@@ -5,6 +5,7 @@ paths:
   - "CONTRIBUTING.md"
   - "README.md"
   - "diagrams/**"
+  - "diagram/**"
 ---
 
 # Roadmap and documentation standards
