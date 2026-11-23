@@ -20,9 +20,10 @@ rules:
 
 - **Git access**, **Done checks**, **Never commit**, and **Breaking changes** from `commits.md`;
 - **Check commands**, **Test layout**, **Dependency policy**, **Public API**, and
-  **Published crates** or **Published modules** from the language rules (`rust.md`, `kotlin.md`,
-  `android.md`, `kotlin-multiplatform.md`, `swift.md`, and `flutter.md`), **Exported components**
-  from `android.md`, and **Test tools** from `web-front-end.md`;
+  **Published crates**, **Published modules**, or **Published rocks** from the language rules
+  (`rust.md`, `kotlin.md`, `android.md`, `kotlin-multiplatform.md`, `swift.md`, `flutter.md`, and
+  `lua.md`), **Exported components** from `android.md`, and **Test tools** from
+  `web-front-end.md`;
 - the **Docs folder** and the **Decision log** from `roadmap-and-docs.md`, where it is adopted.
 
 Where a value doesn't exist because a rule isn't adopted, work from what the repository has, and
@@ -63,9 +64,10 @@ as `npx` or `dart pub global activate`), without asking the user first.
 
 **Question every suppression.** Each one hides a possible finding: `#[allow(…)]`, `@Suppress`,
 `@SuppressLint`, a lint baseline, `// ignore:`, `// swiftlint:disable`, `eslint-disable`,
-`@ts-ignore`, and `# noqa`. Check that its reason still holds. In Rust, `#[expect(…)]` in place
-of `#[allow(…)]` makes the compiler warn (`unfulfilled_lint_expectations`) when the lint no
-longer fires, so it shows which suppressions hide nothing.
+`@ts-ignore`, `# noqa`, `-- luacheck: ignore`, and `---@diagnostic disable`. Check that its reason
+still holds. In Rust, `#[expect(…)]` in place of `#[allow(…)]` makes the compiler warn
+(`unfulfilled_lint_expectations`) when the lint no longer fires, so it shows which suppressions hide
+nothing.
 
 **Read the code.** Look for what tools miss, hardest where input enters, where errors are
 handled, and where work runs at the same time:
@@ -78,7 +80,7 @@ handled, and where work runs at the same time:
 | Concurrency | Data races; check-then-act on shared state (acting on a value another thread may have changed since it was read); a lock held across an `await`; work that is never canceled; futures, promises, and tasks never awaited |
 | Resources | Files, connections, listeners, subscriptions, and timers never closed or removed; reference cycles that keep objects alive |
 | State | A cache that is never invalidated; state left half-updated after a failure; writes that belong in one transaction but aren't |
-| Logic | Inverted conditions; the wrong operator; a copied branch with one name left unchanged; a shadowed variable; a `switch` case that falls through; identity compared where equality was meant |
+| Logic | Inverted conditions; the wrong operator; a copied branch with one name left unchanged; a shadowed variable; a `switch` case that falls through; identity compared where equality was meant; in Lua, a method called with `.` instead of `:`, and `#` on a table that can have holes |
 | Time and place | Time zones and daylight saving time; clocks that can go backward; parsing and formatting that depend on the device's locale |
 | Contracts | Code that disagrees with its doc comment, its spec, its test's name, or the decision record that set it; a `TODO` or `FIXME` that describes a known bug |
 
@@ -115,24 +117,26 @@ rule out every way code is reached without a direct call:
 - Reflection, serialization, and dependency injection: names in annotations, JSON fields, and
   dependency injection modules.
 - Names looked up as text: Android resources by name, platform channel and method names, routes,
-  event names, CSS classes that JavaScript builds, and registries keyed by strings.
+  event names, CSS classes that JavaScript builds, registries keyed by strings, and in Lua, module
+  names built as strings for `require` and functions looked up by name (`M[name]`).
 - Entry points the platform calls: the components in the Android manifest (the
   **Exported components**), `Info.plist` entries on Apple platforms, `main` functions, scheduled
-  jobs, and command-line subcommands.
+  jobs, command-line subcommands, and the callbacks a Lua host calls by name.
 - Symbols exported to another language: `#[no_mangle]` and `extern "C"`, Java Native Interface
   (JNI) functions, `@objc`, `@JvmStatic`, the framework API that Kotlin Multiplatform exports to
-  Swift, and Dart's `@pragma('vm:entry-point')`.
+  Swift, Dart's `@pragma('vm:entry-point')`, and C functions registered with Lua (a `luaL_Reg`
+  array).
 - Code that only some builds use: platforms, targets, build variants, and features
   (`#[cfg(…)]`, Cargo features, `expect` and `actual`, `#if os(…)`, Gradle product flavors,
-  `kIsWeb`).
+  `kIsWeb`, and Lua's checks of `jit` or `_VERSION`).
 - Code generators, build scripts, macros, templates, and other repositories that call or copy
   this code.
 - Work the roadmap plans: code written ahead for a planned task isn't dead. Check the roadmap in
   the **Docs folder** and the **Decision log**, and ask the user.
 
-**Libraries.** Code you can't see uses a library's public items, so never call one dead because
-this repository doesn't use it. The **Public API** and the **Published crates** or
-**Published modules** say what is published. Removing a published item falls under
+**Libraries.** Code you can't see uses a library's public items, so never call one dead because this
+repository doesn't use it. The **Public API** and the **Published crates**, **Published modules**,
+or **Published rocks** say what is published. Removing a published item falls under
 **Breaking changes** and is the user's decision; suggest deprecating it first.
 
 **Classify each finding:**
@@ -243,7 +247,8 @@ End with a summary that contains:
 
 Use the tools the project already has first. This table says what each compiler reports on its
 own, what it misses, and the tools that cover the rest. The compiler columns held for rustc 1.99,
-Kotlin 2.4.21, Swift 6.4.3, Dart 3.14.1, and TypeScript 7.0.2.
+Kotlin 2.4.21, Swift 6.4.3, Dart 3.14.1, TypeScript 7.0.2, Lua 5.1.5, 5.4.9, and 5.5.1, and
+LuaJIT 2.1.
 
 | Language | What the compiler reports | What it misses, and the tools that find it |
 | --- | --- | --- |
@@ -253,3 +258,4 @@ Kotlin 2.4.21, Swift 6.4.3, Dart 3.14.1, and TypeScript 7.0.2.
 | Dart and Flutter | `unused_import`, `unused_local_variable`, `unused_field`, `dead_code`, and `unused_element` for private declarations (names that start with `_`) | Unused public declarations, which no analyzer diagnostic reports: search for them, and rule out the ways in above. `dependency_validator` for unused packages |
 | JavaScript and TypeScript | TypeScript with `noUnusedLocals`, `noUnusedParameters`, `allowUnreachableCode: false`, and `noFallthroughCasesInSwitch`; ESLint's `no-unused-vars`, `no-unreachable`, and `no-fallthrough`, which its recommended config turns on | Unused exports, files, and dependencies: knip. CSS and JavaScript a page never runs: the **Coverage** panel in Chrome DevTools. `npm audit` for dependencies with known vulnerabilities |
 | Python | No compile step reports unused code | Ruff's `F401` (unused imports) and `F841` (unused local variables), which it checks by default; Vulture for unused functions, classes, and variables, with `--min-confidence`, and a `--make-whitelist` file for its false positives |
+| Lua | Nothing: `luac -p` and LuaJIT's compiler check syntax only. The exception is Lua 5.5: after a `global` declaration, an undeclared name, such as a misspelled global, is a compile error. | luacheck's warnings 211 (unused local variable), 212 (unused argument), 213 (unused loop variable), 311 (a value assigned to a local is never used), 511 (unreachable code), and 111 and 113 (setting and reading an undefined global). lua-language-server's `unused` diagnostics, such as `unused-local`, `unused-function`, and `unreachable-code`. selene's `unused_variable`. Each checks one file at a time, so finding a module or a public function that no other file uses takes a search |
