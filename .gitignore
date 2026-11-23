@@ -1,0 +1,23 @@
+# LaTeX build files (latexmk, biber, and LuaLaTeX)
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.run.xml
+*.synctex.gz
+*.toc
+_minted*
+
+# Jupyter and Python
+.ipynb_checkpoints/
+__pycache__/
+.venv/
+
+# The built Jupyter Book
+_build/
