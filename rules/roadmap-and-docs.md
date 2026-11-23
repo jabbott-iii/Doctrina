@@ -143,8 +143,8 @@ Revisit these if any turns out to be wrong.
 
 ### How the file is organized
 
-Start the roadmap with a short "How to use this file" list, then the milestones in order, then
-the backlog:
+Keep the roadmap in `roadmap.md` in the **Docs folder**. Start it with a short "How to use this
+file" list, then the milestones in order, then the backlog:
 
 - Work from the top down. A task is unblocked when every task in its `Depends` line is ticked.
 - Tick a task only after its acceptance criteria are met and its `Verify` commands ran and
