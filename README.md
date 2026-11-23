@@ -52,6 +52,12 @@ has no details of its own: it uses the values of the rules it relies on.
   navigation, platform adaptation, accessibility, localization, platform channels, data and
   security, tests, and release. It relies on `writing.md`, and on `android.md`, `kotlin.md`, and
   `swift.md` for native code, so adopt those that apply.
+- [`rules/lua.md`](rules/lua.md): how to write Lua as a senior engineer and work with the user as
+  a pair, covering the differences between Lua 5.1, 5.4, 5.5, and LuaJIT, locals and modules,
+  tables and strings, numbers, errors and cleanup, metatables, coroutines inside a host's event
+  loop, performance, untrusted input, sandboxing code the program didn't ship, the C API and
+  LuaJIT's FFI, LuaCATS or LDoc docs, rockspecs, tests on every supported version, and lints. It
+  relies on `writing.md` for doc comments and error messages, so adopt both.
 - [`rules/roadmap-and-docs.md`](rules/roadmap-and-docs.md): how to plan and document a project
   in the style of Nadir's `docs/` folder, covering the numbered core documents, a roadmap of
   milestones and checkable tasks with a backlog of triggers, append-only decision records,

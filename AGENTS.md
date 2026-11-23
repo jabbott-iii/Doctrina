@@ -24,9 +24,9 @@ jobs.
   edits to `rules/`. Claude Code loads them on its own. If you are another agent, read every file
   in `.claude/rules/` before you start, and follow them as this repository's rules.
 - Not every portable rule has a copy. `web-front-end.md`, `rust.md`, `kotlin.md`, `android.md`,
-  `kotlin-multiplatform.md`, `swift.md`, `flutter.md`, and `roadmap-and-docs.md` have none,
-  because Doctrina has no web pages, Rust, Kotlin, Android, iOS, Swift, or Flutter code, and no
-  roadmap or design documents, for them to apply to.
+  `kotlin-multiplatform.md`, `swift.md`, `flutter.md`, `lua.md`, and `roadmap-and-docs.md` have
+  none, because Doctrina has no web pages, Rust, Kotlin, Android, iOS, Swift, Flutter, or Lua
+  code, and no roadmap or design documents, for them to apply to.
 
 ## Keep each copy in sync with its source
 
