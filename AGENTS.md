@@ -3,8 +3,8 @@
 Doctrina is a library of portable rules for AI coding agents. Any repository can copy a rule into
 its own `.claude/rules/` folder and fill in the values that are specific to it. Doctrina is also
 where classes are built: courses, workbooks, and articles go in `courses/`, `workbooks/`, and
-`articles/`. It follows three of its own rules, so it keeps rules in two folders with different
-jobs.
+`articles/`. It follows three of its own rules and uses one of its own skills, so it keeps rules
+and skills in two folders each, with different jobs.
 
 ## The two rule folders
 
@@ -19,7 +19,8 @@ jobs.
   Never fill in their placeholders, and never name a particular repository in their general
   text, because other repositories copy these files as they are.
 - **`skills/` is portable too.** Its skills are content you edit, like the rules in `rules/`.
-  Doctrina doesn't use any of them itself yet.
+  Doctrina uses one itself: `.claude/skills/build-course/` is a copy of `skills/build-course/`,
+  for the courses built here, and Claude Code offers it as `/build-course`.
 - **`.claude/rules/` is for this repository.** Its rules govern all work in Doctrina, including
   edits to `rules/`. Claude Code loads them on its own. If you are another agent, read every file
   in `.claude/rules/` before you start, and follow them as this repository's rules.
@@ -44,6 +45,16 @@ A copy in `.claude/rules/` matches its source in `rules/` everywhere except **Pr
     diff <(strip "rules/$(basename "$f")") <(strip "$f") && echo "$f matches"
   done
   ```
+
+A copy in `.claude/skills/` matches its source in `skills/` exactly, because a skill has no
+**Project details**. Edit the skill in `skills/`, then copy it over in the same commit. This
+command prints `<folder> matches` for each copy, or the differences when one doesn't:
+
+```bash
+for d in .claude/skills/*/; do
+  diff -r "skills/$(basename "$d")" "$d" && echo "$d matches"
+done
+```
 
 ## Write a portable rule
 

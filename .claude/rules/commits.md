@@ -12,22 +12,23 @@ yet. Work out that value from the repository itself, and tell the user which val
 so they can fill them in. Until **Git access** is filled in, treat it as "read-only".
 
 - **Git access:** "commit on request".
-- **Done checks:** the "Before finishing" steps in `writing.md`, and for course materials, those
-  in `teaching-materials.md`. When a rule in `rules/` changed, its copy in `.claude/rules/` (if
-  it has one) matches it everywhere outside **Project details**. The README's placeholder check,
-  run on `.claude/rules/*.md`, prints nothing.
+- **Done checks:** the "Before finishing" steps in `writing.md`, and for course materials, those in
+  `teaching-materials.md`. When a rule in `rules/` changed, its copy in `.claude/rules/` (if it has
+  one) matches it everywhere outside **Project details**, and when a skill in `skills/` changed, its
+  copy in `.claude/skills/` (if it has one) matches it exactly. The README's placeholder check, run
+  on `.claude/rules/*.md`, prints nothing.
 - **Never commit:** build output, which `.gitignore` excludes: LaTeX's build files (`*.aux`,
   `*.log`, `*.bbl`, and the rest), `.ipynb_checkpoints/`, and the built book in `_build/`.
 - **Push effect:** "none". Pushing to `main` updates GitHub only; nothing deploys.
 - **Scopes:** a rule's file name without `.md` (such as `writing` or `teaching-materials`),
-  including its copy in `.claude/rules/`; a skill's folder name (such as `next-task`); a course's
-  code (such as `cs201`), `workbooks`, or `articles` for course materials; `readme`; `agents` for
-  `AGENTS.md`; and `claude` for changes to `.claude/` alone. Here the rules, skills, and course
-  materials are the product, so a new rule, skill, module, or exercise is `feat`, a correction to
-  one is `fix`, and a change to prose alone is `docs`.
-- **Changes that travel together:** a change to a rule in `rules/` and the same change to its copy
-  in `.claude/rules/`; a new rule or skill and its entry in `README.md`; a new or renumbered module
-  and the syllabus entries that name it.
+  including its copy in `.claude/rules/`; a skill's folder name (such as `build-course`), including
+  its copy in `.claude/skills/`; a course's code (such as `cs201`), `workbooks`, or `articles` for
+  course materials; `readme`; `agents` for `AGENTS.md`; and `claude` for changes to `.claude/`
+  alone. Here the rules, skills, and course materials are the product, so a new rule, skill, module,
+  or exercise is `feat`, a correction to one is `fix`, and a change to prose alone is `docs`.
+- **Changes that travel together:** a change to a rule in `rules/` or a skill in `skills/`, and the
+  same change to its copy in `.claude/rules/` or `.claude/skills/`; a new rule or skill and its
+  entry in `README.md`; a new or renumbered module and the syllabus entries that name it.
 - **Task IDs:** "none".
 - **Breaking changes:** renaming or removing a rule file or a **Project details** value, because
   every repository that copied the rule must then update its copy; and renumbering or removing a
