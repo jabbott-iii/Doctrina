@@ -55,6 +55,9 @@ so they can fill them in.
   update, for example "Documentation" in `CONTRIBUTING.md`]
 - **Diagrams:** [FILL IN: where diagrams live and how they show planned work, for example Mermaid
   in `diagrams/`, built parts solid and planned parts dashed, or "none"]
+- **Gate evidence:** [FILL IN: where the evidence for phase gates is recorded, for example the
+  `Evidence:` lines under each gate in the roadmap, or `docs/STATUS.md`, or "none" if milestones
+  keep free-form exit criteria]
 
 ## Decisions that are the user's
 
@@ -64,7 +67,7 @@ Stop and ask before you:
 - accept a decision record (draft it as `Proposed` instead);
 - add, remove, reorder, or rescope a milestone, or move a task to another milestone;
 - change a goal, a non-goal, a budget, or an assumption in the overview;
-- check a milestone's exit criteria, which a human confirms;
+- check a milestone's exit criteria or pass its gate, which a human confirms;
 - or tick a task whose remaining check needs an environment you couldn't run.
 
 When the user decides, record what they chose and the date, in the decision record's context or
@@ -150,7 +153,7 @@ file" list, then the milestones in order, then the backlog:
 - Work from the top down. A task is unblocked when every task in its `Depends` line is ticked.
 - Tick a task only after its acceptance criteria are met and its `Verify` commands ran and
   passed, as the **Definition of done** says.
-- A milestone's exit criteria are checked by a human.
+- A milestone's exit criteria, or its gate, are checked by a human.
 - Within each milestone, work moves through the **Environments** in their order.
 
 ### Milestones
@@ -167,6 +170,17 @@ Each milestone delivers something a user can see or use, and its title says what
 **Exit criteria (M3):** <What a human checks before the milestone closes.>
 
 ---
+```
+
+Where the **Gate evidence** isn't "none", end each milestone with a phase gate instead of free-form
+exit criteria: checkable criteria about the milestone as a whole, each with its check and its
+evidence. The `/phase-gates` skill clusters tasks into gated phases and evaluates a gate:
+
+```markdown
+**Gate (M3):** not passed.
+- [ ] <A criterion about the milestone as a whole.>
+  - Check: `<command>` (expect <result>), or <what a person observes, where, and how>
+  - Evidence: <the date, the commit, and the key output or number, once checked>
 ```
 
 ### Tasks

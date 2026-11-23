@@ -86,6 +86,12 @@ has no details of its own: it uses the values of the rules it relies on.
   dashed with their task, and every file records the commit it was drawn from, so later runs
   rebuild only the diagrams whose sources changed. It relies on `roadmap-and-docs.md`,
   `commits.md`, and `writing.md`.
+- [`skills/phase-gates/`](skills/phase-gates/SKILL.md): `/phase-gates [plan | phase ID]`
+  clusters the roadmap's tasks into phases by dependency, risk, and deliverable, and gives each
+  phase a gate of checkable criteria: integration, budgets, the full check, open work,
+  decisions, documents, and risks. Given a phase, it evaluates that gate with evidence gathered
+  in this session and records the result, and you confirm a pass. Empty, it shows every gate's
+  state. It relies on `roadmap-and-docs.md`, `commits.md`, and `writing.md`.
 
 ## Adopt a rule in a repository
 
