@@ -1,8 +1,9 @@
 # Doctrina
 
-Doctrina holds Claude Code rules that are shared across repositories. No rule names a particular
-project. The details that differ between repositories go in a **Project details** section at the
-top of each rule, which each repository fills in when it adopts the rule.
+Doctrina holds Claude Code rules and skills that are shared across repositories. None names a
+particular project. The details that differ between repositories go in a **Project details**
+section at the top of each rule, which each repository fills in when it adopts the rule. A skill
+has no details of its own: it uses the values of the rules it relies on.
 
 ## Rules
 
@@ -63,6 +64,15 @@ top of each rule, which each repository fills in when it adopts the rule.
   design; exercises, answer keys, and rubrics; each format's practices; accessible PDFs;
   citations; and integrity and student privacy. It relies on `writing.md`, so adopt both.
 
+## Skills
+
+- [`skills/next-task/`](skills/next-task/SKILL.md): `/next-task [task-id]` works through the
+  roadmap one task at a time. It picks the next unblocked task (or the one named), asks the
+  questions and checks the decisions the task depends on, makes the smallest complete change,
+  runs the task's checks, ticks the box only when they pass, updates the documents, and reports
+  what ran and what didn't. It relies on `roadmap-and-docs.md`, `commits.md`, and `writing.md`,
+  so adopt those first.
+
 ## Adopt a rule in a repository
 
 These steps use `writing.md`; replace it with the rule you are adopting.
@@ -100,3 +110,23 @@ Claude Code reads the files in `.claude/rules/` on its own, starting with the ne
 
 If a copy still has unfilled values, the rule tells Claude to infer them from the repository and
 to tell you which ones are missing.
+
+## Adopt a skill in a repository
+
+These steps use `next-task`; replace it with the skill you are adopting. Adopt the rules the
+skill relies on first.
+
+1. Create the repository's skills folder if it doesn't exist yet:
+
+   ```bash
+   mkdir -p path/to/repository/.claude/skills
+   ```
+
+2. Copy the skill's folder into it:
+
+   ```bash
+   cp -r skills/next-task path/to/repository/.claude/skills/
+   ```
+
+Start the skill by typing `/next-task`, with a task ID if you want a particular task. Its front
+matter sets `disable-model-invocation: true`, so Claude never starts it on its own.

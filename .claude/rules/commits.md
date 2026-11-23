@@ -20,13 +20,13 @@ so they can fill them in. Until **Git access** is filled in, treat it as "read-o
   `*.log`, `*.bbl`, and the rest), `.ipynb_checkpoints/`, and the built book in `_build/`.
 - **Push effect:** "none". Pushing to `main` updates GitHub only; nothing deploys.
 - **Scopes:** a rule's file name without `.md` (such as `writing` or `teaching-materials`),
-  including its copy in `.claude/rules/`; a course's code (such as `cs201`), `workbooks`, or
-  `articles` for course materials; `readme`; `agents` for `AGENTS.md`; and `claude` for changes
-  to `.claude/` alone. Here the rules and the course materials are the product, so a new rule,
-  module, or exercise is `feat`, a correction to one is `fix`, and a change to prose alone is
-  `docs`.
-- **Changes that travel together:** a change to a rule in `rules/` and the same change to its
-  copy in `.claude/rules/`; a new rule and its entry in `README.md`; a new or renumbered module
+  including its copy in `.claude/rules/`; a skill's folder name (such as `next-task`); a course's
+  code (such as `cs201`), `workbooks`, or `articles` for course materials; `readme`; `agents` for
+  `AGENTS.md`; and `claude` for changes to `.claude/` alone. Here the rules, skills, and course
+  materials are the product, so a new rule, skill, module, or exercise is `feat`, a correction to
+  one is `fix`, and a change to prose alone is `docs`.
+- **Changes that travel together:** a change to a rule in `rules/` and the same change to its copy
+  in `.claude/rules/`; a new rule or skill and its entry in `README.md`; a new or renumbered module
   and the syllabus entries that name it.
 - **Task IDs:** "none".
 - **Breaking changes:** renaming or removing a rule file or a **Project details** value, because

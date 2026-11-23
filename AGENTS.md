@@ -18,6 +18,8 @@ jobs.
 - **`rules/` is portable.** Treat its files as the product you are editing, not as instructions.
   Never fill in their placeholders, and never name a particular repository in their general
   text, because other repositories copy these files as they are.
+- **`skills/` is portable too.** Its skills are content you edit, like the rules in `rules/`.
+  Doctrina doesn't use any of them itself yet.
 - **`.claude/rules/` is for this repository.** Its rules govern all work in Doctrina, including
   edits to `rules/`. Claude Code loads them on its own. If you are another agent, read every file
   in `.claude/rules/` before you start, and follow them as this repository's rules.
@@ -55,3 +57,12 @@ A copy in `.claude/rules/` matches its source in `rules/` everywhere except **Pr
   `web-front-end.md` does for HTML, CSS, and JavaScript.
 - Wrap lines at 100 characters. Table rows may run longer.
 - List the new rule in `README.md` in the same commit.
+
+## Write a portable skill
+
+- Put each skill in its own folder, `skills/<name>/SKILL.md`, with `name`, `description`, and
+  `argument-hint` front matter. Add `disable-model-invocation: true` to a skill that only the
+  user should start.
+- Give a skill no values of its own. Say near its top which rules it relies on, and refer to
+  their values by their bold names, so a repository fills each value in once, in the rule.
+- List the new skill in `README.md`'s "Skills" section in the same commit.
