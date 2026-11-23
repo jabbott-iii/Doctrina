@@ -99,6 +99,16 @@ has no details of its own: it uses the values of the rules it relies on.
   reached, and shows them all before it changes anything. It fixes only what you approve, one
   change at a time, with a regression test for each bug. It relies on `commits.md`,
   `writing.md`, and the language rules, and uses `roadmap-and-docs.md` where it is adopted.
+- [`skills/security-sweep/`](skills/security-sweep/SKILL.md): `/security-sweep [scope]` finds
+  and patches security vulnerabilities. It starts from a threat model of what an attacker would
+  want and where data comes in, then checks the Git history for secrets, the dependencies for
+  known vulnerabilities and supply-chain risks, the code against a checklist of weaknesses
+  numbered as in the Common Weakness Enumeration (CWE), and the continuous integration (CI)
+  workflows for script injection and unpinned actions. It proves each finding with a local test,
+  never against a deployed system, never uses a secret it finds, and keeps findings private
+  until you decide how to disclose them. It patches only what you approve, each with a
+  regression test. It relies on `commits.md`, `writing.md`, and the language rules, and uses
+  `roadmap-and-docs.md` where it is adopted.
 
 ## Adopt a rule in a repository
 
