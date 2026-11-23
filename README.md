@@ -123,6 +123,16 @@ has no details of its own: it uses the values of the rules it relies on.
   because much length is functionality, pins the current behavior with tests, and then makes one
   simplification at a time. It relies on `commits.md`, `writing.md`, and the language rules, and
   uses `roadmap-and-docs.md` where it is adopted.
+- [`skills/build-course/`](skills/build-course/SKILL.md): `/build-course <description>` builds
+  a whole course from a description such as "numerical methods for second-year engineers, 12
+  weeks". It proposes a plan for you to approve, with the learning objectives, modules,
+  assessments and their weights, policies, and a table that ties each objective to where it is
+  taught and tested. Then it builds the syllabus, a Markdown reading and practice for each
+  module, interactive Jupyter labs, LaTeX problem sets and exams whose answer keys come from the
+  same source, graded notebooks through nbgrader, and a Jupyter Book website that leaves the keys
+  out. It runs every notebook, compiles every document, and checks the website for leaked
+  answers. Given an existing course's code, it continues from the plan's checklist. It relies on
+  `teaching-materials.md`, `commits.md`, and `writing.md`.
 
 ## Adopt a rule in a repository
 
