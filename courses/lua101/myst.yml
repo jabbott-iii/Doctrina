@@ -1,0 +1,108 @@
+# The LUA101 website, built with Jupyter Book 2 from this folder:
+#   jupyter book start          (preview)
+#   jupyter book build --html   (writes _build/html)
+version: 1
+project:
+  title: "LUA101: Lua from Front to Back"
+  description: "A 15-week course that takes programmers from their first Lua 5.4 program to embedding Lua in C."
+  license:
+    content: CC-BY-4.0
+    code: MIT
+  # Answer keys, the instructor's plan, exam sources, and the lab helper's code stay out.
+  exclude:
+    - "solutions/**"
+    - "PLAN.md"
+    - "lualab/**"
+    - "exams/**"
+    - "tools/**"
+  math:
+    '\bigO': 'O\left(#1\right)'
+  toc:
+    - file: README.md
+    - file: setup.md
+    - file: notation.md
+    - title: "Module 1: First steps"
+      children:
+        - file: modules/01-first-steps/index.md
+        - file: modules/01-first-steps/lab01.ipynb
+        - file: modules/01-first-steps/practice.md
+    - title: "Module 2: Control flow and functions"
+      children:
+        - file: modules/02-control-flow-and-functions/index.md
+        - file: modules/02-control-flow-and-functions/lab02.ipynb
+        - file: modules/02-control-flow-and-functions/practice.md
+    - title: "Module 3: Tables"
+      children:
+        - file: modules/03-tables/index.md
+        - file: modules/03-tables/lab03.ipynb
+        - file: modules/03-tables/practice.md
+    - title: "Module 4: Strings and patterns"
+      children:
+        - file: modules/04-strings-and-patterns/index.md
+        - file: modules/04-strings-and-patterns/lab04.ipynb
+        - file: modules/04-strings-and-patterns/practice.md
+    - title: "Module 5: Closures and iterators"
+      children:
+        - file: modules/05-closures-and-iterators/index.md
+        - file: modules/05-closures-and-iterators/lab05.ipynb
+        - file: modules/05-closures-and-iterators/practice.md
+    - title: "Module 6: Errors, modules, and tests"
+      children:
+        - file: modules/06-errors-modules-and-tests/index.md
+        - file: modules/06-errors-modules-and-tests/lab06.ipynb
+        - file: modules/06-errors-modules-and-tests/practice.md
+    - title: "Module 7: Metatables"
+      children:
+        - file: modules/07-metatables/index.md
+        - file: modules/07-metatables/lab07.ipynb
+        - file: modules/07-metatables/practice.md
+    - title: "Module 8: Objects and classes"
+      children:
+        - file: modules/08-objects-and-classes/index.md
+        - file: modules/08-objects-and-classes/lab08.ipynb
+        - file: modules/08-objects-and-classes/practice.md
+    - title: "Module 9: Coroutines"
+      children:
+        - file: modules/09-coroutines/index.md
+        - file: modules/09-coroutines/lab09.ipynb
+        - file: modules/09-coroutines/practice.md
+    - title: "Module 10: Files, the OS, and data"
+      children:
+        - file: modules/10-files-os-and-data/index.md
+        - file: modules/10-files-os-and-data/lab10.ipynb
+        - file: modules/10-files-os-and-data/practice.md
+    - title: "Module 11: Packages and tooling"
+      children:
+        - file: modules/11-packages-and-tooling/index.md
+        - file: modules/11-packages-and-tooling/lab11.ipynb
+        - file: modules/11-packages-and-tooling/practice.md
+    - title: "Module 12: Performance and memory"
+      children:
+        - file: modules/12-performance-and-memory/index.md
+        - file: modules/12-performance-and-memory/lab12.ipynb
+        - file: modules/12-performance-and-memory/practice.md
+    - title: "Module 13: Lua and C"
+      children:
+        - file: modules/13-lua-and-c/index.md
+        - file: modules/13-lua-and-c/lab13.ipynb
+        - file: modules/13-lua-and-c/practice.md
+    - title: "Module 14: Versions, sandboxes, and hosts"
+      children:
+        - file: modules/14-versions-sandboxes-and-hosts/index.md
+        - file: modules/14-versions-sandboxes-and-hosts/lab14.ipynb
+        - file: modules/14-versions-sandboxes-and-hosts/practice.md
+    - title: "Assignments"
+      children:
+        - file: assignments/pa1/pa1.ipynb
+        - file: assignments/pa2/pa2.ipynb
+        - file: assignments/pa3/README.md
+        - file: assignments/pa4/README.md
+        - file: assignments/pa5/README.md
+        - file: assignments/final-project/README.md
+    - file: ERRATA.md
+site:
+  template: book-theme
+  options:
+    # Keep the folders in URLs, so each module's index.md and practice.md get their own
+    # address (modules/01-first-steps/practice) instead of colliding.
+    folders: true

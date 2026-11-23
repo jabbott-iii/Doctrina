@@ -1,0 +1,56 @@
+{
+  "module": "sim.lua",
+  "hidden_spec": "hidden_spec.lua",
+  "broken": [
+    {
+      "description": "arrivals start the first customer at time 0",
+      "old": "      time = time + random:integer(options.gap[1], options.gap[2])\n      local service = random:integer(options.service[1], options.service[2])\n      coroutine.yield(Customer.new(id, time, service))\n",
+      "new": "      local gap = random:integer(options.gap[1], options.gap[2])\n      local service = random:integer(options.service[1], options.service[2])\n      coroutine.yield(Customer.new(id, time, service))\n      time = time + gap\n"
+    },
+    {
+      "description": "arrivals draw the service time before the gap",
+      "old": "      time = time + random:integer(options.gap[1], options.gap[2])\n      local service = random:integer(options.service[1], options.service[2])\n",
+      "new": "      local service = random:integer(options.service[1], options.service[2])\n      time = time + random:integer(options.gap[1], options.gap[2])\n"
+    },
+    {
+      "description": "Customer's < ignores the id",
+      "old": "  return a.id < b.id\n",
+      "new": "  return false\n"
+    },
+    {
+      "description": "wait returns nil before the customer starts",
+      "old": "    error(\"customer \" .. self.id .. \" has not started\", 2)\n",
+      "new": "    return nil\n"
+    },
+    {
+      "description": "the scheduler breaks ties last in, first out",
+      "old": "      if self.timed[i].wake < self.timed[next_index].wake then next_index = i end",
+      "new": "      if self.timed[i].wake <= self.timed[next_index].wake then next_index = i end"
+    },
+    {
+      "description": "signal wakes only the first waiting task",
+      "old": "  for _, task in ipairs(list) do\n    schedule(self, task, self.clock)\n  end\n",
+      "new": "  schedule(self, list[1], self.clock)\n"
+    },
+    {
+      "description": "run stops at until_time itself",
+      "old": "self.timed[next_index].wake > until_time",
+      "new": "self.timed[next_index].wake >= until_time"
+    },
+    {
+      "description": "FastServer rounds down",
+      "old": "return (customer.service + 1) // 2",
+      "new": "return customer.service // 2"
+    },
+    {
+      "description": "busy counts the customer's waiting time too",
+      "old": "      self.busy = self.busy + duration\n",
+      "new": "      self.busy = self.busy + (customer.finish - customer.arrival)\n"
+    },
+    {
+      "description": "format_report rounds the mean wait to one decimal",
+      "old": "string.format(\"mean wait: %.2f\", report.mean_wait)",
+      "new": "string.format(\"mean wait: %.1f\", report.mean_wait)"
+    }
+  ]
+}

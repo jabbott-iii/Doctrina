@@ -18,6 +18,20 @@ _minted*
 .ipynb_checkpoints/
 __pycache__/
 .venv/
+*.egg-info/
 
 # The built Jupyter Book
 _build/
+
+# nbgrader's gradebook, which holds student records
+gradebook.db
+
+# LuaCov's statistics and reports
+luacov.stats.out
+luacov.report.out
+
+# PDFs built from the courses' LaTeX sources; exams and keys aren't published
+courses/**/*.pdf
+
+# Files that labs write while they run
+courses/**/scratch/

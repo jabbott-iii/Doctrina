@@ -1,0 +1,771 @@
+% LUA101 final exam: all modules, weighted toward modules 8-14; 120 minutes, 100 points.
+%
+% One source gives both versions. From this folder:
+%   latexmk -lualatex final.tex
+%     the exam, without the solutions: final.pdf
+%   latexmk -lualatex -jobname=final-key -usepretex='\PassOptionsToClass{answers}{exam}' final.tex
+%     the key, with every solution and its grading notes: final-key.pdf
+% The latexmkrc in this folder adds ../../latex to TEXINPUTS, for the shared preamble. Both PDFs
+% stay out of Git. This source holds the key, so it lives in solutions/, never in exams/.
+\documentclass[11pt,addpoints]{exam}
+\usepackage{preamble}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+
+\pagestyle{headandfoot}
+\firstpageheader{LUA101: Lua from Front to Back}{}{Final Exam}
+\runningheader{LUA101}{Final Exam}{Page \thepage\ of \numpages}
+\firstpagefooter{}{Page \thepage\ of \numpages}{}
+\runningfooter{}{}{}
+
+\renewcommand{\solutiontitle}{\noindent\textbf{Solution:}\par\noindent}
+\unframedsolutions
+\SolutionEmphasis{\color{black!75}}
+
+\lstset{style=lua}
+\lstdefinestyle{c}{style=lua, language=C}
+
+% Each question opens with its number and its total points, parts included.
+\qformat{\textbf{Question \thequestion}\quad(\totalpoints\ points)\hfill}
+
+\begin{document}
+
+\begin{center}
+  {\Large\bfseries LUA101: Lua from Front to Back}\\[0.5ex]
+  {\large Final Exam: All Modules}
+\end{center}
+
+\vspace{1em}
+\noindent Name: \makebox[0.6\textwidth]{\hrulefill}
+
+\vspace{1em}
+\noindent\textbf{Instructions.}
+\begin{itemize}
+  \item You have 120 minutes. The exam has \numquestions\ questions worth \numpoints\ points. Each
+    question gives its points, and the learning objectives it assesses; where a question has
+    parts, each part gives its share.
+  \item Use no computer, phone, or other device. Write each answer in the space provided.
+  \item All code is Lua 5.4 unless a question names another version. When a question asks what a
+    line prints, write exactly what it prints; where \code|print| separates values with a tab, a
+    space is enough.
+  \item If an expression or a line raises an error, write ``error'' and say why.
+  \item C code uses the Lua 5.4 C API, with \code|lua.h|, \code|lauxlib.h|, and \code|lualib.h|
+    included. Small mistakes in C syntax cost nothing if the meaning is clear.
+\end{itemize}
+
+\begin{center}
+  \gradetable[v][pages]
+\end{center}
+
+\newpage
+\begin{questions}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-3.3)} Consider this code.
+
+\begin{lstlisting}
+local function shallow(t)
+  local c = {}
+  for k, v in pairs(t) do c[k] = v end
+  return c
+end
+local a = { n = 1, list = { 1, 2 } }
+local b = shallow(a)
+b.n = 2
+b.list[1] = 10
+print(a.n, a.list[1], a.list == b.list)
+\end{lstlisting}
+
+\begin{parts}
+  \part[3] What does the last line print? One point for each value.
+  \begin{solutionorbox}[0.6in]
+    \code|1  10  true|. The copy has its own field \code|n|, so changing \code|b.n| leaves
+    \code|a.n| alone; but \code|b.list| is the same table as \code|a.list|, because a shallow copy
+    copies the reference, so \code|b.list[1] = 10| changes \code|a.list[1]|.
+  \end{solutionorbox}
+  \part[2] Write \code|deep(t)|, which copies a table and every table inside it, for tables
+    without cycles. Other values are returned as they are.
+  \begin{solutionorbox}[1.6in]
+\begin{lstlisting}
+local function deep(t)
+  if type(t) ~= "table" then return t end
+  local c = {}
+  for k, v in pairs(t) do c[k] = deep(v) end
+  return c
+end
+\end{lstlisting}
+    One point for recursing on the values, one for returning values that are not tables
+    unchanged. Copying the keys with \code|deep| as well, or the metatable, is also correct.
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-4.4)} Let \code|s| be the five-letter word naïve, written in UTF-8, in
+which the letter ï takes two bytes and every other letter one.
+
+\begin{parts}
+  \part[1] What is \code|#s|? \hfill \ifprintanswers 6: \code|#| counts bytes. \else \makebox[2in]{\hrulefill} \fi
+  \part[1] What is \code|utf8.len(s)|? \hfill \ifprintanswers 5: it counts characters. \else \makebox[2in]{\hrulefill} \fi
+  \part[1] What does \code|s:sub(3, 3)| return?
+  \begin{solutionorbox}[0.5in]
+    A string of one byte, the first of the two bytes of ï, which is not a character on its own:
+    \code|string.sub| counts bytes, not characters.
+  \end{solutionorbox}
+  \part[2] A loop builds a report with \code|out = out .. line .. "\n"| for each of 10{,}000
+    lines. Explain why this is slow, and how \code|table.concat| avoids it.
+  \begin{solutionorbox}[1in]
+    Strings cannot change, so each \code|..| builds a new string and copies everything built so
+    far: the total copying grows with the square of the number of lines. Collecting the lines in a
+    list and calling \code|table.concat(lines, "\n")| copies each byte once. One point for the
+    repeated copying, one for the remedy.
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-5.1)} Consider this code.
+
+\begin{lstlisting}
+local adders, total = {}, 0
+for i = 1, 3 do
+  adders[i] = function(x) total = total + i * x; return total end
+end
+local a1 = adders[1](1)
+local a3 = adders[3](1)
+local a2 = adders[2](10)
+print(a1, a3, a2)
+\end{lstlisting}
+
+\begin{parts}
+  \part[2] What does the last line print?
+  \begin{solutionorbox}[0.5in]
+    \code|1  4  24|: \code|total| becomes $0 + 1 \cdot 1 = 1$, then $1 + 3 \cdot 1 = 4$, then
+    $4 + 2 \cdot 10 = 24$. Two points for all three values; one point for two of them.
+  \end{solutionorbox}
+  \part[2] Which variables do the three closures share, and which does each have its own copy of?
+  \begin{solutionorbox}[0.8in]
+    They share \code|total|, one local declared outside the loop. Each has its own \code|i|,
+    because each pass of a numeric \code|for| creates a new local \code|i|. One point for each.
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-7.3)} A program caches the area of each rectangle.
+
+\begin{lstlisting}
+local cache = setmetatable({}, { __mode = "k" })
+local function area(rect)
+  local a = cache[rect]
+  if not a then a = rect.w * rect.h; cache[rect] = a end
+  return a
+end
+local r = { w = 2, h = 3 }
+print(area(r))
+r = nil
+collectgarbage()
+\end{lstlisting}
+
+\begin{parts}
+  \part[1] After the last line, does \code|cache| still hold an entry? Why?
+  \begin{solutionorbox}[0.6in]
+    No. With \code|__mode = "k"| the keys are weak, and the rectangle is no longer referred to
+    from anywhere else, so the full collection removes the entry.
+  \end{solutionorbox}
+  \part[2] What would change with \code|__mode = "v"| instead, and why?
+  \begin{solutionorbox}[0.8in]
+    The entry would stay. The keys would then be strong, so the cache itself would keep every
+    rectangle alive, and the values are numbers, which the collector never removes from a weak
+    table. The cache would grow forever. One point for ``the entry stays'', one for the reason.
+  \end{solutionorbox}
+  \part[2] Without the call to \code|collectgarbage|, when would the entry disappear?
+  \begin{solutionorbox}[0.8in]
+    At some collection after the rectangle becomes unreachable: when the collector next finishes
+    a cycle that finds it unreachable, which depends on how much the program allocates. Entries
+    are not removed at the moment the last strong reference goes. One point for ``at a later
+    collection'', one for ``not immediately''.
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-8.1, LO-8.2)} Consider this code.
+
+\begin{lstlisting}
+local Account = {}
+Account.__index = Account
+function Account.new(owner, balance)
+  return setmetatable({ owner = owner, balance = balance or 0 }, Account)
+end
+function Account:deposit(amount) self.balance = self.balance + amount end
+function Account:describe() return self.owner .. ": " .. self.balance end
+
+local Savings = setmetatable({}, { __index = Account })
+Savings.__index = Savings
+function Savings.new(owner, balance, rate)
+  local s = Account.new(owner, balance)
+  s.rate = rate
+  return setmetatable(s, Savings)
+end
+function Savings:add_interest() self:deposit(self.balance * self.rate) end
+function Savings:describe() return Account.describe(self) .. " (savings)" end
+
+local s = Savings.new("Ada", 100, 0.5)
+s:add_interest()
+print(s:describe())                                    -- (a)
+print(getmetatable(s) == Savings, rawget(s, "deposit")) -- (b)
+\end{lstlisting}
+
+\begin{parts}
+  \part[1] What does line (a) print?
+  \begin{solutionorbox}[0.4in]
+    \code|Ada: 150.0 (savings)|: the interest is a float, so the balance becomes \code|150.0|.
+  \end{solutionorbox}
+  \part[2] What does line (b) print? Explain how \code|s:deposit| is found.
+  \begin{solutionorbox}[0.9in]
+    \code|true  nil|. \code|deposit| is not stored in \code|s|. Looking it up in \code|s| fails,
+    so Lua follows \code|s|'s metatable's \code|__index|, which is \code|Savings|; it is not
+    there either, so Lua follows \code|Savings|'s metatable's \code|__index|, which is
+    \code|Account|, where it is found. One point for the output, one for the chain.
+  \end{solutionorbox}
+  \part[1] What happens on \code|Account.new("Bo"):add_interest()|?
+  \begin{solutionorbox}[0.5in]
+    An error: \code|attempt to call a nil value (method 'add_interest')|. An \code|Account| does
+    not inherit from \code|Savings|.
+  \end{solutionorbox}
+  \part[2] What happens on \code|s.deposit(10)|, and why?
+  \begin{solutionorbox}[0.8in]
+    An error, \code|attempt to index a number value (local 'self')|. With a dot, 10 is passed as
+    \code|self|, and \code|amount| is \code|nil|; the method then tries to read
+    \code|self.balance| from a number. The colon in \code|s:deposit(10)| passes \code|s| as
+    \code|self|.
+  \end{solutionorbox}
+  \part[3] A \code|Report| must write its text either to a file or to a list in memory, chosen
+    when the report is created, and more destinations may come later. Would you make the
+    destinations subclasses of \code|Report|, or give each report a destination object it calls?
+    Defend your choice.
+  \begin{solutionorbox}[1.4in]
+    Composition: give each report a \code|sink| with a \code|write(text)| method, such as a file
+    sink and a memory sink. The destination is chosen when the report is created, and new
+    destinations need no change to \code|Report|; with subclasses, every kind of report would
+    need one subclass per destination, and a report could not change destination. Inheritance
+    fits when the subclass is a kind of the parent and adds or changes its behavior, which a
+    destination is not. Three points for a clear choice defended with these trade-offs. An answer
+    that chooses inheritance earns full marks only if it argues from the same trade-offs, for
+    example that there will only ever be two destinations and no other kinds of report.
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-8.3)} Consider this constructor.
+
+\begin{lstlisting}
+local function counter()
+  local n = 0
+  return {
+    inc = function() n = n + 1; return n end,
+    get = function() return n end,
+  }
+end
+\end{lstlisting}
+
+\begin{parts}
+  \part[1] Why can no code outside \code|counter| change \code|n| except through \code|inc|?
+  \begin{solutionorbox}[0.6in]
+    \code|n| is a local of \code|counter|; only the two closures created in the call refer to it,
+    and it is not a field of the returned table.
+  \end{solutionorbox}
+  \part[2] A program creates 100{,}000 counters. Compare the memory this design uses with a
+    class whose methods are in a metatable shared by every counter.
+  \begin{solutionorbox}[1in]
+    Each closure-based counter holds its own table, two new closures, and the upvalue
+    \code|n|, so the memory per counter is several objects. Metatable-based counters each hold one
+    table with a field \code|n|, and all share one copy of the methods. One point for ``two
+    closures per counter'', one for ``shared methods''.
+  \end{solutionorbox}
+  \part[1] Give one thing that is easier with metatable-based counters.
+  \begin{solutionorbox}[0.6in]
+    Any one of: changing or adding a method for every counter at once, in the class; inheriting
+    from the class; or reading and saving a counter's state, which is in its fields.
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question[6] \textit{(LO-9.1)} Write everything this code prints, in order.
+
+\begin{lstlisting}
+local co = coroutine.create(function(x, y)
+  print("start", x, y)
+  local c = coroutine.yield(x + y)
+  print("got", c)
+  local p, q = coroutine.yield(c * 2)
+  return p + q
+end)
+print(coroutine.resume(co, 1, 2))
+print(coroutine.status(co))
+print(coroutine.resume(co, 10))
+print(coroutine.resume(co, 3, 4))
+print(coroutine.status(co))
+print(coroutine.resume(co))
+\end{lstlisting}
+
+\begin{solutionorbox}[2in]
+\begin{lstlisting}[language={}]
+start  1  2
+true  3
+suspended
+got  10
+true  20
+true  7
+dead
+false  cannot resume dead coroutine
+\end{lstlisting}
+  One point for each of the six \code|print| statements at the end, with what the coroutine
+  prints while it runs counted with the \code|resume| that runs it. The first \code|resume| passes
+  1 and 2 as arguments; later ones pass their values as the results of \code|yield|; the
+  coroutine's return value comes back from the \code|resume| that ends it.
+\end{solutionorbox}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-9.2)} Generators with \code|coroutine.wrap|.
+
+\begin{parts}
+  \part[2] Write \code|range(n)|, which returns a generator, for use in a generic \code|for|,
+    that yields the integers from 1 to \code|n|.
+  \begin{solutionorbox}[1.2in]
+\begin{lstlisting}
+local function range(n)
+  return coroutine.wrap(function()
+    for i = 1, n do coroutine.yield(i) end
+  end)
+end
+\end{lstlisting}
+  \end{solutionorbox}
+  \part[3] Write \code|map(f, gen)|, which returns a new generator that yields \code|f(v)| for
+    each value \code|v| that the generator \code|gen| yields.
+  \begin{solutionorbox}[1.4in]
+\begin{lstlisting}
+local function map(f, gen)
+  return coroutine.wrap(function()
+    for v in gen do coroutine.yield(f(v)) end
+  end)
+end
+\end{lstlisting}
+    One point for returning a wrapped coroutine, one for consuming \code|gen| inside it, and one
+    for yielding \code|f(v)|.
+  \end{solutionorbox}
+  \part[1] What does this print?
+\begin{lstlisting}
+for x in map(function(v) return v * v end, range(3)) do io.write(x, " ") end
+\end{lstlisting}
+  \begin{solutionorbox}[0.4in]
+    \code|1 4 9 |
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-9.3)} This scheduler runs tasks that sleep. \code|sleep(t)| yields the
+number of time units to sleep, and \code|run| always resumes the task that wakes earliest; when two
+tasks wake at the same time, it resumes the one that was spawned first.
+
+\begin{lstlisting}
+local clock, tasks = 0, {}
+local function spawn(fn)
+  tasks[#tasks + 1] = { co = coroutine.create(fn), wake = 0 }
+end
+local function sleep(t) coroutine.yield(t) end
+local function run()
+  while #tasks > 0 do
+    local best = 1
+    for i = 2, #tasks do
+      if tasks[i].wake < tasks[best].wake then best = i end
+    end
+    local t = tasks[best]
+    clock = t.wake
+    local _, delay = coroutine.resume(t.co)
+    if coroutine.status(t.co) == "dead" then table.remove(tasks, best)
+    else t.wake = clock + delay end
+  end
+end
+spawn(function() for i = 1, 2 do print(clock, "A", i); sleep(3) end end)
+spawn(function() for i = 1, 3 do print(clock, "B", i); sleep(2) end end)
+run()
+\end{lstlisting}
+
+\begin{parts}
+  \part[3] Write everything it prints, in order.
+  \begin{solutionorbox}[1.4in]
+\begin{lstlisting}[language={}]
+0  A  1
+0  B  1
+2  B  2
+3  A  2
+4  B  3
+\end{lstlisting}
+    Three points for all five lines in order; two for one line out of place; one for the right
+    lines in a wrong order.
+  \end{solutionorbox}
+  \part[2] Before \code|run()| starts, this line spawns a third task. What happens, and why?
+\begin{lstlisting}
+spawn(function() while true do end end)
+\end{lstlisting}
+  \begin{solutionorbox}[0.9in]
+    The program hangs once that task runs: it never yields, and a cooperative scheduler can
+    switch tasks only when a task yields, so neither of the other tasks runs again. One point for
+    ``it hangs and stops the others'', one for the reason.
+  \end{solutionorbox}
+  \part[1] Name one way to guard a scheduler against such a task.
+  \begin{solutionorbox}[0.6in]
+    Any one of: run each task under an instruction-count hook that raises an error after too many
+    instructions; or review tasks so each loop yields. A pure cooperative scheduler cannot take the
+    processor from a task that never yields.
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-10.2)} A web service counts the lines of a file that a user names:
+
+\begin{lstlisting}
+local function count_lines(path)
+  return os.execute("wc -l " .. path)
+end
+\end{lstlisting}
+
+\begin{parts}
+  \part[1] Give a value of \code|path| that makes this function delete a file named
+    \code|data.db|.
+  \begin{solutionorbox}[0.5in]
+    \code|x; rm data.db|: the semicolon ends the \code|wc| command and starts another. Any value
+    with a shell separator or a substitution works, such as \code|$(rm data.db)|.
+  \end{solutionorbox}
+  \part[2] Describe two safer ways to count the lines.
+  \begin{solutionorbox}[0.9in]
+    Count them in Lua, with no shell at all: \code|for _ in io.lines(path) do n = n + 1 end|.
+    Or, if a command is needed, quote the path for the shell (in single quotes, with each single
+    quote inside written as \code|'\''|), after checking that it names a file the user may read.
+    One point each.
+  \end{solutionorbox}
+  \part[1] What does this expression return?
+\begin{lstlisting}
+os.date("%Y-%m-%d", os.time({ year = 2026, month = 2, day = 30, hour = 12 }))
+\end{lstlisting}
+  \begin{solutionorbox}[0.5in]
+    \code|"2026-03-02"|: \code|os.time| normalizes February 30 to March 2, because February 2026
+    has 28 days.
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-10.3)} Data that must not run as code.
+
+\begin{parts}
+  \part[3] A program saves its settings as a Lua chunk, \code|return { name = "..." }|, and reads
+  them back with \code|dofile("settings.lua")|. Explain the risk if another user can edit the
+  file, and describe how to read the settings safely.
+  \begin{solutionorbox}[1.3in]
+    \code|dofile| runs whatever the file contains, with the program's globals, so an edited file
+    can call \code|os.execute|, read files, or change the program. A safer reader parses the
+    format instead of running it. If the file must stay a Lua chunk, load it in text mode with an
+    empty environment, \code|load(text, "=settings", "t", {})|, so that bytecode is refused and
+    no library is reachable; but the chunk can still loop forever, so a parser is safest. One point
+    for the risk, one for the empty environment and text mode, one for naming what
+    \code|load| still allows, or for parsing instead.
+  \end{solutionorbox}
+  \part[2] Give the fields of this CSV line, in which a quoted field may hold commas and a doubled
+    quote stands for one quote: \code|a,"b,c","d""e"|
+  \begin{solutionorbox}[0.5in]
+    Three fields: \code|a|, \code|b,c|, and \code|d"e|. One point for three fields, one for the
+    contents of the second and third.
+  \end{solutionorbox}
+  \part[1] Why does a program that writes Lua values with \code|string.format("%q", v)| not need
+    to escape quotes or newlines itself?
+  \begin{solutionorbox}[0.6in]
+    \code|%q| writes a string as a Lua literal that reads back as the same string, escaping
+    quotes, backslashes, and newlines, and control characters.
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-12.1, LO-12.3)} Measuring and speeding up.
+
+\begin{parts}
+  \part[2] A teammate reports: ``Version B is faster: A took 0.21 s and B took 0.19 s.'' Each
+    version ran once, on a laptop with other programs open. Why does the measurement not support
+    the claim, and what must the report include?
+  \begin{solutionorbox}[1in]
+    One run of each cannot separate a difference of 10\% from the noise of a busy machine. Run
+    each version several times, collecting garbage before each run, and report the minimum or
+    the median, with the input, the hardware, the operating system, and the Lua version. One
+    point for the reason, one for what to report.
+  \end{solutionorbox}
+  \part[2] This function is a program's hot path, called with thousands of lines and a stop list
+    of 200 words. Rewrite it to be faster, and say why the change helps.
+\begin{lstlisting}
+local function count_words(lines, stop)
+  local n = 0
+  for _, line in ipairs(lines) do
+    for word in line:gmatch("%a+") do
+      local skip = false
+      for _, s in ipairs(stop) do
+        if s == word then skip = true end
+      end
+      if not skip then n = n + 1 end
+    end
+  end
+  return n
+end
+\end{lstlisting}
+  \begin{solutionorbox}[1.6in]
+    Build a set of the stop words once, and look each word up in it:
+\begin{lstlisting}
+local is_stop = {}
+for _, s in ipairs(stop) do is_stop[s] = true end
+-- in the loop:
+if not is_stop[word] then n = n + 1 end
+\end{lstlisting}
+    Each word then costs one table lookup instead of 200 comparisons. One point for the set, one
+    for the reason.
+  \end{solutionorbox}
+  \part[1] How would you show that the change was worth making?
+  \begin{solutionorbox}[0.6in]
+    Time both versions on the same, realistic input, several times each, check that they return
+    the same count, and report both times with their conditions.
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-12.2)} How Lua stores tables and strings.
+
+\begin{parts}
+  \part[2] Compare the cost of \code|t[#t + 1] = x| with the cost of
+    \code|table.insert(t, 1, x)|, for a list of 100{,}000 items.
+  \begin{solutionorbox}[0.8in]
+    Appending costs about the same however long the list is (the array part grows by doubling, so
+    its occasional resizes average out). Inserting at position 1 moves every item up one place, so
+    its cost grows with the length of the list: here, 100{,}000 moves for each insertion.
+  \end{solutionorbox}
+  \part[1] In \code|local t = { 10, 20, x = 1 }|, where are the values stored?
+  \begin{solutionorbox}[0.5in]
+    10 and 20 in the array part, at indices 1 and 2; \code|x| in the hash part.
+  \end{solutionorbox}
+  \part[2] Why can comparing two equal strings of 1{,}000 characters with \code|==| take longer
+    than comparing two equal strings of 10 characters?
+  \begin{solutionorbox}[0.9in]
+    Lua 5.4 interns short strings, of 40 bytes or fewer: it keeps one copy of each, so \code|==|
+    compares two pointers. Long strings are not interned, so two equal long strings made
+    separately are different objects, and \code|==| compares them byte by byte. One point for
+    interning, one for the byte-by-byte comparison.
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question[6] \textit{(LO-13.1)} The stack holds \code|'a' 'b'|, bottom first. Give the stack after
+each call, bottom first. Each call starts from the stack the previous one left.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}l l p{2.6in}@{}}
+  \toprule
+  & Call & Stack afterward \\
+  \midrule
+  (a) & \code|lua_pushinteger(L, 1)| & \ifprintanswers \code|'a' 'b' 1| \fi \\
+  (b) & \code|lua_pushvalue(L, -2)| & \ifprintanswers \code|'a' 'b' 1 'b'| \fi \\
+  (c) & \code|lua_insert(L, 1)| & \ifprintanswers \code|'b' 'a' 'b' 1| \fi \\
+  (d) & \code|lua_remove(L, 2)| & \ifprintanswers \code|'b' 'b' 1| \fi \\
+  (e) & \code|lua_settop(L, 4)| & \ifprintanswers \code|'b' 'b' 1 nil| \fi \\
+  (f) & \code|lua_replace(L, -3)| & \ifprintanswers \code|'b' nil 1| \fi \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\begin{solution}
+One point for each row (6 points). \code|pushvalue(L, -2)| copies the value second from the top,
+\code|'b'|. \code|insert(L, 1)| moves the top value to the bottom. \code|settop| fills new places
+with \code|nil|. \code|replace(L, -3)| pops the top value, \code|nil|, into the place that was
+third from the top before the pop, index 2. A C program that prints the stack after each call
+confirms every row.
+\end{solution}
+
+% ---------------------------------------------------------------------------------------------
+\question[6] \textit{(LO-13.2)} Write the C function \code|l_count| of a module \code|strx|, so
+that \code|strx.count(s, c)| returns the number of times the one-character string \code|c|
+occurs in the string \code|s|. A wrong argument must raise an error that names it; in
+particular, \code|strx.count("banana", "an")| must raise this error:
+\begin{lstlisting}[language={}]
+bad argument #2 to 'count' (one character expected)
+\end{lstlisting}
+Also write the list of functions and the \code|luaopen_strx| function that
+\code|require("strx")| calls.
+
+\begin{solutionorbox}[3.6in]
+\begin{lstlisting}[style=c]
+static int l_count(lua_State *L) {
+  size_t len, clen;
+  const char *s = luaL_checklstring(L, 1, &len);
+  const char *c = luaL_checklstring(L, 2, &clen);
+  luaL_argcheck(L, clen == 1, 2, "one character expected");
+  lua_Integer n = 0;
+  for (size_t i = 0; i < len; i++) {
+    if (s[i] == c[0]) n++;
+  }
+  lua_pushinteger(L, n);
+  return 1;
+}
+
+static const luaL_Reg functions[] = {
+  { "count", l_count },
+  { NULL, NULL },
+};
+
+int luaopen_strx(lua_State *L) {
+  luaL_newlib(L, functions);
+  return 1;
+}
+\end{lstlisting}
+  Two points for checking both arguments, with \code|luaL_checklstring|, and for checking the
+  length of \code|c|, with \code|luaL_argcheck|; two for the count, pushed with \code|lua_pushinteger| and with
+  \code|return 1|; two for the list, ended by \code|{ NULL, NULL }|, and \code|luaopen_strx| with
+  \code|luaL_newlib|. Using the length from \code|luaL_checklstring|, rather than
+  \code|strlen|, also counts characters after a zero byte; either earns full marks. Compiled and
+  run, this code returns 3 for \code|strx.count("banana", "a")| and raises the required error.
+\end{solutionorbox}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-13.3)} A C program passes each event to a script's function
+\code|handle|, and prints what it returns.
+
+\begin{lstlisting}[style=c]
+static void handle_all(lua_State *L, const char **events, int n) {
+  for (int i = 0; i < n; i++) {
+    lua_getglobal(L, "handle");
+    lua_pushstring(L, events[i]);
+    lua_call(L, 1, 1);
+    printf("%s\n", lua_tostring(L, -1));
+  }
+}
+\end{lstlisting}
+
+\begin{parts}
+  \part[3] Name three problems in this loop, and what each causes.
+  \begin{solutionorbox}[1.4in]
+    (1) \code|lua_call| is unprotected: an error in \code|handle| reaches the panic function,
+    which aborts the whole program. (2) The result is never popped, so the stack grows by one
+    value per event, until it overflows after about a million. (3) \code|lua_tostring| returns
+    \code|NULL| when the result is neither a string nor a number, and passing \code|NULL| to
+    \code|printf| for \code|%s| is undefined behavior. One point each.
+  \end{solutionorbox}
+  \part[2] Rewrite the body of the loop to fix all three.
+  \begin{solutionorbox}[1.8in]
+\begin{lstlisting}[style=c]
+lua_getglobal(L, "handle");
+lua_pushstring(L, events[i]);
+if (lua_pcall(L, 1, 1, 0) != LUA_OK) {
+  fprintf(stderr, "handle: %s\n", lua_tostring(L, -1));
+} else {
+  const char *text = lua_tostring(L, -1);
+  printf("%s\n", text ? text : "(no text)");
+}
+lua_pop(L, 1);   /* the result, or the error message */
+\end{lstlisting}
+    One point for \code|lua_pcall| with its status checked, one for the single \code|lua_pop| on
+    both paths with the \code|NULL| case handled.
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-13.4)} A module exposes a C struct \code|Image|, whose field \code|pixels|
+points to memory from \code|malloc|, as full userdata with a metatable registered as
+\code|"Image"|.
+
+\begin{parts}
+  \part[1] Why does its \code|__gc| set \code|img->pixels = NULL| after freeing it?
+  \begin{solutionorbox}[0.6in]
+    So that a second call cannot free the memory twice: a program can call \code|__gc| or a
+    \code|close| method itself, and the collector calls \code|__gc| again later.
+  \end{solutionorbox}
+  \part[1] Why do its methods get the struct with \code|luaL_checkudata(L, 1, "Image")|, and not
+    with \code|lua_touserdata(L, 1)|?
+  \begin{solutionorbox}[0.6in]
+    \code|luaL_checkudata| checks that the value is a userdata with the \code|Image| metatable,
+    and raises an error naming the argument otherwise; \code|lua_touserdata| accepts any
+    userdata, such as a file handle, and the method would misread its memory.
+  \end{solutionorbox}
+  \part[1] A loop creates many images and keeps none, yet the process grows to gigabytes before
+    the collector frees any. Why?
+  \begin{solutionorbox}[0.6in]
+    The collector paces itself by the memory Lua allocates, and sees only each userdata's small
+    struct, not the pixels that \code|malloc| allocated, so it runs too rarely.
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-14.1)} Consider this function, written for Lua 5.4.
+
+\begin{lstlisting}
+local function halves(list)
+  local out = {}
+  for i = 1, #list do out[i] = list[i] // 2 end
+  return table.unpack(out)
+end
+\end{lstlisting}
+
+\begin{parts}
+  \part[2] Give two reasons it does not run on Lua 5.1.
+  \begin{solutionorbox}[0.8in]
+    \code|//| does not exist in Lua 5.1, so the file fails to compile, before any line runs; and
+    \code|table.unpack| is \code|nil| in 5.1, where the function is the global \code|unpack|. One
+    point each.
+  \end{solutionorbox}
+  \part[3] Rewrite it so that one file runs on Lua 5.1, LuaJIT, Lua 5.4, and Lua 5.5, and gives
+    5.4's results on 5.4. Detect features; do not test \code|_VERSION|.
+  \begin{solutionorbox}[2in]
+\begin{lstlisting}
+local unpack = table.unpack or unpack
+local chunk = (loadstring or load)("return function(a, b) return a // b end")
+local idiv = chunk and chunk() or function(a, b) return math.floor(a / b) end
+
+local function halves(list)
+  local out = {}
+  for i = 1, #list do out[i] = idiv(list[i], 2) end
+  return unpack(out)
+end
+\end{lstlisting}
+    One point for \code|table.unpack or unpack|, one for keeping \code|//| out of the file's own
+    text (compiling it from a string), and one for a fallback that rounds down. On each of the
+    four Luas, \code|halves({ 7, -7, 4 })| returns \code|3 -4 2|.
+  \end{solutionorbox}
+\end{parts}
+
+% ---------------------------------------------------------------------------------------------
+\question \textit{(LO-14.2)} A program runs plugins in a sandbox: an environment built from an
+allowlist, \code|load| in text mode, and an instruction-count hook in the plugin's own coroutine.
+
+\begin{parts}
+  \part[1] The allowlist includes \code|load|. Write one line of plugin code that reaches the
+    host's real \code|os| library.
+  \begin{solutionorbox}[0.4in]
+    \code|local os = load("return os")()|: a chunk loaded without an environment gets the real
+    global table.
+  \end{solutionorbox}
+  \part[1] When the instruction limit is reached, the hook raises an error, and from then on
+    raises it again at every instruction. Why is raising it once not enough?
+  \begin{solutionorbox}[0.6in]
+    The plugin can catch one error with \code|pcall| and keep going, as
+    \code|while true do pcall(f) end| does. Raising at every instruction makes the code outside
+    the \code|pcall| fail too.
+  \end{solutionorbox}
+  \part[2] Name two kinds of work that the hook cannot stop, and for each, a remedy outside Lua.
+  \begin{solutionorbox}[1.2in]
+    Any two, one point each with its remedy: one huge allocation in one C call, such as
+    \code|("x"):rep(1e9)| (an allocator that refuses to allocate past a limit); a long
+    computation in one C call, such as a pattern that backtracks (running the plugin in a separate
+    process that is killed after a deadline); compiled LuaJIT code, which does not call the count
+    hook (turning the compiler off with \code|jit.off()|, or a separate process).
+  \end{solutionorbox}
+  \part[1] Why does the sandbox load plugins in text mode?
+  \begin{solutionorbox}[0.5in]
+    To refuse precompiled bytecode: Lua does not check that a binary chunk's instructions make
+    sense, and crafted bytecode can crash the interpreter.
+  \end{solutionorbox}
+\end{parts}
+
+\end{questions}
+
+\end{document}

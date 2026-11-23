@@ -1,0 +1,7 @@
+#!/usr/bin/env lua
+-- csvstats FILE.csv: prints statistics for each column of a CSV file.
+
+local csvstats = require("csvstats")
+
+-- Your code here: check the arguments, read the file, and print the report, as the handout says.
+error("not implemented")

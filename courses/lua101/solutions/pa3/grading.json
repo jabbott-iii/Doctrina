@@ -1,0 +1,56 @@
+{
+  "module": "iter.lua",
+  "hidden_spec": "hidden_spec.lua",
+  "broken": [
+    {
+      "description": "from_list stops at false",
+      "old": "    i = i + 1\n    return list[i]\n",
+      "new": "    i = i + 1\n    if list[i] then return list[i] end\n"
+    },
+    {
+      "description": "count ignores step",
+      "old": "return start + (n - 1) * step",
+      "new": "return start + (n - 1)"
+    },
+    {
+      "description": "map ends quietly when fn returns nil",
+      "old": "    if result == nil then error(\"map: fn returned nil\", 2) end\n",
+      "new": ""
+    },
+    {
+      "description": "filter keeps only results equal to true",
+      "old": "if pred(value) then return value end",
+      "new": "if pred(value) == true then return value end"
+    },
+    {
+      "description": "take calls the source once more than it needs",
+      "old": "    if done or taken >= n then return nil end\n    local value = it()\n",
+      "new": "    if done then return nil end\n    local value = it()\n    if taken >= n then return nil end\n"
+    },
+    {
+      "description": "take accepts a negative n",
+      "old": "if math.type(n) ~= \"integer\" or n < 0 then",
+      "new": "if math.type(n) ~= \"integer\" then"
+    },
+    {
+      "description": "zip calls b after a has ended",
+      "old": "    local x = a()\n    if x == nil then\n      done = true\n      return nil\n    end\n    local y = b()\n",
+      "new": "    local x = a()\n    local y = b()\n    if x == nil then\n      done = true\n      return nil\n    end\n"
+    },
+    {
+      "description": "split treats sep as a pattern",
+      "old": "s:find(sep, position, true)",
+      "new": "s:find(sep, position)"
+    },
+    {
+      "description": "split drops an empty last field",
+      "old": "      done = true\n      return s:sub(position)\n",
+      "new": "      done = true\n      local rest = s:sub(position)\n      if rest == \"\" then return nil end\n      return rest\n"
+    },
+    {
+      "description": "memoize doesn't cache nil",
+      "old": "      if result == nil then result = NIL end\n",
+      "new": ""
+    }
+  ]
+}

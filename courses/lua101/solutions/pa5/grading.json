@@ -1,0 +1,73 @@
+{
+  "files": [
+    "src/csvstats.lua",
+    "bin/csvstats"
+  ],
+  "hidden_spec": "hidden_spec.lua",
+  "busted_args": [
+    "--lpath=./src/?.lua"
+  ],
+  "tooling": true,
+  "broken": [
+    {
+      "description": "split_line keeps doubled quotes inside quotes",
+      "file": "src/csvstats.lua",
+      "old": "        if line:sub(i + 1, i + 1) == '\"' then\n          field[#field + 1] = '\"'\n          i = i + 1\n",
+      "new": "        if line:sub(i + 1, i + 1) == '\"' then\n          field[#field + 1] = '\"\"'\n          i = i + 1\n"
+    },
+    {
+      "description": "read counts lines from the first row",
+      "file": "src/csvstats.lua",
+      "old": "    number = number + 1\n    if line ~= \"\" then\n",
+      "new": "    if line ~= \"\" then\n      number = number + 1\n"
+    },
+    {
+      "description": "read doesn't skip empty lines",
+      "file": "src/csvstats.lua",
+      "old": "    if line ~= \"\" then\n",
+      "new": "    if true then\n"
+    },
+    {
+      "description": "an empty field counts as a value",
+      "file": "src/csvstats.lua",
+      "old": "  if text == \"\" then\n    self.missing = self.missing + 1\n    return\n  end\n",
+      "new": ""
+    },
+    {
+      "description": "a column is a number column if any value is a number",
+      "file": "src/csvstats.lua",
+      "old": "  elseif #self.numbers == count then\n",
+      "new": "  elseif #self.numbers > 0 then\n"
+    },
+    {
+      "description": "the mean is floored",
+      "file": "src/csvstats.lua",
+      "old": "total / count",
+      "new": "total // count"
+    },
+    {
+      "description": "ties for the most common text go to the last",
+      "file": "src/csvstats.lua",
+      "old": "(times == seen[top] and text < top)",
+      "new": "(times == seen[top] and text > top)"
+    },
+    {
+      "description": "the mean is printed with one decimal",
+      "file": "src/csvstats.lua",
+      "old": "mean %.2f",
+      "new": "mean %.1f"
+    },
+    {
+      "description": "the command exits with 0 after an error",
+      "file": "bin/csvstats",
+      "old": "  io.stderr:write(\"csvstats: \", rows, \"\\n\")\n  os.exit(1)\n",
+      "new": "  io.stderr:write(\"csvstats: \", rows, \"\\n\")\n  os.exit(0)\n"
+    },
+    {
+      "description": "the command prints errors on standard output",
+      "file": "bin/csvstats",
+      "old": "  io.stderr:write(\"csvstats: \", rows, \"\\n\")\n",
+      "new": "  io.stdout:write(\"csvstats: \", rows, \"\\n\")\n"
+    }
+  ]
+}
