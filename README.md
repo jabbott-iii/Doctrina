@@ -115,6 +115,14 @@ has no details of its own: it uses the values of the rules it relies on.
   until you decide how to disclose them. It patches only what you approve, each with a
   regression test. It relies on `commits.md`, `writing.md`, and the language rules, and uses
   `roadmap-and-docs.md` where it is adopted.
+- [`skills/simplify-code/`](skills/simplify-code/SKILL.md): `/simplify-code [scope]` finds code
+  that is longer or more convoluted than its job requires, such as deep nesting, long functions,
+  copied code, and layers that only forward calls. It simplifies the parts you approve without
+  giving up any functionality: every input, output, error, side effect, edge case, option,
+  supported platform, and performance budget stays as it was. It first checks why code is long,
+  because much length is functionality, pins the current behavior with tests, and then makes one
+  simplification at a time. It relies on `commits.md`, `writing.md`, and the language rules, and
+  uses `roadmap-and-docs.md` where it is adopted.
 
 ## Adopt a rule in a repository
 
