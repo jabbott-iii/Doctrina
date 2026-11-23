@@ -92,6 +92,13 @@ has no details of its own: it uses the values of the rules it relies on.
   decisions, documents, and risks. Given a phase, it evaluates that gate with evidence gathered
   in this session and records the result, and you confirm a pass. Empty, it shows every gate's
   state. It relies on `roadmap-and-docs.md`, `commits.md`, and `writing.md`.
+- [`skills/sweep-code/`](skills/sweep-code/SKILL.md): `/sweep-code [scope]` scans the code for
+  bugs and dead code: the bugs tools miss, from dropped errors to races, and unreachable code,
+  unused declarations, files, and dependencies, and suppressions that hide nothing. It proves
+  each finding with a failing test, a traced path, or a check of every way the code could be
+  reached, and shows them all before it changes anything. It fixes only what you approve, one
+  change at a time, with a regression test for each bug. It relies on `commits.md`,
+  `writing.md`, and the language rules, and uses `roadmap-and-docs.md` where it is adopted.
 
 ## Adopt a rule in a repository
 
