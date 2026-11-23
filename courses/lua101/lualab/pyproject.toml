@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "lualab"
+version = "1.0.0"
+description = "The %%lua cell magic for LUA101's Jupyter labs, which runs Lua through lupa."
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = ["lupa>=2.8", "ipython>=8"]
+
+[tool.setuptools]
+py-modules = ["lualab"]
