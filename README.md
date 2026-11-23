@@ -72,6 +72,13 @@ has no details of its own: it uses the values of the rules it relies on.
   runs the task's checks, ticks the box only when they pass, updates the documents, and reports
   what ran and what didn't. It relies on `roadmap-and-docs.md`, `commits.md`, and `writing.md`,
   so adopt those first.
+- [`skills/fix-doc-drift/`](skills/fix-doc-drift/SKILL.md): `/fix-doc-drift [scope]` finds
+  statements in the documentation that no longer match the code, the tools, or the project's
+  records, and corrects them. The scope is a path, an area, a Git range, or, when empty, every
+  document. It decides which side is wrong before it edits, asks wherever a spec or decision may
+  be right and the code wrong, leaves the records of the past alone, and suggests checks that
+  would catch the same drift next time. It relies on `writing.md` and `commits.md`, and uses
+  `roadmap-and-docs.md` where it is adopted.
 
 ## Adopt a rule in a repository
 
