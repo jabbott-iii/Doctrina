@@ -21,10 +21,11 @@ Bold names are values from the "Project details" of the adopted rules:
 - **Git access**, **Done checks**, **Never commit**, **Push effect**, and **Breaking changes**
   from `commits.md`;
 - **Check commands**, **Test layout**, and **Dependency policy** from the language rules;
-  **Untrusted input** from `rust.md` and `kotlin.md`; **Unsafe policy** from `rust.md`;
-  **Security controls** from `android.md`, `swift.md`, and `flutter.md`; **Exported components**
-  and **Permissions** from `android.md`; **Platform channels** from `flutter.md`; **Networking**
-  from `swift.md`; and **Test tools** and **Hosting** from `web-front-end.md`;
+  **Untrusted input** from `rust.md`, `kotlin.md`, and `lua.md`; **Unsafe policy** from `rust.md`;
+  **Sandbox** and **C boundary** from `lua.md`; **Security controls** from `android.md`, `swift.md`,
+  and `flutter.md`; **Exported components** and **Permissions** from `android.md`;
+  **Platform channels** from `flutter.md`; **Networking** from `swift.md`; and **Test tools** and
+  **Hosting** from `web-front-end.md`;
 - the **Decision log** from `roadmap-and-docs.md`, where it is adopted.
 
 Where a value doesn't exist because a rule isn't adopted, work from what the repository has, and
@@ -38,6 +39,7 @@ rules describe. The language rules' own security sections are part of this sweep
 | `android.md` | "Security and privacy" |
 | `swift.md` | "Data and networking", "Security and privacy", and "Dependencies and release" |
 | `flutter.md` | "Data, security, and generated code" |
+| `lua.md` | "Untrusted input", "Sandboxing code you didn't write", and "The C boundary" |
 | `web-front-end.md` | "Security and privacy" |
 
 ## Ground rules
@@ -84,11 +86,12 @@ otherwise sketch one:
 
 - **Assets:** what is worth protecting: personal data, credentials and tokens, money, other
   users' content, the device, and the build and release pipeline.
-- **Entry points:** every place data comes in from outside: network requests and responses,
-  files and archives the program opens, command-line arguments and environment variables, deep
-  links and intents from other apps, the clipboard, and CI event fields such as pull request
-  titles and branch names. Include the **Untrusted input** modules, the **Exported components**,
-  the **Platform channels**, and the **Networking** layer.
+- **Entry points:** every place data comes in from outside: network requests and responses, files
+  and archives the program opens, command-line arguments and environment variables, deep links and
+  intents from other apps, the clipboard, and CI event fields such as pull request titles and branch
+  names. Include the **Untrusted input** modules, the **Exported components**, the
+  **Platform channels**, the **Networking** layer, and the plugins and scripts the **Sandbox**
+  loads.
 - **Trust boundaries:** each place data crosses from a less-trusted side to a more-trusted one,
   such as from the browser to the server, from another app into this one, or from a fork's pull
   request into CI.
@@ -146,18 +149,18 @@ Trace data from each entry point in the threat model to each place it can do har
 query, a shell, a file path, the page, a deserializer, or an outgoing request. Start with the entry
 points that the most attackers can reach. Check the code against the language rules' security
 sections, then against this list. In Rust, read every `unsafe` block the **Unsafe policy** allows,
-because memory-safety bugs live there. The numbers are IDs in MITRE's Common Weakness Enumeration
-(CWE), which advisories and scanners use.
+and in Lua, everything at the **C boundary**, because memory-safety bugs live there. The numbers are
+IDs in MITRE's Common Weakness Enumeration (CWE), which advisories and scanners use.
 
 | Class | CWE | What to look for |
 | --- | --- | --- |
 | SQL injection | 89 | Queries built by joining or formatting strings with input, instead of passing parameters |
-| Command injection | 78 | A shell running a string built from input: `sh -c`, `os.system`, `subprocess` with `shell=True`, Node's `child_process.exec` |
-| Code injection | 94 | `eval`, `new Function`, Python's `exec`, and scripting engines fed input |
+| Command injection | 78 | A shell running a string built from input: `sh -c`, `os.system`, `subprocess` with `shell=True`, Node's `child_process.exec`, Lua's `os.execute` and `io.popen` |
+| Code injection | 94 | `eval`, `new Function`, Python's `exec`, Lua's `load`, `loadstring`, or `dofile`, and scripting engines fed input |
 | Template injection | 1336 | Input used as a template, instead of as a value passed to one |
 | Cross-site scripting (XSS) | 79 | Input written into HTML without the framework's escaping, or with it turned off |
 | Path traversal | 22 | File paths built from input, including archive entries named `../…` (before Python 3.14, `tarfile`'s `extractall` writes them outside the folder unless you pass `filter="data"`) |
-| Unsafe deserialization | 502 | Java serialization, Python's `pickle`, PyYAML's `Loader` or `UnsafeLoader`, and `NSKeyedUnarchiver` without secure coding: each can build objects or run code while it reads |
+| Unsafe deserialization | 502 | Java serialization, Python's `pickle`, PyYAML's `Loader` or `UnsafeLoader`, and `NSKeyedUnarchiver` without secure coding: each can build objects or run code while it reads. Also Lua bytecode, which `load` accepts unless its mode is `"t"`, and which can crash the interpreter when crafted |
 | XML external entities (XXE) | 611 | XML parsers that resolve external entities, which can read local files. Java's `DocumentBuilderFactory` does by default. |
 | Server-side request forgery (SSRF) | 918 | The server fetching a URL that input chose, including internal addresses and cloud metadata services |
 | Open redirect | 601 | A redirect to a URL taken from input, without an allowlist |
@@ -169,12 +172,13 @@ because memory-safety bugs live there. The numbers are IDs in MITRE's Common Wea
 | Weak cryptography | 327, 916, 338, 323 | Homemade cryptography; MD5 or SHA-1 used for security; DES or ECB mode; passwords hashed with anything but a password-hashing function; tokens from a random generator that isn't cryptographically secure; a nonce or initialization vector used twice with one key |
 | Timing leaks | 208 | Secrets and tokens compared with `==`, which returns at the first difference, instead of in constant time |
 | Broken Transport Layer Security (TLS) | 295, 319 | Certificate or host-name checks turned off, trust-all certificate managers, and plain HTTP for anything sensitive |
-| Resource exhaustion | 770, 1333, 409 | Sizes, counts, and recursion without limits; regular expressions that backtrack for exponential or polynomial time on crafted input (regular expression denial of service, ReDoS); decompression without a size limit |
-| Memory safety | 787, 416, 190 | In `unsafe` code, foreign function interface (FFI) calls, and C or C++: out-of-bounds writes, use after free, and integer overflow in sizes |
+| Resource exhaustion | 770, 1333, 409 | Sizes, counts, and recursion without limits; regular expressions and Lua patterns that backtrack for exponential or polynomial time on crafted input (regular expression denial of service, ReDoS); decompression without a size limit |
+| Memory safety | 787, 416, 190 | In `unsafe` code, foreign function interface (FFI) calls (LuaJIT's FFI included), the Lua C API, and C or C++: out-of-bounds writes, use after free, and integer overflow in sizes |
 | Race conditions | 367 | Checking a file or a permission, then using it, when an attacker can change it in between (time-of-check to time-of-use, TOCTOU); temporary files at predictable paths |
 | Leaky logs and errors | 532, 209 | Secrets, tokens, and personal data in logs, crash reports, and analytics; stack traces and internal details in error responses |
 | Cookies | 614, 1004 | Session cookies without the `Secure` and `HttpOnly` attributes |
 | Exposed components | 926, 749 | Android components exported without a permission; WebView JavaScript bridges, URL schemes, and other entry points that other apps or pages can call |
+| Sandbox escapes | – | Plugin or script environments built by removing dangerous functions instead of allowing safe ones; library tables, or Lua's `getmetatable`, shared with sandboxed code, which let it change the host's functions; no limit on instructions, time, or memory |
 | Insecure defaults | – | Debug modes, test accounts, and detailed errors in release builds; CORS (cross-origin resource sharing) that allows any origin with credentials |
 
 ## 7. Check the configuration and CI
@@ -363,7 +367,7 @@ data when they run, and the ground rules say to ask before a tool sends anything
 | --- | --- |
 | Secrets | gitleaks: `gitleaks git` scans the history, `gitleaks dir` scans files, and `--redact` hides the values in its output. It only matches patterns, and now receives security fixes only. TruffleHog only with `--no-verification`, because otherwise it checks each secret it finds against the provider |
 | Dependencies | OSV-Scanner (`osv-scanner scan source -r .`) reads Cargo, npm, Dart, and Gradle lock files and Python requirements files, but not Swift packages, and has an `--offline` mode with a local database. The ecosystems' own audits: `cargo audit` or `cargo deny check advisories`, `npm audit`, and `pip-audit -r requirements.txt`. cargo-geiger counts the `unsafe` code in a crate's dependencies |
-| Code, many languages | Semgrep (`semgrep scan --config p/default`) supports Rust, Kotlin, Swift, Java, JavaScript, TypeScript, and Python, with Dart experimental; it sends usage metrics whenever it pulls rules from its registry, unless you pass `--metrics=off`. CodeQL, through GitHub code scanning, covers Java and Kotlin, JavaScript and TypeScript, Python, Rust, Swift (analyzed on macOS only), and GitHub Actions workflows |
+| Code, many languages | Semgrep (`semgrep scan --config p/default`) supports Rust, Kotlin, Swift, Java, JavaScript, TypeScript, and Python, with Dart and Lua experimental; it sends usage metrics whenever it pulls rules from its registry, unless you pass `--metrics=off`. CodeQL, through GitHub code scanning, covers Java and Kotlin, JavaScript and TypeScript, Python, Rust, Swift (analyzed on macOS only), and GitHub Actions workflows |
 | Code, one language | Bandit (`bandit -r <path>`) for Python. eslint-plugin-security for JavaScript, whose findings need triage because many are false positives. Android Lint's Security checks, such as `SetJavaScriptEnabled`, `AddJavascriptInterface`, `TrustAllX509TrustManager`, `BadHostnameVerifier`, `ExportedService`, `UnsafeIntentLaunch`, and `InsecureBaseConfiguration`. Miri for undefined behavior in `unsafe` Rust |
 | CI workflows | zizmor (`zizmor --offline .`), whose audits include `template-injection`, `dangerous-triggers`, `unpinned-uses`, and `excessive-permissions`. actionlint, whose checks include script injection by untrusted inputs |
 | Mobile builds | MobSF analyzes built APKs and iOS app archives (IPAs), and can run from its Docker image |
