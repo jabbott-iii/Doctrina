@@ -1,0 +1,56 @@
+# The copy checks in AGENTS.md and the placeholder check in README.md, on every change.
+name: "Copies"
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: "Rule and skill copies match their sources"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read # check out the code
+    steps:
+      - name: "Check out the repository"
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: "Each copy in .claude/rules/ matches its source outside Project details"
+        run: |
+          strip() { awk '/^## Project details/{s=1; next} s && /^## /{s=0} !s' "$1"; }
+          status=0
+          for f in .claude/rules/*.md; do
+            if diff <(strip "rules/$(basename "$f")") <(strip "$f"); then
+              echo "$f matches"
+            else
+              status=1
+            fi
+          done
+          exit "$status"
+
+      - name: "Each copy in .claude/skills/ matches its source exactly"
+        run: |
+          status=0
+          for d in .claude/skills/*/; do
+            if diff -r "skills/$(basename "$d")" "$d"; then
+              echo "$d matches"
+            else
+              status=1
+            fi
+          done
+          exit "$status"
+
+      - name: "Every Project details value in .claude/rules/ is filled in"
+        run: |
+          ! grep -n '^- \*\*.*\[FILL IN' .claude/rules/*.md

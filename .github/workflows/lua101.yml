@@ -1,0 +1,133 @@
+# LUA101's checks, as the course's PLAN.md describes them: each lab as students get it and with
+# its answer key, the graded notebooks and their student versions, the project graders, and the
+# website. The tools match setup.md: Lua 5.4.8, LuaRocks 3.13.0, busted 2.3.0, luacheck 1.2.0,
+# LuaCov 0.17.0, StyLua 2.6.0, and lua-language-server 3.19.2.
+name: "LUA101"
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "courses/lua101/**"
+      - "requirements.txt"
+      - ".github/workflows/lua101.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "courses/lua101/**"
+      - "requirements.txt"
+      - ".github/workflows/lua101.yml"
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: "Labs, graded notebooks, graders, and website"
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read # check out the code
+    env:
+      COURSE: "courses/lua101"
+    steps:
+      - name: "Check out the repository"
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: "Set up Python 3.12"
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+
+      - name: "Create the notebook environment"
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -r requirements.txt
+          echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
+
+      - name: "Build Lua 5.4.8 and LuaRocks 3.13.0 into .venv/lua"
+        run: >-
+          hererocks .venv/lua
+          -l "https://github.com/lua/lua@v5.4.8"
+          -r "https://github.com/luarocks/luarocks@v3.13.0"
+
+      - name: "Install busted, luacheck, and LuaCov"
+        run: |
+          .venv/lua/bin/luarocks install busted 2.3.0-1
+          .venv/lua/bin/luarocks install luacheck 1.2.0-1
+          .venv/lua/bin/luarocks install luacov 0.17.0-1
+
+      - name: "Install StyLua 2.6.0, built to read Lua 5.4"
+        run: cargo install stylua --version 2.6.0 --locked --features lua54
+
+      - name: "Install lua-language-server 3.19.2 into .venv/luals"
+        env:
+          LUALS_URL: "https://github.com/LuaLS/lua-language-server/releases/download/3.19.2/lua-language-server-3.19.2-linux-x64.tar.gz"
+          LUALS_SHA256: "93ad326b10f6c00911dd8c450fa098332dbd8f9f45d1052f5636a2d54479b947"
+        run: |
+          curl -fsSL -o "$RUNNER_TEMP/luals.tar.gz" "$LUALS_URL"
+          echo "$LUALS_SHA256  $RUNNER_TEMP/luals.tar.gz" | sha256sum --check
+          mkdir -p .venv/luals
+          tar -xzf "$RUNNER_TEMP/luals.tar.gz" -C .venv/luals
+
+      - name: "lualab's tests"
+        run: pytest -q "$COURSE/lualab/test_lualab.py"
+
+      - name: "Each lab, as students get it and with its answer key"
+        run: |
+          status=0
+          for lab in "$COURSE"/modules/*/lab*.ipynb; do
+            name=$(basename "$lab" .ipynb)
+            key="$COURSE/solutions/labs/${name}_answers.py"
+            echo "::group::$name"
+            python "$COURSE/tools/check_lab.py" "$lab" "$key" || status=1
+            echo "::endgroup::"
+          done
+          exit "$status"
+
+      - name: "The graded notebooks' sources run"
+        run: pytest -q --nbmake "$COURSE/solutions/pa1/pa1.ipynb" "$COURSE/solutions/pa2/pa2.ipynb"
+
+      - name: "nbgrader passes each source and fails each student version"
+        working-directory: courses/lua101
+        run: |
+          # nbgrader validate exits with status 0 even when validation fails, so read its verdict.
+          status=0
+          for pa in pa1 pa2; do
+            out=$(nbgrader validate "solutions/$pa/$pa.ipynb" 2>&1) || true
+            if ! grep -q "^Success! Your notebook passes all the tests." <<< "$out"; then
+              echo "$out"; status=1
+            fi
+            out=$(nbgrader validate --invert "assignments/$pa/$pa.ipynb" 2>&1) || true
+            if ! grep -q "^Success! The notebook does not pass any tests." <<< "$out"; then
+              echo "$out"; status=1
+            fi
+          done
+          exit "$status"
+
+      - name: "The student versions match their sources"
+        run: |
+          status=0
+          for pa in pa1 pa2; do
+            fresh="$RUNNER_TEMP/$pa.ipynb"
+            python "$COURSE/tools/student_version.py" "$COURSE/solutions/$pa/$pa.ipynb" "$fresh"
+            diff -q "$fresh" "$COURSE/assignments/$pa/$pa.ipynb" || status=1
+          done
+          exit "$status"
+
+      - name: "The project graders pass their self-tests"
+        run: |
+          status=0
+          for pa in pa3 pa4 pa5; do
+            python "$COURSE/tools/grade_project.py" "$COURSE/solutions/$pa" --self-test || status=1
+          done
+          exit "$status"
+
+      - name: "The website builds"
+        working-directory: courses/lua101
+        run: jupyter book build --html
