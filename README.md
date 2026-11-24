@@ -88,6 +88,19 @@ has no details of its own: it uses the values of the rules it relies on.
 
 ## Skills
 
+- [`skills/build-roadmap-and-docs/`](skills/build-roadmap-and-docs/SKILL.md):
+  `/build-roadmap-and-docs [description or piece]` builds the documents that
+  `roadmap-and-docs.md` describes, from a description of the project, its code, or both: the
+  numbered core documents, decision records, a spec for each part, a roadmap of milestones and
+  checkable tasks with a backlog, the feature list, and the agent guide, update map, and status
+  lines that point to them. It surveys the code and runs its checks first, so nothing is called
+  built that isn't. It proposes the goals, milestones, and decisions for you to approve, drafts
+  every decision as `Proposed` until you accept it, and records existing code as a first
+  milestone whose tasks are ticked only when their tests pass. It ends with a check that every
+  cited task and decision record exists and that dependencies run in order. Given one piece,
+  such as `roadmap`, it builds only that piece and what it needs. It relies on
+  `roadmap-and-docs.md`, `commits.md`, and `writing.md`, and uses `dependencies.md` and
+  `testing.md` where they are adopted.
 - [`skills/next-task/`](skills/next-task/SKILL.md): `/next-task [task-id]` works through the
   roadmap one task at a time. It picks the next unblocked task (or the one named), asks the
   questions and checks the decisions the task depends on, makes the smallest complete change,
