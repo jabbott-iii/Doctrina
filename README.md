@@ -134,6 +134,17 @@ has no details of its own: it uses the values of the rules it relies on.
   out. It runs every notebook, compiles every document, and checks the website for leaked
   answers. Given an existing course's code, it continues from the plan's checklist. It relies on
   `teaching-materials.md`, `commits.md`, and `writing.md`.
+- [`skills/build-language-packs/`](skills/build-language-packs/SKILL.md):
+  `/build-language-packs [languages] [scope]` translates an app's user-facing text into Mandarin
+  Chinese, Hindi, Spanish, Standard Arabic, French, Bengali, Portuguese, Indonesian, and Urdu, as
+  one language pack each, in the app's own localization format. It first fixes source strings
+  that can't be translated well, such as sentences built from pieces, and asks you to choose each
+  language's variant and form of address. It writes every plural form each language needs, keeps
+  placeholders and markup intact, lays out Arabic and Urdu right to left, and checks the keys,
+  placeholders, plural forms, scripts, lengths, and fonts. Every translation stays a draft: each
+  language gets a sheet with its glossary and a review list for a fluent reviewer. A later run
+  translates only the strings that changed. It relies on `writing.md`, `commits.md`, and the
+  platform rules, and uses `roadmap-and-docs.md` where it is adopted.
 
 ## Adopt a rule in a repository
 
