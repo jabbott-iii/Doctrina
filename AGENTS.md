@@ -28,7 +28,8 @@ and skills in two folders each, with different jobs.
 - Not every portable rule has a copy. `web-front-end.md`, `rust.md`, `kotlin.md`, `android.md`,
   `kotlin-multiplatform.md`, `swift.md`, `flutter.md`, `lua.md`, and `roadmap-and-docs.md` have
   none, because Doctrina has no web pages, Rust, Kotlin, Android, iOS, Swift, Flutter, or Lua
-  code, and no roadmap or design documents, for them to apply to.
+  code, and no roadmap or design documents, for them to apply to. `dependencies.md` and
+  `testing.md` have none either, because Doctrina hasn't adopted them.
 
 ## Keep each copy in sync with its source
 
