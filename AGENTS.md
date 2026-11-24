@@ -3,7 +3,7 @@
 Doctrina is a library of portable rules for AI coding agents. Any repository can copy a rule into
 its own `.claude/rules/` folder and fill in the values that are specific to it. Doctrina is also
 where classes are built: courses, workbooks, and articles go in `courses/`, `workbooks/`, and
-`articles/`. It follows three of its own rules and uses one of its own skills, so it keeps rules
+`articles/`. It follows three of its own rules and uses two of its own skills, so it keeps rules
 and skills in two folders each, with different jobs.
 
 ## The two rule folders
@@ -19,8 +19,9 @@ and skills in two folders each, with different jobs.
   Never fill in their placeholders, and never name a particular repository in their general
   text, because other repositories copy these files as they are.
 - **`skills/` is portable too.** Its skills are content you edit, like the rules in `rules/`.
-  Doctrina uses one itself: `.claude/skills/build-course/` is a copy of `skills/build-course/`,
-  for the courses built here, and Claude Code offers it as `/build-course`.
+  Doctrina uses two itself, as copies in `.claude/skills/`: `build-course/`, for the courses
+  built here, and `set-up-github/`, for Doctrina's own GitHub files. Claude Code offers them as
+  `/build-course` and `/set-up-github`.
 - **`.claude/rules/` is for this repository.** Its rules govern all work in Doctrina, including
   edits to `rules/`. Claude Code loads them on its own. If you are another agent, read every file
   in `.claude/rules/` before you start, and follow them as this repository's rules.
