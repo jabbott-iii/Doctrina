@@ -35,3 +35,17 @@ courses/**/*.pdf
 
 # Files that labs write while they run
 courses/**/scratch/
+
+# Local environment files, which can hold secrets
+.env
+.env.*
+!.env.example
+
+# Claude Code's personal settings and notes
+.claude/settings.local.json
+CLAUDE.local.md
+
+# nbgrader's folders of collected and graded work, which are student records
+courses/**/submitted/
+courses/**/autograded/
+courses/**/feedback/
