@@ -19,6 +19,15 @@ has no details of its own: it uses the values of the rules it relies on.
 - [`rules/commits.md`](rules/commits.md): copy-ready commit messages, how much Git Claude may run,
   one change per commit, the Conventional Commits format, and pull request descriptions, with no
   attribution lines. It relies on `writing.md` for the text of each message, so adopt both.
+- [`rules/dependencies.md`](rules/dependencies.md): how to build with no third-party code.
+  Packages come only from the accounts a repository names as its own, checked by their owners on
+  the registry and where their source lives. A third-party package is allowed only when it can't
+  be avoided, because the platform, a closed format, a law or contract, or security requires it,
+  and only after the user approves it. It covers what counts as a dependency, from the packages
+  other packages bring in to continuous integration (CI) actions and copied code, the order to
+  look for a solution in, what to tell the user when asking, updates, and the dependencies a
+  repository already has. Set each language rule's **Dependency policy** to point to it. It
+  relies on `writing.md`, so adopt both.
 - [`rules/rust.md`](rules/rust.md): how to write Rust as a senior engineer and work with the user as
   a pair, covering type design, ownership, errors, text for users and its translations, hostile
   input, concurrency, `unsafe`, public APIs, tests, lints, and dependencies. Its documentation
