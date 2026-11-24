@@ -28,6 +28,12 @@ has no details of its own: it uses the values of the rules it relies on.
   look for a solution in, what to tell the user when asking, updates, and the dependencies a
   repository already has. Set each language rule's **Dependency policy** to point to it. It
   relies on `writing.md`, so adopt both.
+- [`rules/testing.md`](rules/testing.md): how to test as strictly as the code allows. It covers
+  never weakening a test to make it pass, covering every line and branch, mutation testing to
+  check that the tests catch changes, exact and deterministic tests, performance budgets that
+  fail the build, security tests with hostile input and fuzzing, required checks in CI, and a
+  diff check for new skips and removed assertions. It relies on `writing.md` and on the language
+  rules' test commands, and on `dependencies.md` for test tools where that rule is adopted.
 - [`rules/rust.md`](rules/rust.md): how to write Rust as a senior engineer and work with the user as
   a pair, covering type design, ownership, errors, text for users and its translations, hostile
   input, concurrency, `unsafe`, public APIs, tests, lints, and dependencies. Its documentation
