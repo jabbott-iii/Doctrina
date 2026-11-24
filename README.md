@@ -10,25 +10,26 @@ has no details of its own: it uses the values of the rules it relies on.
 - [`rules/writing.md`](rules/writing.md): spelling, grammar, numbers and units, technical writing
   for an audience from students to senior engineers, and a check to run before finishing. It
   covers all prose in a repository, including code comments and commit messages.
-- [`rules/web-front-end.md`](rules/web-front-end.md): how to build a website or web app as a
-  senior front-end developer and work with the user as a pair, covering semantic HTML, CSS that
-  meets the Web Content Accessibility Guidelines (WCAG) 2.2 at level AA, progressively enhanced
-  JavaScript, security and privacy, performance budgets, hosting limits, and the checks to run in
-  the browser. It relies on `writing.md` for page text and YAML checks, so adopt both.
+- [`rules/web-front-end.md`](rules/web-front-end.md): how to build a website or web app as a senior
+  front-end developer and work with the user as a pair, covering semantic HTML, CSS that meets the
+  Web Content Accessibility Guidelines (WCAG) 2.2 at level AA, progressively enhanced JavaScript,
+  languages and right-to-left layout, security and privacy, performance budgets, hosting limits, and
+  the checks to run in the browser. It relies on `writing.md` for page text and YAML checks, so
+  adopt both.
 - [`rules/commits.md`](rules/commits.md): copy-ready commit messages, how much Git Claude may run,
   one change per commit, the Conventional Commits format, and pull request descriptions, with no
   attribution lines. It relies on `writing.md` for the text of each message, so adopt both.
-- [`rules/rust.md`](rules/rust.md): how to write Rust as a senior engineer and work with the user
-  as a pair, covering type design, ownership, errors, hostile input, concurrency, `unsafe`,
-  public APIs, tests, lints, and dependencies. Its documentation section covers doc comments and
-  crate docs for docs.rs, a tested README for each crate on crates.io, and the docs.rs and
-  crates.io metadata. It relies on `writing.md` for doc comments and error messages, so adopt
-  both.
-- [`rules/kotlin.md`](rules/kotlin.md): how to write Kotlin as a senior engineer and work with
-  the user as a pair, covering type design, null safety, errors, coroutines and Flow, hostile
-  input, Java and platform interop, binary compatibility, KDoc and Dokka docs, module READMEs,
-  tests, lints, and Gradle builds. It relies on `writing.md` for KDoc and error messages, so
-  adopt both.
+- [`rules/rust.md`](rules/rust.md): how to write Rust as a senior engineer and work with the user as
+  a pair, covering type design, ownership, errors, text for users and its translations, hostile
+  input, concurrency, `unsafe`, public APIs, tests, lints, and dependencies. Its documentation
+  section covers doc comments and crate docs for docs.rs, a tested README for each crate on
+  crates.io, and the docs.rs and crates.io metadata. It relies on `writing.md` for doc comments and
+  error messages, so adopt both.
+- [`rules/kotlin.md`](rules/kotlin.md): how to write Kotlin as a senior engineer and work with the
+  user as a pair, covering type design, null safety, errors, coroutines and Flow, text for users and
+  its translations, hostile input, Java and platform interop, binary compatibility, KDoc and Dokka
+  docs, module READMEs, tests, lints, and Gradle builds. It relies on `writing.md` for KDoc and
+  error messages, so adopt both.
 - [`rules/android.md`](rules/android.md): how to build Android apps with Jetpack Compose as a
   senior mobile developer and work with the user as a pair, covering app architecture, Compose
   state and performance, adaptive layouts, accessibility, translations, lifecycle and process
@@ -52,12 +53,12 @@ has no details of its own: it uses the values of the rules it relies on.
   navigation, platform adaptation, accessibility, localization, platform channels, data and
   security, tests, and release. It relies on `writing.md`, and on `android.md`, `kotlin.md`, and
   `swift.md` for native code, so adopt those that apply.
-- [`rules/lua.md`](rules/lua.md): how to write Lua as a senior engineer and work with the user as
-  a pair, covering the differences between Lua 5.1, 5.4, 5.5, and LuaJIT, locals and modules,
-  tables and strings, numbers, errors and cleanup, metatables, coroutines inside a host's event
-  loop, performance, untrusted input, sandboxing code the program didn't ship, the C API and
-  LuaJIT's FFI, LuaCATS or LDoc docs, rockspecs, tests on every supported version, and lints. It
-  relies on `writing.md` for doc comments and error messages, so adopt both.
+- [`rules/lua.md`](rules/lua.md): how to write Lua as a senior engineer and work with the user as a
+  pair, covering the differences between Lua 5.1, 5.4, 5.5, and LuaJIT, locals and modules, tables
+  and strings, numbers, errors and cleanup, metatables, coroutines inside a host's event loop,
+  performance, text for users and its translations, untrusted input, sandboxing code the program
+  didn't ship, the C API and LuaJIT's FFI, LuaCATS or LDoc docs, rockspecs, tests on every supported
+  version, and lints. It relies on `writing.md` for doc comments and error messages, so adopt both.
 - [`rules/roadmap-and-docs.md`](rules/roadmap-and-docs.md): how to plan and document a project
   in the style of Nadir's `docs/` folder, covering the numbered core documents, a roadmap of
   milestones and checkable tasks with a backlog of triggers, append-only decision records,

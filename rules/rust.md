@@ -49,6 +49,9 @@ so they can fill them in.
   implementing `Display` and `std::error::Error`, mapped to exit codes in the CLI]
 - **Logging:** [FILL IN: how code reports diagnostics, for example the `tracing` crate or the
   project's own log macros, and which crates may print to stdout or stderr]
+- **Languages:** [FILL IN: the languages users see the program's text in, which are right to
+  left, where that text lives, for example Fluent files in `locales/<tag>/main.ftl`, and who
+  reviews translations, or "English only"]
 - **Concurrency:** [FILL IN: the threading and async model, for example `std::thread::scope`
   only, or `tokio` with the multi-threaded runtime, or "none"]
 - **Public API:** [FILL IN: crates whose public API other code depends on, and how breaking
@@ -162,6 +165,43 @@ so they can fill them in.
   and logs through the project's logging.
 - Only binary crates print, from their entry points, and only where the **Logging** value allows
   it.
+
+## Text for users and languages
+
+This section covers the text a binary shows people: its output, its help, and its errors as the
+user sees them. With "English only" as the **Languages** value, the first two points still apply,
+so the program can be translated later.
+
+- Keep user-facing text in the **Languages** location, and refer to it by an ID. Logs and the
+  `Display` text of library errors are for developers: keep them in English and out of the
+  translations, and translate an error only where a binary shows it to its user.
+- Rust's formatting doesn't depend on a locale: `format!("{:.2}", x)` writes `3.14` everywhere.
+  That suits text that programs read. For text people read, format numbers and dates with ICU4X
+  (the `icu` crate), if the **Dependency policy** allows it.
+- Find the user's language the way POSIX does: the first of `LC_ALL`, `LC_MESSAGES`, and `LANG`
+  that is set and not empty. Convert a value such as `es_ES.UTF-8` to a language tag (`es-ES`)
+  before you look up a translation, and treat `C` and `POSIX` as the source language.
+- Never build a sentence from pieces, and never choose a word form with `n == 1`. Mozilla's
+  Fluent (the `fluent-bundle` crate) selects on the plural categories of the Unicode Common
+  Locale Data Repository (CLDR), so each language writes the forms it needs:
+
+  ```text
+  files = { $count ->
+      [one] { $count } file
+     *[other] { $count } files
+  }
+  ```
+
+- `fluent-bundle` 0.16 wraps each inserted value in the invisible isolation marks FSI and PDI
+  (U+2068 and U+2069), so an Arabic name doesn't reorder the English sentence around it. Tests
+  that compare formatted text must expect the marks, or turn them off with
+  `bundle.set_use_isolating(false)` in the test.
+- A string's length isn't its width on screen. `.len()` counts bytes and `.chars().count()`
+  counts code points; a Chinese character takes two terminal columns, and some marks in Hindi and
+  Bengali, such as the virama, take none. Measure with the `unicode-width` crate, if the
+  **Dependency policy** allows it, before you align columns or cut text to fit.
+- Treat translations you write as drafts, and list their IDs in your report for a native speaker
+  to review.
 
 ## Untrusted input and arithmetic
 

@@ -51,6 +51,9 @@ so they can fill them in.
 - **C boundary:** [FILL IN: where Lua meets C, for example C modules that use the Lua C API,
   bindings in `ffi/` that use LuaJIT's foreign function interface (FFI), or the host program's
   embedding code, or "none"]
+- **Languages:** [FILL IN: the languages users see the program's text in, which are right to
+  left, where that text lives, for example a table for each language in `lang/<tag>.lua`, or the
+  **Host**'s own system, and who reviews translations, or "English only"]
 - **Untrusted input:** [FILL IN: the modules that read data from outside the program (files, the
   network, users), and where their limits are defined, or "none"]
 - **Sandbox:** [FILL IN: whether the program runs Lua it didn't ship (plugins, mods, user
@@ -313,6 +316,41 @@ Follow the **Errors** convention.
   through a local, on Lua 5.4.9 on an Intel Core i7-11800H.
 - Read memory use with `collectgarbage("count")`, in kilobytes. Tune the collector only after
   measuring, and only with the user's agreement.
+
+## Text for users and languages
+
+This section covers the text the program shows people, through the **Host** or a terminal. With
+"English only" as the **Languages** value, the first point still applies, so the program can be
+translated later.
+
+- Keep user-facing text in the **Languages** location, and look it up by key through one helper,
+  such as `t("files_deleted", { count = n })`, or through the **Host**'s system where it has one.
+  Keep log and error messages for developers in English, and out of the translations.
+- `string.format` can't reorder its arguments. It rejects `%1$s` with "invalid conversion", so a
+  translation would have to keep the source's word order. Use named placeholders instead, and
+  fill them with `gsub` and a table: `(msg:gsub("{(%w+)}", args))`. The parentheses keep only
+  the string, because `gsub` also returns a count. A name missing from `args` stays in the text
+  as `{name}`, where a test can catch it.
+- Lua has no plural rules. Never choose a word form with `n == 1`: write a function for each
+  language from the plural rules of the Unicode Common Locale Data Repository (CLDR), and test
+  each one at the numbers where its form changes. Arabic's six forms need at least 0, 1, 2, 3,
+  11, and 100, one number for each.
+- Lua formats with the C library's locale, which the standalone interpreter leaves at `"C"`, so
+  `string.format("%.2f", 1.5)` writes `1.50`. Don't call `os.setlocale` to format for a user:
+  it changes the whole process, and after `os.setlocale("fr_FR.UTF-8")`, `tostring(1.5)` writes
+  `1,5`. Format numbers and dates for people with the **Host**'s tools, or with code of your own.
+- Strings are bytes, as "Tables and strings" says. `string.upper`, `string.lower`, and `%a` in
+  patterns work one byte at a time, so they skip letters outside ASCII: `string.upper("é")`
+  returns `"é"`. Count and cut translated text with the `utf8` library (Lua 5.3 and later), never
+  with `#` and `string.sub`.
+- Check that the **Host** shapes text. Joining Arabic and Urdu letters, and combining the letters
+  and marks of Hindi and Bengali, needs a text shaper such as HarfBuzz, and not every game engine
+  or terminal has one.
+- Load translation files that ship with the program as modules. Load any other translation file,
+  such as one that players contribute, as data (JSON, for example) or through the **Sandbox**: a
+  translation written in Lua is code, as "Untrusted input" says.
+- Treat translations you write as drafts, and list their keys in your report for a native
+  speaker to review.
 
 ## Untrusted input
 

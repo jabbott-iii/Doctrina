@@ -50,6 +50,9 @@ so they can fill them in.
   an injected `java.time.Clock`, or `kotlin.time.Clock` with kotlinx-datetime]
 - **Logging:** [FILL IN: the logging facade and where code may log, for example an injected
   `Logger` with one Android sink, or SLF4J]
+- **Languages:** [FILL IN: the languages users see the program's text in, which are right to
+  left, where that text lives, for example `messages_<tag>.properties` bundles in
+  `src/main/resources`, and who reviews translations, or "English only"]
 - **Untrusted input:** [FILL IN: the modules that read data from outside the program (files, the
   network, other apps), and where their limits are defined, or "none"]
 - **Public API:** [FILL IN: the modules whose API other code depends on, whether they use
@@ -220,6 +223,48 @@ so they can fill them in.
   JVM, which throw on overflow, or check the bounds first.
 - Conversions lose data silently: `Long.toInt()` keeps only the low 32 bits, and
   `Double.toInt()` clamps out-of-range values and turns `NaN` into 0.
+
+## Text for users and languages
+
+This section covers text that Kotlin code shows people outside Android's resources: a server's
+responses, a desktop app, or a command-line tool. Android apps follow `android.md`, and code
+shared with iOS follows `kotlin-multiplatform.md`. With "English only" as the **Languages**
+value, the first three points still apply, so the program can be translated later.
+
+- Keep user-facing text in the **Languages** location, and refer to it by key. Log and exception
+  messages are for developers: keep them in English, and out of the translations.
+- Translate at the edge. Domain code returns result types and error codes, as the **Errors**
+  pattern says, and the layer that talks to the user turns them into text in the user's
+  language. A server takes that language from the request (`Accept-Language`, or the user's
+  setting), never from `Locale.getDefault()`, which is the JVM's.
+- Pass a `Locale` to everything that formats. `"%.2f".format(x)` uses the JVM's default locale,
+  so it writes `3,14` on a French machine. Use `Locale.ROOT` for text that programs read, and the
+  user's locale for text people read. Make a locale from its tag with
+  `Locale.forLanguageTag("zh-Hans")`.
+- A `ResourceBundle` reads `messages_es.properties` and the bundle's other files, and looks up a
+  key it lacks in the parent files (`messages_es_MX`, then `messages_es`, then `messages`). For a
+  language with no file, it first tries the JVM's default locale: on a French server, an
+  Indonesian user gets French. Load bundles with
+  `ResourceBundle.Control.getNoFallbackControl(Control.FORMAT_PROPERTIES)`, which falls back to
+  `messages.properties` instead. Java 9 and later read these files as UTF-8 (JDK Enhancement
+  Proposal (JEP) 226); older releases need `\uXXXX` escapes.
+- `java.text.MessageFormat` treats a single quote as the start of quoted text, so
+  `l'application {0}` comes out as `lapplication {0}`. Pass every message through it, arguments
+  or not, so translators follow one rule: write `''` for each apostrophe.
+- Never build a sentence from pieces, and never choose a word form with `n == 1`. The JDK has no
+  public API for the Unicode Common Locale Data Repository (CLDR) plural rules, and
+  `ChoiceFormat` compares a number with ranges, so it can't express a rule that depends on the
+  last digits, such as Arabic's `few` (3–10, 103–110, and so on). Use ICU4J's `MessageFormat`,
+  with `{0, plural, one {# file} other {# files}}`, if the **Dependency policy** allows it.
+- The JDK's `DecimalFormat` uses one grouping size, so `NumberFormat.getInstance` writes
+  `1,234,567.89` for Hindi, where CLDR gives `12,34,567.89`. Use ICU4J's `NumberFormat` where
+  Indian grouping matters. Format dates with
+  `DateTimeFormatter.ofLocalizedDate(FormatStyle.MEDIUM).withLocale(locale)`.
+- Sort text that people read with `Collator.getInstance(locale)`. `sorted()` compares UTF-16
+  code units, so it puts every capital letter before every lowercase one, and accented letters
+  after `z`: `"Zoé"` comes before `"zapato"`, and both before `"ábaco"`.
+- Treat translations you write as drafts, and list their keys in your report for a native
+  speaker to review.
 
 ## Untrusted input
 

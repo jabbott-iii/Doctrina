@@ -32,6 +32,9 @@ so they can fill them in.
 - **Templates:** [FILL IN: the template language and its helpers for URLs and escaping, for
   example Liquid with `relative_url`, `absolute_url`, `| escape`, and `| jsonify`, or "none" for
   plain HTML]
+- **Languages:** [FILL IN: the languages the site ships, which are right to left, where each
+  language's pages or strings live, for example a folder per language (`/es/`, `/ar/`) or JSON
+  files for i18next, and who reviews translations, or "English only"]
 - **Stylesheets:** [FILL IN: where styles live, for example `assets/css/style.css`]
 - **Design tokens:** [FILL IN: where the CSS custom properties are defined, with a few of their
   names, for example `:root` in `assets/css/style.css` with `--teal`, `--text-2`, and `--gutter`]
@@ -269,6 +272,46 @@ so they can fill them in.
 - Respect `prefers-reduced-motion` for scrolling and animation. Don't leave `console.log` calls
   behind.
 
+## Languages
+
+Follow this section when the **Languages** value lists more than one language. With "English
+only", the first two points still apply, so the site can be translated later.
+
+- Set `lang` and `dir` from the **Page head**: `lang` to the page's language tag (`es`,
+  `zh-Hans`), and `dir="rtl"` on `<html>` for Arabic and Urdu. Browsers use `lang` to choose
+  fonts and glyphs, and screen readers to choose a voice (WCAG 3.1.1, Language of Page).
+- Lay out with logical properties and values, as the CSS section says: `margin-inline-start`,
+  not `margin-left`, and `text-align: start`, not `left`. Flexbox and grid already follow the
+  page's direction. On right-to-left pages, mirror icons that point forward or back, such as
+  arrows and chevrons.
+- Keep the text that scripts show, such as "3 results" or an error, out of the script's code. Put
+  it in the page, for example in a `<script type="application/json">` block that the template
+  fills for each language, or in the string files the **Languages** value names.
+- Never build a sentence from pieces, and never choose a word form with `n === 1`. Count with
+  `Intl.PluralRules`, which knows each language's forms: `new Intl.PluralRules("ar").select(3)`
+  returns `"few"`. Format numbers, dates, and lists with `Intl.NumberFormat`,
+  `Intl.DateTimeFormat`, and `Intl.ListFormat` in the page's language
+  (`document.documentElement.lang`).
+- Wrap text whose direction you can't know, such as a user's name inside a sentence, in
+  `<bdi>`, and give free-text inputs `dir="auto"`. Otherwise an Arabic name in an English
+  sentence, or a Latin one in an Arabic sentence, can reorder the words around it.
+- Link each page's translations to each other in the **Page head**: every version lists every
+  version, itself included, with `<link rel="alternate" hreflang="…" href="…">`, and
+  `hreflang="x-default"` names the page for readers whose language the site doesn't have.
+- Name each language in itself in the language menu ("Español", "العربية"), with `lang` and
+  `hreflang` on each link. Don't use flags: a flag stands for a country, and Spanish, Arabic, and
+  Portuguese are each spoken in many. Never choose the language from the reader's location. Once
+  a reader picks one, keep them in it: each page links to the same language's other pages.
+- Make sure the fonts cover every script the site ships, and ask before adding one, as "Working
+  as a pair" says. Give a script's font a `unicode-range` in `@font-face`, so browsers download
+  it only for pages that use its characters. Check the line height, too: Urdu's Nastaliq style,
+  and the marks above and below Devanagari and Bengali letters, often need more than Latin text.
+- Leave room for longer text. Translations of labels up to 10 characters can run two to three
+  times the English length, so let buttons and labels grow and wrap instead of setting their
+  width.
+- Treat translations you write as drafts, and list the pages and strings in your report for a
+  native speaker to review.
+
 ## Security and privacy
 
 - Never put outside data (API responses, URL parameters, user input) into `innerHTML`,
@@ -334,8 +377,10 @@ so they can fill them in.
    requests, and the page for broken links.
 7. Check the page in each browser engine the **Browser support** covers that you can run:
    Chromium (Chrome and Edge), Gecko (Firefox), and WebKit (Safari). Say which you couldn't.
-8. If you changed a config file, a data file, or front matter, check that it parses with the
+8. If you changed a page that has translations, check it in each language the **Languages**
+   value lists, a right-to-left one included, at the widths in step 2.
+9. If you changed a config file, a data file, or front matter, check that it parses with the
    command in `writing.md`.
-9. Check changed page text against `writing.md`, including its two-reader check.
-10. Review your diff as described in "Working as a pair", then report what you checked, what you
+10. Check changed page text against `writing.md`, including its two-reader check.
+11. Review your diff as described in "Working as a pair", then report what you checked, what you
     didn't, and what remains.
