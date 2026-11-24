@@ -145,6 +145,16 @@ has no details of its own: it uses the values of the rules it relies on.
   language gets a sheet with its glossary and a review list for a fluent reviewer. A later run
   translates only the strings that changed. It relies on `writing.md`, `commits.md`, and the
   platform rules, and uses `roadmap-and-docs.md` where it is adopted.
+- [`skills/set-up-github/`](skills/set-up-github/SKILL.md): `/set-up-github [pieces]` writes
+  the files GitHub reads, fitted to the project: a CodeQL code-scanning workflow with every action
+  pinned to a commit, a Dependabot configuration for each package manager it finds, `SECURITY.md`,
+  `CONTRIBUTING.md`, issue forms, a pull request template, and `CODEOWNERS`. It also writes a
+  `.gitignore` from the adopted language rules, which keeps build output and secrets out and lock
+  files and the Gradle wrapper in. It takes code owners, security contacts, and promises only from
+  you, merges into existing files instead of replacing them, and lists the repository settings
+  that only an administrator can change rather than changing them. It relies on `commits.md`,
+  `writing.md`, and the language rules, and uses `roadmap-and-docs.md` and
+  `teaching-materials.md` where they are adopted.
 
 ## Adopt a rule in a repository
 
