@@ -1,0 +1,35 @@
+name: "Erratum report"
+description: "Report a wrong fact, a broken example, or a wrong answer in course materials."
+labels: ["erratum"]
+body:
+  - type: markdown
+    attributes:
+      value: "Confirmed corrections are recorded in the course's ERRATA.md. Leave students'
+        names, grades, and submissions out of this report."
+  - type: input
+    id: material
+    attributes:
+      label: "Material"
+      description: "The course and the file, such as LUA101, modules/03-tables/index.md."
+    validations:
+      required: true
+  - type: input
+    id: location
+    attributes:
+      label: "Where in it"
+      description: "The section, cell, question, or line."
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: "What is wrong"
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: "What shows it"
+      description: "A source, the output of the code, or the correct answer, with how you found it."
+    validations:
+      required: true

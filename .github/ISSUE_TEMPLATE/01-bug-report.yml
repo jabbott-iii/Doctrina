@@ -1,0 +1,52 @@
+name: "Bug report"
+description: "Report a rule, skill, command, or piece of code that doesn't work as it says."
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "To report a security vulnerability, don't use this form: follow the
+        [security policy](https://github.com/jabbott-iii/Doctrina/security/policy) instead.
+        Leave passwords, tokens, and personal data out of this report. For a mistake in course
+        materials, use the erratum report."
+  - type: dropdown
+    id: area
+    attributes:
+      label: "What's affected"
+      options:
+        - "A rule"
+        - "A skill"
+        - "Course code, such as a lab helper or a grading tool"
+        - "README.md or AGENTS.md"
+        - "Something else"
+    validations:
+      required: true
+  - type: input
+    id: file
+    attributes:
+      label: "File"
+      description: "The path of the file, such as rules/writing.md."
+    validations:
+      required: true
+  - type: input
+    id: commit
+    attributes:
+      label: "Commit"
+      description: "The commit you used, which `git log -1 --format=%h` prints."
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Steps to reproduce"
+      description: "What you did, and the agent and its version if a rule or skill is involved."
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: "What you expected, and what happened instead"
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: "Error messages or output"
+      render: "text"

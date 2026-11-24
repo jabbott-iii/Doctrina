@@ -1,0 +1,38 @@
+name: "Feature request"
+description: "Propose a new rule, skill, or course, or a change to an existing one."
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: "For a large change, agree on it here before you write it, as
+        [CONTRIBUTING.md](https://github.com/jabbott-iii/Doctrina/blob/main/CONTRIBUTING.md)
+        describes."
+  - type: dropdown
+    id: kind
+    attributes:
+      label: "Kind of proposal"
+      options:
+        - "A new rule"
+        - "A new skill"
+        - "A new course, workbook, or article"
+        - "A change to an existing rule, skill, or course"
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: "The problem it solves"
+      description: "What goes wrong, or takes too long, without it."
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: "What you propose"
+      description: "What it would do, and for whom."
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternatives you considered"

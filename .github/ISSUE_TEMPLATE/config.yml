@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: "Report a security vulnerability"
+    url: "https://github.com/jabbott-iii/Doctrina/security/advisories/new"
+    about: "Report it privately, as the security policy describes."
+  - name: "Ask a question"
+    url: "https://github.com/jabbott-iii/Doctrina/discussions"
+    about: "Ask and answer questions in Discussions."
