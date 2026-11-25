@@ -134,8 +134,9 @@ Each module objective serves the course objective in brackets.
   loop variables.
 - **LO-5.2:** Implement higher-order functions (map, filter, reduce, compose) and memoization with
   closures.
-- **LO-5.3:** Write stateful and stateless iterators for the generic `for`, and explain the three
-  values the generic `for` keeps.
+- **LO-5.3:** Write stateful and stateless iterators for the generic `for`, and explain the four
+  values the generic `for` keeps: the iterator function, the state, the control value, and the
+  closing value.
 
 **Module 6: Errors, modules, and tests** [LO-4]
 
@@ -505,7 +506,7 @@ Choices made while building, on 2026-11-23, within the approved plan:
 - **LO-5.3's wording:** the objective says the generic `for` keeps three values, but Lua 5.4
   keeps four: the iterator function, the state, the control value, and a closing value. Module 5
   teaches all four, the three that drive the loop first; the objective's wording is the
-  instructor's to change.
+  instructor's to change. Resolved on 2026-11-25: the instructor approved naming all four.
 - **Two builds of Lua 5.4:** hererocks builds the standalone `lua` with `LUA_COMPAT_5_3`, as the
   makefile in Lua's own source release does (checked in 5.4.4), so it has `math.pow` and derives
   `<=` from `__lt`; lupa's Lua has neither. The standalone `lua` also starts its garbage collector
@@ -593,6 +594,35 @@ Choices made on 2026-11-25, within the instructor's decisions above:
   and no model-solution code; its only lines shared with the hidden tests are in the published
   example specs.
 
+## Gaps closed on 2026-11-25
+
+A review on 2026-11-25 found topics that an advanced Lua course should teach and LUA101 didn't. The
+instructor approved closing them. Each fits an existing objective, so no objective was added:
+
+- **`_ENV`** (LO-14.2), at the start of Module 14's "The environment": globals as fields of
+  `_ENV`, `local _ENV` for a block, and `load`'s environment argument as the chunk's `_ENV`. Lua
+  5.1 and LuaJIT have no `_ENV`; with lupa's runtimes, `local _ENV = {}` left their globals
+  unchanged. Exercise 14.8, and two rows in the versions table.
+- **LuaJIT's FFI** (LO-14.1), a section of Module 14 after "Detect features, not versions":
+  `ffi.cdef`, `ffi.C`, `ffi.new`, 0-based arrays, and detection with `pcall(require, "ffi")`. On
+  lupa's LuaJIT 2.1, `strlen` came back as `5ULL`, a read past an array's end raised no error, and
+  `#` and `ipairs` on a C array raised errors. Two claims cite LuaJIT's documentation, confirmed on
+  2026-11-25: FFI calls can be inlined in compiled code, unlike C API calls (`ext_ffi.html`), and
+  the FFI allows out-of-bounds access (`ext_ffi_semantics.html`). Exercise 14.7. Module 14 now
+  takes about 10 hours.
+- **`package.searchers`** (LO-6.2), in Module 6 after "How `require` finds and keeps modules": the
+  four searchers, the loader's second argument (`:preload:` for `package.preload`), and a searcher
+  of one's own. Exercise 6.8.
+- **`string.pack` and `string.unpack`** (LO-10.3), in Module 10's "Data formats". Lua 5.1 and
+  LuaJIT lack them; `i16` is the widest integer code. Exercise 10.7.
+- **LO-5.3** now names all four values the generic `for` keeps.
+- **LPeg is still missing.** Its rockspec on LuaRocks (1.1.0-2) downloads its source from LPeg's
+  home server, which refused connections on 2026-11-25. LuaRocks.org also showed a notice of a
+  security incident in September 2026. LPeg isn't installed, so no example could be run.
+
+Every new example and answer ran on Lua 5.4.8 or lupa's LuaJIT 2.1, and printed what the text
+says. The labs are unchanged.
+
 ## Build checklist
 
 Tick each line once its piece passes its checks.
@@ -628,3 +658,6 @@ Tick each line once its piece passes its checks.
 - [x] Self-test 1 and Self-test 2, from the exams, with Question 20 added
 - [x] Capstone project: brief, checkpoints, rubric, and reviewers' notes
 - [x] Self-paced edition: whole-course checks
+- [x] Gaps: `_ENV` and LuaJIT's FFI (Module 14), `package.searchers` (Module 6), `string.pack`
+  (Module 10), and LO-5.3's wording
+- [ ] Gap: LPeg in Module 4, waiting on how to install LPeg

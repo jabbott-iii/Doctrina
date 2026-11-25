@@ -189,6 +189,54 @@ Two consequences catch people out:
   to the file that calls `require`. A program run from another folder can fail to find a module
   that sits next to it.
 
+### Every place `require` looks
+
+Searching `package.path` is one of four ways `require` finds a module. It asks each function in
+the list `package.searchers` in turn, and the first one that finds the module wins. The error
+above has a line from each searcher it asked:
+
+1. **`package.preload`**, a table of loader functions by module name. A program that carries a
+   module inside itself, instead of in a file, registers it here.
+2. **Lua files,** along `package.path`, as the previous section describes.
+3. **C libraries,** along `package.cpath`, which is how Module 13 loads a module compiled from C.
+4. **One C library for several modules:** for `require("a.b")`, the library for `a`, if it has a
+   function named `luaopen_a_b`.
+
+A loader is a function that runs the module and returns its value. It receives the module's name,
+and a second value from the searcher that found it, which `require` also returns as its second
+result: the file's path for a file, and the string `":preload:"` for `package.preload`.
+
+```lua
+package.preload.greet = function(name, extra)
+  return { hello = function() return "hi from " .. name .. " (" .. extra .. ")" end }
+end
+print(require("greet").hello())   --> hi from greet (:preload:)
+```
+
+A searcher of your own is a function that takes the module's name and returns a loader and the
+second value. If it can't find the module, it returns a string saying why, and `require` adds that
+string to its error message. This one serves modules kept in a table of source text, as a program
+bundled into one file might:
+
+```lua
+local sources = { shapes = "local M = {} function M.area(w, h) return w * h end return M" }
+
+table.insert(package.searchers, 2, function(name)   -- after preload, before the files
+  local code = sources[name]
+  if not code then return "no embedded module '" .. name .. "'" end
+  return assert(load(code, "=" .. name, "t")), "embedded:" .. name
+end)
+
+local shapes, where = require("shapes")
+print(shapes.area(3, 4), where)   --> 12  embedded:shapes
+```
+
+After this, `require("nope")` reports `no embedded module 'nope'` between the line for
+`package.preload` and the lines for files. Tests use the first searcher in a simpler way: setting
+`package.loaded.clock`, or `package.preload.clock`, before the code under test requires `clock`
+gives that code a stand-in instead of the real module. Lua 5.1 and LuaJIT call the list
+`package.loaders`.
+
 ## Testing with busted
 
 A **unit test** calls one function with chosen inputs and checks its results. busted, installed
@@ -296,7 +344,8 @@ doesn't test that error. Lab 6 checks your tests this way.
 - `pcall(f, ...)` returns `true` and the results, or `false` and the error; `xpcall` calls a
   handler such as `debug.traceback` before the stack unwinds.
 - A module is a file that returns a table; `require` loads it once, from the first template in
-  `package.path` that matches, and caches it in `package.loaded`.
+  `package.path` that matches, and caches it in `package.loaded`. Before the files, it checks
+  `package.preload`, and a searcher of your own can be added to `package.searchers`.
 - busted runs `describe` and `it` blocks from spec files; test every function's normal cases,
   edges, and failures, and check that the tests fail when the code is broken.
 

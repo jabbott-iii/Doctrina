@@ -166,3 +166,70 @@ script is a problem because Redis runs a script atomically: the whole server is 
 runs, and no other client's command runs until it finishes. A script must do a small amount of work
 and return, as code for any host's event loop must.
 </details>
+
+### Exercise 14.7 (LO-14.1, ★★, about 15 minutes)
+
+This code runs on LuaJIT.
+
+```lua
+local ffi = require("ffi")
+local a = ffi.new("int[?]", 3)
+for i = 1, 3 do a[i - 1] = i * 10 end
+print(a[0], a[2], ffi.sizeof(a))
+```
+
+1. What does the last line print on LuaJIT?
+2. What happens on Lua 5.4, and why?
+3. A teammate wants to return `a` from a function and let callers loop over it with `ipairs`. Give
+   two reasons not to.
+
+<details>
+<summary>Hint</summary>
+
+An `int` takes 4 bytes. For part 3, think about where the array starts, what checks its bounds, and
+what `ipairs` expects.
+</details>
+
+<details>
+<summary>Answer</summary>
+
+1. `10  30  12`. The loop fills indices 0, 1, and 2 with 10, 20, and 30, and three 4-byte `int`s
+   take 12 bytes.
+2. `require("ffi")` raises an error, `module 'ffi' not found`: only LuaJIT has the FFI. Portable
+   code calls `pcall(require, "ffi")` and keeps a plain-Lua path.
+3. Any two of these. The array starts at index 0, so a caller's 1-based loop misses the first item
+   and reads one past the end. Nothing checks its bounds, so that read returns whatever memory
+   follows, without an error. And it isn't a table: `ipairs(a)` raises an error that says the
+   array has no `__ipairs` metamethod, and `#a` raises one too.
+</details>
+
+### Exercise 14.8 (LO-14.2, ★★, about 15 minutes)
+
+Predict what this code prints on Lua 5.4. Then say why this `env` is no good for a sandbox.
+
+```lua
+count = 1
+local env = setmetatable({}, { __index = _G })
+local chunk = load("count = count + 1; seen = true; return count", "=chunk", "t", env)
+print(chunk(), count, env.count, seen, env.seen)
+```
+
+<details>
+<summary>Hint</summary>
+
+The chunk's globals are fields of `env`. Reading a field that `env` lacks goes through `__index`;
+writing one doesn't.
+</details>
+
+<details>
+<summary>Answer</summary>
+
+`2  1  2  nil  true`. In the chunk, `count` reads `env.count`, which isn't there, so `__index`
+finds the global `count`, 1. The assignment then stores 2 in `env` itself, because only reading
+goes through `__index`. So the global `count` stays 1, and `seen` exists only in `env`.
+
+This `env` lets a chunk read every global, so `load("return os.remove", "=x", "t", env)()` returns
+the real `os.remove`. The pattern suits code you trust that should keep its own globals, never a
+sandbox, which must start from an allowlist.
+</details>
+

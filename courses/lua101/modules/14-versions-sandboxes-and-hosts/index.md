@@ -3,7 +3,7 @@
 **Objectives:** LO-14.1, LO-14.2, LO-14.3\
 **Prerequisites:** [Module 6](../06-errors-modules-and-tests/index.md),
 [Module 9](../09-coroutines/index.md), and [Module 10](../10-files-os-and-data/index.md)\
-**Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 14](lab14.ipynb), 1.5 for the
+**Time:** about 10 hours: 3 for this reading, 2 for [Lab 14](lab14.ipynb), 2 for the
 [practice](practice.md), and 3 for [Self-test 2](../../self-tests/self-test-2.md), which follows
 this module
 
@@ -39,6 +39,8 @@ The differences that matter most, measured in the course's notebook environment:
 | Unpacking a list | `unpack` | `unpack` | `table.unpack` | `table.unpack` |
 | `table.pack`, `utf8`, `math.type` | None | None | All | All |
 | `load` with a string, a mode, and an environment | No: `loadstring` and `setfenv` | Yes | Yes | Yes |
+| `_ENV` | No: `setfenv` | No: `setfenv` | Yes | Yes |
+| The `ffi` library | No | Yes | No | No |
 | `string.format("%d", 3.5)` | `3` | `3` | Error: no integer representation | Same error |
 | `tostring(0.1 + 0.2)` | `0.3` | `0.3` | `0.3` | `0.30000000000000004` |
 
@@ -95,6 +97,74 @@ integers above $2^{53}$, about $9 \times 10^{15}$, lose precision. Code that han
 such as database keys or the current time in nanoseconds (about $1.8 \times 10^{18}$), needs Lua
 5.3 or later. And the loader differs in safety, which the next section explains.
 
+## LuaJIT's FFI
+
+LuaJIT has an extension that the other Luas lack: the **FFI library** (foreign function
+interface). It lets Lua code declare C types and functions in C's own syntax, call C functions
+directly, and allocate C data. It does the job of Module 13's C modules without writing or
+compiling any C:
+
+```lua
+local ffi = require("ffi")
+ffi.cdef[[
+size_t strlen(const char *s);
+int abs(int n);
+]]
+print(ffi.C.strlen("hello"), ffi.C.abs(-7))   --> 5ULL  7
+```
+
+`ffi.cdef` reads C declarations, here of two functions from the C standard library. `ffi.C` is the
+namespace of the C library the program already uses, so `ffi.C.strlen` calls C's own `strlen`.
+Each result comes back by its C type. An `int` becomes a Lua number. A `size_t` is a 64-bit
+integer, which LuaJIT's numbers can't always hold exactly, so it stays a **cdata**, a C value that
+Lua holds, and prints as `5ULL`; `tonumber` turns it into a number.
+
+`ffi.new` allocates C data, filled with zeros, which the garbage collector frees once nothing
+refers to it. A C array is indexed from 0, not 1:
+
+```lua
+local squares = ffi.new("double[?]", 4)   -- four doubles; the ? takes its size from the 4
+for i = 0, 3 do squares[i] = (i + 1) ^ 2 end
+print(squares[3], ffi.sizeof(squares))     --> 16  32
+```
+
+The FFI trades safety for speed. LuaJIT's documentation says that calls to C functions can be
+inlined in JIT-compiled code (built into the machine code that LuaJIT generates, with no stack in
+between), unlike calls to functions bound through the classic C API. It also says that the FFI does
+nothing to stop you from accessing arrays out of bounds or misdeclaring C functions. So
+`squares[10]` reads whatever memory lies past the end, without an error, and a wrong `cdef` can
+crash the whole process. LuaJIT does check conversions: `squares[0] = "x"` raises
+`cannot convert 'string' to 'double'`. And a C array isn't a table: `#squares` and
+`ipairs(squares)` raise errors.
+
+Only LuaJIT has the FFI, so portable code detects it, as the previous section does for other
+features, and keeps a plain-Lua path:
+
+```lua
+local has_ffi, ffi = pcall(require, "ffi")
+
+-- The sum of the first n squares: in a C array on LuaJIT, in a Lua table elsewhere.
+local function sum_of_squares(n)
+  local total = 0
+  if has_ffi then
+    local a = ffi.new("double[?]", n)   -- indexed from 0
+    for i = 0, n - 1 do a[i] = (i + 1) ^ 2 end
+    for i = 0, n - 1 do total = total + a[i] end
+  else
+    local a = {}                        -- indexed from 1
+    for i = 1, n do a[i] = i ^ 2 end
+    for i = 1, n do total = total + a[i] end
+  end
+  return total
+end
+
+print(sum_of_squares(4))   --> 30 on LuaJIT and 5.1, and 30.0 on 5.4
+```
+
+The two branches index differently, which is the commonest bug in code that uses the FFI. Keep C
+arrays behind a function like this one, so the rest of the program never sees an array that starts
+at 0 and has no bounds.
+
 ## Sandboxes
 
 A **sandbox** runs code you don't trust, such as a plugin or a user's script, so that it can do
@@ -110,13 +180,32 @@ one way the code could do harm:
 
 ### The environment
 
-`load(code, "=plugin", "t", env)` compiles the plugin with `env` as its globals, so the plugin
-sees only what `env` holds. Build `env` from an **allowlist**, a list of what plugins may use, never
-by copying `_G` and deleting what looks dangerous: a list of what to remove misses whatever you
-didn't think of, and whatever a later version adds. A typical allowlist holds `assert`, `error`,
-`ipairs`, `next`, `pairs`, `print`, `select`, `tonumber`, `tostring`, and `type`, and copies of
-the `string`, `table`, and `math` tables, so that a plugin that changes `string.upper` changes only
-its own copy.
+Every global name goes through a table. In Lua 5.4, the compiler turns each name that isn't a local
+into a field of `_ENV`, a variable that every chunk has from its start: `x = 1` compiles to
+`_ENV.x = 1`, and `print(x)` to `_ENV.print(_ENV.x)`. `_ENV` starts as the global table, `_G`,
+which is why every chunk shares the same globals. A block can declare an `_ENV` of its own:
+
+```lua
+local print = print            -- keep print: inside the block, globals come from the new table
+do
+  local _ENV = { x = 10 }
+  y = x * 2                    -- reads and writes the table, not the globals
+  print(x, y)                  --> 10  20
+end
+print(y)                       --> nil: the global table has no y
+```
+
+Lua 5.1 and LuaJIT have no `_ENV`. There, `local _ENV = {}` is an ordinary local that changes
+nothing, and `setfenv(f, env)` sets a function's environment instead.
+
+`load`'s fourth argument does for a whole chunk what `local _ENV` does for a block: it becomes the
+chunk's `_ENV`. So `load(code, "=plugin", "t", env)` compiles the plugin with `env` as its globals,
+and the plugin sees only what `env` holds. Build `env` from an **allowlist**, a list of what plugins
+may use, never by copying `_G` and deleting what looks dangerous: a list of what to remove misses
+whatever you didn't think of, and whatever a later version adds. A typical allowlist holds `assert`,
+`error`, `ipairs`, `next`, `pairs`, `print`, `select`, `tonumber`, `tostring`, and `type`, and
+copies of the `string`, `table`, and `math` tables, so that a plugin that changes `string.upper`
+changes only its own copy.
 
 Each function left out has a reason:
 
@@ -269,6 +358,8 @@ show that you understood the API correctly, so try the plugin in the real host t
 
 | Belief | What is true | Example that breaks it |
 | :- | :- | :- |
+| FFI arrays work like Lua tables | They start at 0, have no bounds checks, and aren't tables | `squares[10]` reads past the end without an error; `#squares` raises one |
+| A global variable is a variable of its own | It is a field of `_ENV`, which is the global table unless a block or `load` gives another | After `local _ENV = {}`, even `print` is `nil` |
 | `_VERSION` tells you what you can use | LuaJIT reports `Lua 5.1` and has features 5.1 lacks | `goto` works on LuaJIT |
 | A file can test for `//` before using it | A file with `//` doesn't compile on 5.1 at all | Compile newer syntax from a string with `load` |
 | Removing `os` and `io` from `_G` makes a sandbox | Whatever you didn't think of stays | `load("return os")()` |
@@ -281,6 +372,11 @@ show that you understood the API correctly, so try the plugin in the real host t
 
 - Lua 5.1, LuaJIT, 5.4, and 5.5 differ in numbers, syntax, and libraries. Portable code detects
   each feature it needs, and compiles newer syntax from a string only where it works.
+- LuaJIT's FFI calls C functions and allocates C data without the C API. Its arrays start at 0
+  and have no bounds checks, so keep them behind a function, and keep a plain-Lua path for the
+  other Luas.
+- Every global is a field of `_ENV`. `local _ENV` gives a block its own globals, and `load`'s
+  environment argument gives a chunk its own, which is what a sandbox's allowlist fills.
 - A sandbox combines an allowlist environment, `load` in text mode, and a hook in the plugin's own
   coroutine that limits instructions and memory and, once a limit is reached, raises an error at
   every instruction. A `pcall` that passes the sandbox's errors and stack overflows on closes the
@@ -345,6 +441,13 @@ show that you understood the API correctly, so try the plugin in the real host t
   and the same section of the
   [Lua 5.4 manual](https://www.lua.org/manual/5.4/manual.html#8), for every change that can break
   code moving forward one version.
+- The *Lua 5.4 Reference Manual*,
+  [section 2.2, Environments and the Global Environment](https://www.lua.org/manual/5.4/manual.html#2.2),
+  for `_ENV` and how the compiler uses it.
+- LuaJIT's [FFI Library](https://luajit.org/ext_ffi.html) pages, with their
+  [tutorial](https://luajit.org/ext_ffi_tutorial.html) and the
+  [FFI semantics](https://luajit.org/ext_ffi_semantics.html), which list every conversion between
+  Lua and C values and say plainly what the FFI doesn't check.
 - The Neovim documentation on [its Lua engine](https://neovim.io/doc/user/lua/) and
   [its API](https://neovim.io/doc/user/api/), for `vim.schedule`, textlock, and the buffer
   functions' indexing.

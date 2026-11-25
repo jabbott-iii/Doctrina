@@ -150,3 +150,39 @@ the string methods are still reachable through every string's metatable, so
 is only data, such as CSV or JSON, and read them with a parser that never runs them. Module 14
 shows how to limit a chunk that must run, with a hook that counts instructions.
 </details>
+
+### Exercise 10.7 (LO-10.3, ★★, about 15 minutes)
+
+A game saves each score as `string.pack(">I4 s1", score, name)`.
+
+1. How many bytes does `string.pack(">I4 s1", 1000, "Ada")` take?
+2. Write `read_score(data)`, which returns the score and the name, or `nil` and a message when the
+   data is too short, without raising an error.
+3. A file holds many of these records, one after another. How does a reader find where the second
+   one starts?
+
+<details>
+<summary>Hint</summary>
+
+`string.unpack` raises an error on data that is too short, and its last result is a position.
+</details>
+
+<details>
+<summary>Answer</summary>
+
+1. 8: 4 bytes for the score, 1 for the name's length, and 3 for "Ada".
+2. Catch the error with `pcall`, which also passes on every result of `unpack`:
+
+   ```lua
+   local function read_score(data)
+     local ok, score, name = pcall(string.unpack, ">I4 s1", data)
+     if not ok then return nil, score end   -- on failure, score holds the message
+     return score, name
+   end
+   ```
+
+   With the first 6 bytes of a record, it returns `nil` and
+   `bad argument #2 to 'string.unpack' (data string too short)`.
+3. `string.unpack(">I4 s1", data)` returns the score, the name, and the position just after the
+   record, 9 for the record above. Pass that position as the third argument of the next `unpack`.
+</details>

@@ -253,3 +253,40 @@ the first and last items. It gives 3 and 7, but `mean({ 1, 2, 6 })` gives 3.5 in
 Every test should be able to fail for some wrong version, and a set of tests is strong when no
 small mistake passes all of them.
 </details>
+
+### Exercise 6.8 (LO-6.2, ★★, about 15 minutes)
+
+A file `config.lua`, on the path, returns `{ debug = false }`. A program runs these lines in order:
+
+```lua
+package.preload.config = function() return { debug = true } end
+print(require("config").debug)   -- (a)
+package.loaded.config = nil
+print(require("config").debug)   -- (b)
+package.preload.config = nil
+package.loaded.config = nil
+print(require("config").debug)   -- (c)
+```
+
+1. What do lines (a), (b), and (c) print?
+2. A test must make `require("clock")` return `{ now = function() return 0 end }` for the code
+   under test, without a file. Write the line it needs.
+
+<details>
+<summary>Hint</summary>
+
+`require` checks `package.loaded` first, then asks the searchers in order, and `package.preload`
+is the first of them.
+</details>
+
+<details>
+<summary>Answer</summary>
+
+1. `true`, `true`, and `false`. In (a), the first searcher finds the loader in `package.preload`
+   before any file is tried. In (b), clearing `package.loaded.config` makes `require` search again,
+   and `package.preload` still wins. In (c), with both cleared, the file searcher finds
+   `config.lua`.
+2. `package.loaded.clock = { now = function() return 0 end }`, before the code under test runs
+   `require("clock")`. Setting `package.preload.clock` to a function that returns the table works
+   too.
+</details>

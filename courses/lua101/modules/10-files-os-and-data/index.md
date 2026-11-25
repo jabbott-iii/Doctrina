@@ -213,6 +213,42 @@ That is still not safe for data from strangers: the chunk can loop forever, or f
 as much as your program, such as its own save files. For anything else, use a format that is only
 data, such as CSV, and a parser that reads it without running it.
 
+### Binary data with `string.pack`
+
+CSV and `%q` write text, but many formats are binary: file headers, network messages, and other
+programs' save files store each number in a fixed number of bytes. `string.pack(fmt, ...)` writes
+values into such a string, and `string.unpack(fmt, s)` reads them back. The format string lists one
+code for each value:
+
+| Code | Meaning |
+| :- | :- |
+| `<` and `>` | Little-endian or big-endian: whether a number's lowest byte comes first or last. Each applies to the codes after it |
+| `i4` and `I2` | A signed integer of 4 bytes, and an unsigned one of 2; any size from 1 to 16 |
+| `d` | A double, the 8-byte float that Lua uses |
+| `s1` | A string after its length, which takes 1 byte |
+| `z` | A string ended by a zero byte |
+
+```lua
+local record = string.pack("<I2 i4 d s1", 1, -5, 2.5, "ok")
+print(#record)                                --> 17
+print(string.unpack("<I2 i4 d s1", record))   --> 1  -5  2.5  ok  18
+```
+
+The record takes 2 + 4 + 8 bytes for the numbers, then 1 for the string's length and 2 for its
+text: 17. `unpack` returns the values and then the position just after the last byte it read, 18.
+In a file of records, that position is where the next one starts: pass it as `unpack`'s third
+argument to read on. The byte order matters as soon as another program reads the data. The number
+258 is the two bytes 1 and 2:
+
+```lua
+print(("%q"):format(string.pack(">I2", 258)))   --> "\1\2"
+print(("%q"):format(string.pack("<I2", 258)))   --> "\2\1"
+```
+
+Reading binary data runs no code, and `unpack` checks every length: a record cut short raises
+`data string too short`, so read data from outside inside `pcall`. Open binary files with the mode
+`"rb"` or `"wb"`, as "Files" explains. Lua 5.1 and LuaJIT have no `string.pack`.
+
 ## Common misconceptions
 
 | Belief | What Lua does | Example that breaks it |
@@ -237,6 +273,8 @@ data, such as CSV, and a parser that reads it without running it.
   quote it, in that order of preference.
 - CSV needs a real parser for quoted fields. `%q` writes values that read back exactly, but reading
   them back runs code: use text mode and an empty environment, and only for trusted data.
+- `string.pack` and `string.unpack` write and read binary data by a format string of codes, with
+  the byte order stated, and `unpack` returns the position where the next value starts.
 
 ## Self-check
 
@@ -292,7 +330,9 @@ data, such as CSV, and a parser that reads it without running it.
 - The *Lua 5.4 Reference Manual*, sections
   [3.3.8, To-be-closed Variables](https://www.lua.org/manual/5.4/manual.html#3.3.8),
   [6.8, Input and Output Facilities](https://www.lua.org/manual/5.4/manual.html#6.8), and
-  [6.9, Operating System Facilities](https://www.lua.org/manual/5.4/manual.html#6.9).
+  [6.9, Operating System Facilities](https://www.lua.org/manual/5.4/manual.html#6.9), and
+  [6.4.2, Format Strings for Pack and Unpack](https://www.lua.org/manual/5.4/manual.html#6.4.2),
+  for every code `string.pack` accepts.
 - Y. Shafranovich, [RFC 4180: Common Format and MIME Type for Comma-Separated Values (CSV)
   Files](https://www.rfc-editor.org/rfc/rfc4180), 2005. Two pages define the quoting rules that
   most programs follow.
