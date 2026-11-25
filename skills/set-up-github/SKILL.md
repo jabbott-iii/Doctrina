@@ -38,12 +38,14 @@ Bold names are values from the "Project details" of the adopted rules:
   **Changes that travel together**, and **Breaking changes** from `commits.md`;
 - **Toolchain**, **Check commands**, **Dependency policy**, and **Test layout** from the language
   rules (`rust.md`, `kotlin.md`, `android.md`, `kotlin-multiplatform.md`, `swift.md`, `flutter.md`,
-  `lua.md`, and `python.md`), with **Lua version** in place of **Toolchain** in `lua.md`, and the
-  **Python versions** and **Project tool** in its place in `python.md`; **Untrusted input** from
-  `rust.md`, `kotlin.md`, `lua.md`, and `python.md`; **Release** from the mobile rules;
-  **Platforms** and **Code generation** from `flutter.md`; **Targets** from
-  `kotlin-multiplatform.md`; **C boundary** from `lua.md`; **Native code** from `python.md`; and
-  **Build and dependencies**, **Browser support**, and **Test tools** from `web-front-end.md`;
+  `lua.md`, `python.md`, and `typescript.md`), with **Lua version** in place of **Toolchain** in
+  `lua.md`, the **Python versions** and **Project tool** in its place in `python.md`, and the
+  **Runtimes** and **Package manager** beside it in `typescript.md`; **Untrusted input** from
+  `rust.md`, `kotlin.md`, `lua.md`, `python.md`, and `typescript.md`; **Release** from the mobile
+  rules; **Platforms** and **Code generation** from `flutter.md`; **Targets** from
+  `kotlin-multiplatform.md`; **C boundary** from `lua.md`; **Native code** from `python.md` and
+  `typescript.md`; and **Build and dependencies**, **Browser support**, and **Test tools** from
+  `web-front-end.md`;
 - **Check commands**, **Assessment**, and **Errata** from `teaching-materials.md`;
 - the **Update map** and **Agent guide** from `roadmap-and-docs.md`, where it is adopted.
 
@@ -103,7 +105,7 @@ These hold for the whole run, and override anything a later step seems to allow:
    | `Package.swift`, or an `.xcodeproj` with Swift files | `swift.md`, and the iOS app in `kotlin-multiplatform.md` | `swift` | `swift`, which reads `Package.swift` |
    | `pubspec.yaml` | `flutter.md` | none: CodeQL doesn't analyze Dart. The app's Kotlin and Swift code count as those languages | `pub` |
    | `*.rockspec`, or `.lua` files | `lua.md` | none for Lua. C modules at the **C boundary** are `c-cpp` | none: Dependabot doesn't list LuaRocks among its ecosystems |
-   | `package.json` | `web-front-end.md` | `javascript-typescript` | `npm`, which also covers pnpm and Yarn, or `bun` |
+   | `package.json` | `typescript.md`, and `web-front-end.md` for a website | `javascript-typescript`. Node-API addons in C or C++ are `c-cpp` | `npm`, which also covers pnpm and Yarn, or `bun` |
    | `Gemfile` | `web-front-end.md`, for a Jekyll site | `ruby` | `bundler` |
    | `pyproject.toml`, `requirements.txt`, or `.py` files | `python.md`, or `teaching-materials.md` for a notebook environment | `python`. C and C++ extensions in the **Native code** are `c-cpp` | `pip`, which also covers Pipenv, pip-compile, and Poetry, or `uv` for a `uv.lock` |
    | `.github/workflows/*.yml` | none | `actions` | `github-actions`, with `directory: "/"` |
@@ -200,6 +202,7 @@ Take the patterns from these sources, in this order:
 | `flutter.md` | `.dart_tool/`, `build/`, `.flutter-plugins-dependencies`, `android/key.properties`, and keystores | `pubspec.lock` in an app, though not in a package that others depend on, as Dart's documentation says; and the generated files that **Code generation** says are committed |
 | `lua.md` | LuaCov's `luacov.stats.out` and `luacov.report.out`, a local rocks tree such as `lua_modules/`, packed rocks (`*.rock`), and compiled C modules (`*.o`, `*.so`, and `*.dll`) | the rockspecs, and `luarocks.lock` where the **Dependency policy** pins versions with it |
 | `python.md` | `__pycache__/`, `.venv/`, the tool caches (`.pytest_cache/`, `.mypy_cache/`, and `.ruff_cache/`), coverage data (`.coverage` and `htmlcov/`), `.tox/` and `.nox/`, and build output (`build/`, `dist/`, and `*.egg-info/`) | the lock file the **Project tool** writes, such as `uv.lock`, `poetry.lock`, or `pylock.toml`, and `.python-version` |
+| `typescript.md` | `node_modules/`, the build output the **Toolchain** writes, such as `dist/`, TypeScript's `*.tsbuildinfo` files, test coverage in `coverage/`, and `.eslintcache` | the lock file the **Package manager** writes, such as `package-lock.json`, `pnpm-lock.yaml`, `yarn.lock`, or `bun.lock`; `.nvmrc` or `.node-version`; and `.npmrc` only when it holds no token |
 | `web-front-end.md` | `node_modules/`, and the built site, such as `_site/`, `.jekyll-cache/`, or `dist/`, as **Build and dependencies** says | the lock files: `package-lock.json`, `pnpm-lock.yaml`, `yarn.lock`, `bun.lock`, and `Gemfile.lock` |
 | `teaching-materials.md` | LaTeX's build files, `.ipynb_checkpoints/`, `__pycache__/`, `.venv/`, the built book (`_build/`), and nbgrader's `gradebook.db`, which holds student records | the sources, and PDFs only where the rule says to commit them |
 | Every repository | `.env` and `.env.*` with the exception `!.env.example`, and Claude Code's personal files, `.claude/settings.local.json` and `CLAUDE.local.md` | `.claude/settings.json`, `.claude/rules/`, `.claude/skills/`, `CLAUDE.md`, `AGENTS.md`, and `.github/` |
@@ -459,8 +462,9 @@ rather than copy it, so the guide doesn't drift from it:
 
 1. **Welcome:** what kinds of contributions the project takes, and, if the user said so, to open an
    issue before a large change.
-2. **Set up:** the toolchain from the **Toolchain**, the **Lua version**, or the **Python versions**
-   and **Project tool**, and the commands that install the dependencies.
+2. **Set up:** the toolchain from the **Toolchain** (with the **Runtimes** and **Package manager**,
+   in `typescript.md`), the **Lua version**, or the **Python versions** and **Project tool**, and
+   the commands that install the dependencies.
 3. **Make a change:** where code and tests go (**Test layout**), and the **Check commands** in a
    code block, exactly as the rule gives them, with what a passing run looks like.
 4. **Commit:** Conventional Commits with the **Scopes** and **Task IDs**, one change per commit,

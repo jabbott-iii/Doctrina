@@ -21,8 +21,9 @@ Bold names are values from the "Project details" of the adopted rules:
 - **Git access**, **Done checks**, **Never commit**, **Push effect**, and **Breaking changes**
   from `commits.md`;
 - **Check commands**, **Test layout**, and **Dependency policy** from the language rules;
-  **Untrusted input** from `rust.md`, `kotlin.md`, `lua.md`, and `python.md`; **Unsafe policy**
-  from `rust.md`; **Sandbox** and **C boundary** from `lua.md`; **Native code** from `python.md`;
+  **Untrusted input** from `rust.md`, `kotlin.md`, `lua.md`, `python.md`, and `typescript.md`;
+  **Unsafe policy** from `rust.md`; **Sandbox** and **C boundary** from `lua.md`; **Native code**
+  from `python.md` and `typescript.md`;
   **Security controls** from `android.md`, `swift.md`, and `flutter.md`; **Exported components**
   and **Permissions** from `android.md`; **Platform channels** from `flutter.md`; **Networking**
   from `swift.md`; and **Test tools** and **Hosting** from `web-front-end.md`;
@@ -42,6 +43,7 @@ The language rules' own security sections are part of this sweep:
 | `flutter.md` | "Data, security, and generated code" |
 | `lua.md` | "Untrusted input", "Sandboxing code you didn't write", and "The C boundary" |
 | `python.md` | "Untrusted input", "Native code", and "Dependencies and packaging" |
+| `typescript.md` | "Untrusted input", "Native code", and "Dependencies and packages" |
 | `web-front-end.md` | "Security and privacy" |
 
 ## Ground rules
@@ -151,9 +153,9 @@ Trace data from each entry point in the threat model to each place it can do har
 query, a shell, a file path, the page, a deserializer, or an outgoing request. Start with the entry
 points that the most attackers can reach. Check the code against the language rules' security
 sections, then against this list. In Rust, read every `unsafe` block the **Unsafe policy** allows;
-in Lua, everything at the **C boundary**; and in Python, everything the **Native code** lists,
-because memory-safety bugs live there. The numbers are IDs in MITRE's Common Weakness Enumeration
-(CWE), which advisories and scanners use.
+in Lua, everything at the **C boundary**; and in Python and TypeScript, everything the
+**Native code** lists, because memory-safety bugs live there. The numbers are IDs in MITRE's
+Common Weakness Enumeration (CWE), which advisories and scanners use.
 
 | Class | CWE | What to look for |
 | --- | --- | --- |
@@ -170,13 +172,13 @@ because memory-safety bugs live there. The numbers are IDs in MITRE's Common Wea
 | Missing authentication or authorization | 306, 862, 639 | Actions with no sign-in check; checks made only in the client; objects looked up by an ID from the request without checking that this user may see them (an insecure direct object reference, IDOR) |
 | Cross-site request forgery (CSRF) | 352 | Requests that change state, authenticated by cookies alone, with no token and no `SameSite` cookie attribute |
 | Mass assignment | 915 | Request bodies bound straight onto models, so a caller can set a field such as `isAdmin` |
-| Prototype pollution | 1321 | JavaScript merging input objects into others, so a `__proto__` key changes every object |
+| Prototype pollution | 1321 | JavaScript merging input objects into others, so a `__proto__` key changes every object. `Object.assign` with an object from `JSON.parse` sets the target's own prototype from such a key |
 | Hard-coded credentials | 798 | Keys, passwords, and tokens in the code, config, or app bundle (see "Look for secrets") |
 | Weak cryptography | 327, 916, 338, 323 | Homemade cryptography; MD5 or SHA-1 used for security; DES or ECB mode; passwords hashed with anything but a password-hashing function; tokens from a random generator that isn't cryptographically secure; a nonce or initialization vector used twice with one key |
 | Timing leaks | 208 | Secrets and tokens compared with `==`, which returns at the first difference, instead of in constant time |
 | Broken Transport Layer Security (TLS) | 295, 319 | Certificate or host-name checks turned off, trust-all certificate managers, and plain HTTP for anything sensitive |
 | Resource exhaustion | 770, 1333, 409 | Sizes, counts, and recursion without limits; regular expressions and Lua patterns that backtrack for exponential or polynomial time on crafted input (regular expression denial of service, ReDoS); decompression without a size limit |
-| Memory safety | 787, 416, 190 | In `unsafe` code, foreign function interface (FFI) calls (LuaJIT's FFI and Python's `ctypes` and `cffi` included), the Lua C API, and C or C++: out-of-bounds writes, use after free, and integer overflow in sizes |
+| Memory safety | 787, 416, 190 | In `unsafe` code, foreign function interface (FFI) calls (LuaJIT's FFI and Python's `ctypes` and `cffi` included), Node-API addons, the Lua C API, and C or C++: out-of-bounds writes, use after free, and integer overflow in sizes |
 | Race conditions | 367 | Checking a file or a permission, then using it, when an attacker can change it in between (time-of-check to time-of-use, TOCTOU); temporary files at predictable paths |
 | Leaky logs and errors | 532, 209 | Secrets, tokens, and personal data in logs, crash reports, and analytics; stack traces and internal details in error responses |
 | Cookies | 614, 1004 | Session cookies without the `Secure` and `HttpOnly` attributes |

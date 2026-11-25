@@ -25,13 +25,13 @@ Bold names are values from the "Project details" of the adopted rules:
 - **Where text lives**, **Project name**, and **Names to spell exactly** from `writing.md`;
 - **Git access**, **Done checks**, **Never commit**, and **Scopes** from `commits.md`;
 - **Languages** from `android.md`, `swift.md`, `web-front-end.md`, `kotlin.md`, `rust.md`,
-  `lua.md`, and `python.md`, **Localization** from `flutter.md`, and **Resources** from
-  `kotlin-multiplatform.md`, which say which languages the app ships, where its strings live, and
-  who reviews translations;
+  `lua.md`, `python.md`, and `typescript.md`, **Localization** from `flutter.md`, and **Resources**
+  from `kotlin-multiplatform.md`, which say which languages the app ships, where its strings live,
+  and who reviews translations;
 - **Check commands**, **Dependency policy**, **Design system**, and **Test layout** from the
   language rules (`android.md`, `kotlin-multiplatform.md`, `swift.md`, `flutter.md`, `kotlin.md`,
-  `rust.md`, `lua.md`, and `python.md`), and **Build and dependencies**, **Design tokens**, and
-  **Test tools** from `web-front-end.md`;
+  `rust.md`, `lua.md`, `python.md`, and `typescript.md`), and **Build and dependencies**,
+  **Design tokens**, and **Test tools** from `web-front-end.md`;
 - the **Docs folder** from `roadmap-and-docs.md`, where it is adopted.
 
 Where a value doesn't exist, because a rule isn't adopted or its value still reads
@@ -166,7 +166,7 @@ you will translate, in what order, and make a task list whose last item is "Veri
    | Compose Multiplatform | `composeResources/values*/strings.xml` | `<plurals>` | the build, on every target |
    | iOS and macOS | String Catalogs (`.xcstrings`), or `.strings` and `.stringsdict` files in older apps | plural variations | the Xcode build |
    | Flutter | Application Resource Bundle (ARB) files, in the folder `l10n.yaml` names | ICU `plural` messages | `flutter gen-l10n` |
-   | Web | JSON files for a library such as i18next or FormatJS, or a translated copy of each page | key suffixes such as `_one` and `_other` in i18next, ICU `plural` messages, or `Intl.PluralRules` | the library's own tools |
+   | Web and Node.js | JSON files for a library such as i18next or FormatJS, or a translated copy of each page | key suffixes such as `_one` and `_other` in i18next, ICU `plural` messages, or `Intl.PluralRules` | the library's own tools |
    | Java Virtual Machine (JVM): Kotlin and Java | `.properties` resource bundles, such as `messages_es.properties` | ICU4J `plural` messages; the JDK's own classes can't express CLDR's rules | the app's tests |
    | gettext (C, Python, PHP, and others) | `.po` files, compiled to `.mo` | `msgstr[0]`, `msgstr[1]`, and so on, picked by the `Plural-Forms` header | `msgfmt --check` |
    | Mozilla's Fluent | `.ftl` files | selectors on CLDR's plural categories | the Fluent parser |

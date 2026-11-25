@@ -22,8 +22,8 @@ rules:
 - **Check commands**, **Test layout**, **Dependency policy**, **Public API**, and
   **Published crates**, **Published modules**, **Published rocks**, or **Published packages** from
   the language rules (`rust.md`, `kotlin.md`, `android.md`, `kotlin-multiplatform.md`, `swift.md`,
-  `flutter.md`, `lua.md`, and `python.md`), **Exported components** from `android.md`, and
-  **Test tools** from `web-front-end.md`;
+  `flutter.md`, `lua.md`, `python.md`, and `typescript.md`), **Exported components** from
+  `android.md`, and **Test tools** from `web-front-end.md`;
 - the **Docs folder** and the **Decision log** from `roadmap-and-docs.md`, where it is adopted.
 
 Where a value doesn't exist because a rule isn't adopted, work from what the repository has, and
@@ -64,11 +64,13 @@ as `npx` or `dart pub global activate`), without asking the user first.
 
 **Question every suppression.** Each one hides a possible finding: `#[allow(…)]`, `@Suppress`,
 `@SuppressLint`, a lint baseline, `// ignore:`, `// swiftlint:disable`, `eslint-disable`,
-`@ts-ignore`, `# noqa`, `# type: ignore`, `-- luacheck: ignore`, and `---@diagnostic disable`.
-Check that its reason still holds. In Rust, `#[expect(…)]` in place of `#[allow(…)]` makes the
-compiler warn (`unfulfilled_lint_expectations`) when the lint no longer fires, so it shows which
-suppressions hide nothing. In Python, mypy's `warn_unused_ignores` and Ruff's `RUF100` do the same
-for `# type: ignore` and `# noqa` comments.
+`@ts-ignore`, `@ts-expect-error`, `# noqa`, `# type: ignore`, `-- luacheck: ignore`, and
+`---@diagnostic disable`. Check that its reason still holds. In Rust, `#[expect(…)]` in place of
+`#[allow(…)]` makes the compiler warn (`unfulfilled_lint_expectations`) when the lint no longer
+fires, so it shows which suppressions hide nothing. In Python, mypy's `warn_unused_ignores` and
+Ruff's `RUF100` do the same for `# type: ignore` and `# noqa` comments. In TypeScript, `tsc`
+reports an `@ts-expect-error` with no error left to expect, and ESLint's
+`reportUnusedDisableDirectives` reports an `eslint-disable` comment that suppresses nothing.
 
 **Read the code.** Look for what tools miss, hardest where input enters, where errors are
 handled, and where work runs at the same time:
@@ -81,7 +83,7 @@ handled, and where work runs at the same time:
 | Concurrency | Data races; check-then-act on shared state (acting on a value another thread may have changed since it was read); a lock held across an `await`; work that is never canceled; futures, promises, and tasks never awaited |
 | Resources | Files, connections, listeners, subscriptions, and timers never closed or removed; reference cycles that keep objects alive |
 | State | A cache that is never invalidated; state left half-updated after a failure; writes that belong in one transaction but aren't |
-| Logic | Inverted conditions; the wrong operator; a copied branch with one name left unchanged; a shadowed variable; a `switch` case that falls through; identity compared where equality was meant; in Lua, a method called with `.` instead of `:`, and `#` on a table that can have holes; in Python, a mutable default argument that every call shares, and a closure that reads a loop variable after the loop has moved on |
+| Logic | Inverted conditions; the wrong operator; a copied branch with one name left unchanged; a shadowed variable; a `switch` case that falls through; identity compared where equality was meant; in Lua, a method called with `.` instead of `:`, and `#` on a table that can have holes; in Python, a mutable default argument that every call shares, and a closure that reads a loop variable after the loop has moved on; in JavaScript and TypeScript, `sort()` on numbers without a compare function, which sorts them as strings, and `||` where `??` was meant, which replaces a valid `0` or `""` |
 | Time and place | Time zones and daylight saving time; clocks that can go backward; parsing and formatting that depend on the device's locale |
 | Contracts | Code that disagrees with its doc comment, its spec, its test's name, or the decision record that set it; a `TODO` or `FIXME` that describes a known bug |
 
@@ -119,14 +121,18 @@ rule out every way code is reached without a direct call:
   dependency injection modules.
 - Names looked up as text: Android resources by name, platform channel and method names, routes,
   event names, CSS classes that JavaScript builds, registries keyed by strings, in Lua, module
-  names built as strings for `require` and functions looked up by name (`M[name]`), and in Python,
-  names passed to `getattr` or `importlib.import_module` that the code builds at run time.
+  names built as strings for `require` and functions looked up by name (`M[name]`), in Python,
+  names passed to `getattr` or `importlib.import_module` that the code builds at run time, and in
+  JavaScript and TypeScript, `import()` of a path built at run time and properties read with a
+  computed name (`handlers[name]`).
 - Entry points the platform calls: the components in the Android manifest (the
   **Exported components**), `Info.plist` entries on Apple platforms, `main` functions, scheduled
   jobs, command-line subcommands, the callbacks a Lua host calls by name, and in Python, the entry
   points in `pyproject.toml` (`[project.scripts]` and `[project.entry-points]`), the fixtures and
   hooks that pytest finds by name, and special methods, such as `__eq__` and `__enter__`, that the
-  interpreter calls itself.
+  interpreter calls itself. In JavaScript and TypeScript, they include the entry points in
+  `package.json` (`bin`, `main`, and each path in `exports`) and the files a framework loads by
+  where they sit, such as page and route files.
 - Symbols exported to another language: `#[no_mangle]` and `extern "C"`, Java Native Interface
   (JNI) functions, `@objc`, `@JvmStatic`, the framework API that Kotlin Multiplatform exports to
   Swift, Dart's `@pragma('vm:entry-point')`, and C functions registered with Lua (a `luaL_Reg`
@@ -134,7 +140,9 @@ rule out every way code is reached without a direct call:
 - Code that only some builds use: platforms, targets, build variants, and features
   (`#[cfg(…)]`, Cargo features, `expect` and `actual`, `#if os(…)`, Gradle product flavors,
   `kIsWeb`, Lua's checks of `jit` or `_VERSION`, and Python's checks of `sys.version_info` or
-  `sys.platform`, and its `if TYPE_CHECKING:` blocks, which only type checkers read).
+  `sys.platform`, and its `if TYPE_CHECKING:` blocks, which only type checkers read; and in
+  JavaScript, checks of `process.env.NODE_ENV` or `typeof window`, and the conditions in
+  `package.json`'s `exports`).
 - Code generators, build scripts, macros, templates, and other repositories that call or copy
   this code.
 - Work the roadmap plans: code written ahead for a planned task isn't dead. Check the roadmap in
@@ -262,6 +270,6 @@ LuaJIT 2.1.
 | Kotlin and Android | With `-Wextra` only: unused local variables and unreachable code. The experimental `-Xreturn-value-checker=full` reports ignored return values. | Unused private functions, properties, and parameters, and unused imports: detekt's `Unused…` rules in its style rule set, some of them off by default. Android Lint's `UnusedResources`, and `ObsoleteSdkInt` for version checks that `minSdk` makes always true. The Dependency Analysis Gradle Plugin's `buildHealth` task for unused dependencies |
 | Swift | Unused local constants and variables, ignored results of functions without `@discardableResult`, and, in a full build but not with `-typecheck`, code after a `return` | Unused functions, types, properties, and parameters: Periphery (`periphery scan`), now a commercial product, which on Linux scans only Swift packages. The sanitizers for bugs: `swift test --sanitize=thread`, `address`, or `undefined` |
 | Dart and Flutter | `unused_import`, `unused_local_variable`, `unused_field`, `dead_code`, and `unused_element` for private declarations (names that start with `_`) | Unused public declarations, which no analyzer diagnostic reports: search for them, and rule out the ways in above. `dependency_validator` for unused packages |
-| JavaScript and TypeScript | TypeScript with `noUnusedLocals`, `noUnusedParameters`, `allowUnreachableCode: false`, and `noFallthroughCasesInSwitch`; ESLint's `no-unused-vars`, `no-unreachable`, and `no-fallthrough`, which its recommended config turns on | Unused exports, files, and dependencies: knip. CSS and JavaScript a page never runs: the **Coverage** panel in Chrome DevTools. `npm audit` for dependencies with known vulnerabilities |
+| JavaScript and TypeScript | TypeScript with `noUnusedLocals`, `noUnusedParameters`, `allowUnreachableCode: false`, and `noFallthroughCasesInSwitch`; ESLint's `no-unused-vars`, `no-unreachable`, and `no-fallthrough`, which its recommended config turns on | Unused exports, files, and dependencies: knip. Conditions that the types show are always true or always false, and so guard dead branches: typescript-eslint's `no-unnecessary-condition`. CSS and JavaScript a page never runs: the **Coverage** panel in Chrome DevTools. `npm audit` for dependencies with known vulnerabilities |
 | Python | No compile step reports unused code | Ruff's `F401` (unused imports) and `F841` (unused local variables), which it checks by default; Vulture for unused functions, classes, and variables, with `--min-confidence`, and a `--make-whitelist` file for its false positives; mypy's `--warn-unreachable`, which `--strict` doesn't turn on, for code its type analysis shows can never run; deptry for dependencies that `pyproject.toml` declares and no code imports; `pip-audit` for dependencies with known vulnerabilities |
 | Lua | Nothing: `luac -p` and LuaJIT's compiler check syntax only. The exception is Lua 5.5: after a `global` declaration, an undeclared name, such as a misspelled global, is a compile error. | luacheck's warnings 211 (unused local variable), 212 (unused argument), 213 (unused loop variable), 311 (a value assigned to a local is never used), 511 (unreachable code), and 111 and 113 (setting and reading an undefined global). lua-language-server's `unused` diagnostics, such as `unused-local`, `unused-function`, and `unreachable-code`. selene's `unused_variable`. Each checks one file at a time, so finding a module or a public function that no other file uses takes a search |

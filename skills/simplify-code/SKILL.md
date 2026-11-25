@@ -22,7 +22,7 @@ Bold names are values from the "Project details" of the adopted rules:
 - **Check commands**, **Test layout**, **Public API**, and **Published crates**,
   **Published modules**, **Published rocks**, or **Published packages** from the language rules
   (`rust.md`, `kotlin.md`, `android.md`, `kotlin-multiplatform.md`, `swift.md`, `flutter.md`,
-  `lua.md`, and `python.md`), with their **Lint configuration** or
+  `lua.md`, `python.md`, and `typescript.md`), with their **Lint configuration** or
   **Style and lint configuration**, and their **Design docs**;
   **Performance budgets** from `lua.md`; and **Test tools** and **Browser support** from
   `web-front-end.md`;
