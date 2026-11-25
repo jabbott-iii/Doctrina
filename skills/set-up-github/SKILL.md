@@ -37,15 +37,15 @@ Bold names are values from the "Project details" of the adopted rules:
 - **Git access**, **Done checks**, **Never commit**, **Push effect**, **Scopes**, **Task IDs**,
   **Changes that travel together**, and **Breaking changes** from `commits.md`;
 - **Toolchain**, **Check commands**, **Dependency policy**, and **Test layout** from the language
-  rules (`rust.md`, `kotlin.md`, `android.md`, `kotlin-multiplatform.md`, `swift.md`, `flutter.md`,
-  `lua.md`, `python.md`, and `typescript.md`), with **Lua version** in place of **Toolchain** in
-  `lua.md`, the **Python versions** and **Project tool** in its place in `python.md`, and the
-  **Runtimes** and **Package manager** beside it in `typescript.md`; **Untrusted input** from
-  `rust.md`, `kotlin.md`, `lua.md`, `python.md`, and `typescript.md`; **Release** from the mobile
-  rules; **Platforms** and **Code generation** from `flutter.md`; **Targets** from
-  `kotlin-multiplatform.md`; **C boundary** from `lua.md`; **Native code** from `python.md` and
-  `typescript.md`; and **Build and dependencies**, **Browser support**, and **Test tools** from
-  `web-front-end.md`;
+  rules (`rust.md`, `kotlin.md`, `java.md`, `android.md`, `kotlin-multiplatform.md`, `swift.md`,
+  `flutter.md`, `lua.md`, `python.md`, and `typescript.md`), with **Lua version** in place of
+  **Toolchain** in `lua.md`, the **Python versions** and **Project tool** in its place in
+  `python.md`, and the **Runtimes** and **Package manager** beside it in `typescript.md`;
+  **Untrusted input** from `rust.md`, `kotlin.md`, `java.md`, `lua.md`, `python.md`, and
+  `typescript.md`; **Release** from the mobile rules; **Platforms** and **Code generation** from
+  `flutter.md`; **Targets** from `kotlin-multiplatform.md`; **C boundary** from `lua.md`;
+  **Native code** from `java.md`, `python.md`, and `typescript.md`; and **Build and dependencies**,
+  **Browser support**, and **Test tools** from `web-front-end.md`;
 - **Check commands**, **Assessment**, and **Errata** from `teaching-materials.md`;
 - the **Update map** and **Agent guide** from `roadmap-and-docs.md`, where it is adopted.
 
@@ -101,7 +101,8 @@ These hold for the whole run, and override anything a later step seems to allow:
    | Found | Language rule | CodeQL `language` | Dependabot `package-ecosystem` |
    | --- | --- | --- | --- |
    | `Cargo.toml` | `rust.md` | `rust` | `cargo`, and `rust-toolchain` for a `rust-toolchain.toml` |
-   | `build.gradle.kts` or `build.gradle` | `kotlin.md`, `android.md`, `kotlin-multiplatform.md` | `java-kotlin` | `gradle` |
+   | `build.gradle.kts` or `build.gradle` | `kotlin.md`, `java.md`, `android.md`, `kotlin-multiplatform.md` | `java-kotlin` | `gradle` |
+   | `pom.xml` | `java.md`, and `kotlin.md` for Kotlin modules | `java-kotlin`. JNI code in C or C++ is `c-cpp` | `maven` |
    | `Package.swift`, or an `.xcodeproj` with Swift files | `swift.md`, and the iOS app in `kotlin-multiplatform.md` | `swift` | `swift`, which reads `Package.swift` |
    | `pubspec.yaml` | `flutter.md` | none: CodeQL doesn't analyze Dart. The app's Kotlin and Swift code count as those languages | `pub` |
    | `*.rockspec`, or `.lua` files | `lua.md` | none for Lua. C modules at the **C boundary** are `c-cpp` | none: Dependabot doesn't list LuaRocks among its ecosystems |
@@ -196,6 +197,7 @@ Take the patterns from these sources, in this order:
 | --- | --- | --- |
 | `rust.md` | `/target/`, and the build and crash folders of fuzz targets, such as `fuzz/target/` and `fuzz/artifacts/` | `Cargo.lock`, which `rust.md` builds with `--locked`, and `rust-toolchain.toml` |
 | `kotlin.md` | `.gradle/`, `build/`, and `.kotlin/`, where Kotlin 2.0 and later keep Gradle data | the Gradle wrapper (`gradlew`, `gradlew.bat`, and `gradle/wrapper/`), `gradle/libs.versions.toml`, and any `gradle.lockfile` or `gradle/verification-metadata.xml` |
+| `java.md` | Maven's `target/`, Gradle's `.gradle/` and `build/`, compiled `*.class` files, and the Java virtual machine's crash logs (`hs_err_pid*.log` and `replay_pid*.log`) | the wrappers (`gradlew`, `gradlew.bat`, and `gradle/wrapper/`, or `mvnw`, `mvnw.cmd`, and `.mvn/wrapper/maven-wrapper.properties`), `gradle/libs.versions.toml`, and `gradle/verification-metadata.xml` |
 | `android.md` | `local.properties`, keystores (`*.jks` and `*.keystore`), built packages (`*.apk` and `*.aab`), and `.cxx/` | Room's exported schema files, which `android.md` says to commit, and the R8 and ProGuard rules |
 | `kotlin-multiplatform.md` | the `kotlin.md` and `swift.md` rows, for the shared modules and the iOS app | the iOS app's Xcode project |
 | `swift.md` | `xcuserdata/`, `.build/`, `DerivedData/` where the project builds inside the repository, and signing files (`*.p12` and `*.mobileprovision`) | `Package.resolved`, the `.xcodeproj` and `.xcworkspace` apart from their `xcuserdata/`, and shared schemes in `xcshareddata/` |

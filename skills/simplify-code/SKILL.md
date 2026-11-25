@@ -21,8 +21,8 @@ Bold names are values from the "Project details" of the adopted rules:
 - **Git access**, **Done checks**, **Never commit**, and **Breaking changes** from `commits.md`;
 - **Check commands**, **Test layout**, **Public API**, and **Published crates**,
   **Published modules**, **Published rocks**, or **Published packages** from the language rules
-  (`rust.md`, `kotlin.md`, `android.md`, `kotlin-multiplatform.md`, `swift.md`, `flutter.md`,
-  `lua.md`, `python.md`, and `typescript.md`), with their **Lint configuration** or
+  (`rust.md`, `kotlin.md`, `java.md`, `android.md`, `kotlin-multiplatform.md`, `swift.md`,
+  `flutter.md`, `lua.md`, `python.md`, and `typescript.md`), with their **Lint configuration** or
   **Style and lint configuration**, and their **Design docs**;
   **Performance budgets** from `lua.md`; and **Test tools** and **Browser support** from
   `web-front-end.md`;
@@ -238,6 +238,7 @@ the rest come from each tool's documentation.
 | --- | --- |
 | Rust | Clippy, by default: `too_many_arguments` (more than 7), and lints for simpler forms such as `collapsible_if`, `needless_bool`, `needless_return`, and `manual_map`. Off by default: `too_many_lines` (in the pedantic group, over 100 lines); `cognitive_complexity` (in the restriction group, threshold 25, which its docs say isn't a true Cognitive Complexity measure); and `excessive_nesting`, which fires only once `excessive-nesting-threshold` is set |
 | Kotlin and Android | detekt's complexity rule set: `CyclomaticComplexMethod`, `LongMethod`, `LongParameterList`, `NestedBlockDepth`, `ComplexCondition`, `LargeClass`, and `TooManyFunctions` are on by default, and `CognitiveComplexMethod` is off. Detekt 2.0 renamed every threshold option and changed some defaults (`LongParameterList` allows 5 function parameters instead of 6) |
+| Java | Checkstyle's `CyclomaticComplexity` (default maximum 10), `MethodLength` (150 lines), `ParameterNumber` (7), and `NestedIfDepth`, each of which runs only when the project's Checkstyle configuration lists it; PMD's design rules, such as `CognitiveComplexity`, `CyclomaticComplexity`, `NPathComplexity`, `ExcessiveParameterList`, and `GodClass` |
 | Swift | SwiftLint, on by default, with warning and error thresholds: `cyclomatic_complexity` (10, 20), `function_body_length` (50, 100 lines), `type_body_length` (250, 350), `file_length` (400, 1000), `function_parameter_count` (5, 8), and `nesting`. `closure_body_length` is opt-in |
 | Dart and Flutter | Dart's own linter has no rule for complexity, length, nesting, or parameter counts; `avoid_positional_boolean_parameters` catches flag parameters. DCM, a commercial tool with a free tier, reports metrics such as cyclomatic complexity and maximum nesting level |
 | JavaScript and TypeScript | ESLint's core rules, none of them in its recommended config: `complexity` (default maximum 20), `max-depth` (4), `max-lines-per-function` (50), `max-params` (3), `max-statements` (10), and `max-nested-callbacks` (10), plus the frozen style rules `no-nested-ternary`, `no-else-return`, and `no-lonely-if` |

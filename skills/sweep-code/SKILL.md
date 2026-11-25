@@ -21,9 +21,9 @@ rules:
 - **Git access**, **Done checks**, **Never commit**, and **Breaking changes** from `commits.md`;
 - **Check commands**, **Test layout**, **Dependency policy**, **Public API**, and
   **Published crates**, **Published modules**, **Published rocks**, or **Published packages** from
-  the language rules (`rust.md`, `kotlin.md`, `android.md`, `kotlin-multiplatform.md`, `swift.md`,
-  `flutter.md`, `lua.md`, `python.md`, and `typescript.md`), **Exported components** from
-  `android.md`, and **Test tools** from `web-front-end.md`;
+  the language rules (`rust.md`, `kotlin.md`, `java.md`, `android.md`, `kotlin-multiplatform.md`,
+  `swift.md`, `flutter.md`, `lua.md`, `python.md`, and `typescript.md`), **Exported components**
+  from `android.md`, and **Test tools** from `web-front-end.md`;
 - the **Docs folder** and the **Decision log** from `roadmap-and-docs.md`, where it is adopted.
 
 Where a value doesn't exist because a rule isn't adopted, work from what the repository has, and
@@ -63,14 +63,16 @@ project has learned to ignore. Don't install a tool, or run a command that downl
 as `npx` or `dart pub global activate`), without asking the user first.
 
 **Question every suppression.** Each one hides a possible finding: `#[allow(…)]`, `@Suppress`,
-`@SuppressLint`, a lint baseline, `// ignore:`, `// swiftlint:disable`, `eslint-disable`,
-`@ts-ignore`, `@ts-expect-error`, `# noqa`, `# type: ignore`, `-- luacheck: ignore`, and
-`---@diagnostic disable`. Check that its reason still holds. In Rust, `#[expect(…)]` in place of
-`#[allow(…)]` makes the compiler warn (`unfulfilled_lint_expectations`) when the lint no longer
-fires, so it shows which suppressions hide nothing. In Python, mypy's `warn_unused_ignores` and
-Ruff's `RUF100` do the same for `# type: ignore` and `# noqa` comments. In TypeScript, `tsc`
-reports an `@ts-expect-error` with no error left to expect, and ESLint's
-`reportUnusedDisableDirectives` reports an `eslint-disable` comment that suppresses nothing.
+`@SuppressWarnings`, `@SuppressLint`, a lint baseline, `// ignore:`, `// swiftlint:disable`,
+`eslint-disable`, `@ts-ignore`, `@ts-expect-error`, `# noqa`, `# type: ignore`,
+`-- luacheck: ignore`, and `---@diagnostic disable`. Check that its reason still holds. In Rust,
+`#[expect(…)]` in place of `#[allow(…)]` makes the compiler warn (`unfulfilled_lint_expectations`)
+when the lint no longer fires, so it shows which suppressions hide nothing. In Python, mypy's
+`warn_unused_ignores` and Ruff's `RUF100` do the same for `# type: ignore` and `# noqa` comments. In
+TypeScript, `tsc` reports an `@ts-expect-error` with no error left to expect, and ESLint's
+`reportUnusedDisableDirectives` reports an `eslint-disable` comment that suppresses nothing. In
+Java, `javac` never reports a `@SuppressWarnings` that suppresses nothing, so remove each one and
+compile again to see whether it still hides a warning.
 
 **Read the code.** Look for what tools miss, hardest where input enters, where errors are
 handled, and where work runs at the same time:
@@ -83,7 +85,7 @@ handled, and where work runs at the same time:
 | Concurrency | Data races; check-then-act on shared state (acting on a value another thread may have changed since it was read); a lock held across an `await`; work that is never canceled; futures, promises, and tasks never awaited |
 | Resources | Files, connections, listeners, subscriptions, and timers never closed or removed; reference cycles that keep objects alive |
 | State | A cache that is never invalidated; state left half-updated after a failure; writes that belong in one transaction but aren't |
-| Logic | Inverted conditions; the wrong operator; a copied branch with one name left unchanged; a shadowed variable; a `switch` case that falls through; identity compared where equality was meant; in Lua, a method called with `.` instead of `:`, and `#` on a table that can have holes; in Python, a mutable default argument that every call shares, and a closure that reads a loop variable after the loop has moved on; in JavaScript and TypeScript, `sort()` on numbers without a compare function, which sorts them as strings, and `||` where `??` was meant, which replaces a valid `0` or `""` |
+| Logic | Inverted conditions; the wrong operator; a copied branch with one name left unchanged; a shadowed variable; a `switch` case that falls through; identity compared where equality was meant; in Lua, a method called with `.` instead of `:`, and `#` on a table that can have holes; in Python, a mutable default argument that every call shares, and a closure that reads a loop variable after the loop has moved on; in JavaScript and TypeScript, `sort()` on numbers without a compare function, which sorts them as strings, and `||` where `??` was meant, which replaces a valid `0` or `""`; in Java, `BigDecimal.equals` where `compareTo` was meant, since `equals` also compares the scale, so `1.0` doesn't equal `1.00` |
 | Time and place | Time zones and daylight saving time; clocks that can go backward; parsing and formatting that depend on the device's locale |
 | Contracts | Code that disagrees with its doc comment, its spec, its test's name, or the decision record that set it; a `TODO` or `FIXME` that describes a known bug |
 
@@ -124,7 +126,8 @@ rule out every way code is reached without a direct call:
   names built as strings for `require` and functions looked up by name (`M[name]`), in Python,
   names passed to `getattr` or `importlib.import_module` that the code builds at run time, and in
   JavaScript and TypeScript, `import()` of a path built at run time and properties read with a
-  computed name (`handlers[name]`).
+  computed name (`handlers[name]`), and in Java, `Class.forName` and method lookups by reflection
+  with names built at run time.
 - Entry points the platform calls: the components in the Android manifest (the
   **Exported components**), `Info.plist` entries on Apple platforms, `main` functions, scheduled
   jobs, command-line subcommands, the callbacks a Lua host calls by name, and in Python, the entry
@@ -132,17 +135,20 @@ rule out every way code is reached without a direct call:
   hooks that pytest finds by name, and special methods, such as `__eq__` and `__enter__`, that the
   interpreter calls itself. In JavaScript and TypeScript, they include the entry points in
   `package.json` (`bin`, `main`, and each path in `exports`) and the files a framework loads by
-  where they sit, such as page and route files.
+  where they sit, such as page and route files. In Java, they include the service providers that
+  `ServiceLoader` finds, which `META-INF/services/` or a `provides` clause in `module-info.java`
+  names, and the classes a framework finds by their annotations, such as Spring's `@Component` or
+  JUnit's `@Test`.
 - Symbols exported to another language: `#[no_mangle]` and `extern "C"`, Java Native Interface
   (JNI) functions, `@objc`, `@JvmStatic`, the framework API that Kotlin Multiplatform exports to
   Swift, Dart's `@pragma('vm:entry-point')`, and C functions registered with Lua (a `luaL_Reg`
   array).
 - Code that only some builds use: platforms, targets, build variants, and features
-  (`#[cfg(…)]`, Cargo features, `expect` and `actual`, `#if os(…)`, Gradle product flavors,
-  `kIsWeb`, Lua's checks of `jit` or `_VERSION`, and Python's checks of `sys.version_info` or
-  `sys.platform`, and its `if TYPE_CHECKING:` blocks, which only type checkers read; and in
-  JavaScript, checks of `process.env.NODE_ENV` or `typeof window`, and the conditions in
-  `package.json`'s `exports`).
+  (`#[cfg(…)]`, Cargo features, `expect` and `actual`, `#if os(…)`, Gradle product flavors and
+  Maven profiles, `kIsWeb`, Lua's checks of `jit` or `_VERSION`, and Python's checks of
+  `sys.version_info` or `sys.platform`, and its `if TYPE_CHECKING:` blocks, which only type
+  checkers read; and in JavaScript, checks of `process.env.NODE_ENV` or `typeof window`, and the
+  conditions in `package.json`'s `exports`).
 - Code generators, build scripts, macros, templates, and other repositories that call or copy
   this code.
 - Work the roadmap plans: code written ahead for a planned task isn't dead. Check the roadmap in
@@ -261,13 +267,14 @@ End with a summary that contains:
 
 Use the tools the project already has first. This table says what each compiler reports on its
 own, what it misses, and the tools that cover the rest. The compiler columns held for rustc 1.99,
-Kotlin 2.4.21, Swift 6.4.3, Dart 3.14.1, TypeScript 7.0.2, Lua 5.1.5, 5.4.9, and 5.5.1, and
-LuaJIT 2.1.
+Kotlin 2.4.21, javac 25.0.5, Swift 6.4.3, Dart 3.14.1, TypeScript 7.0.2, Lua 5.1.5, 5.4.9, and
+5.5.1, and LuaJIT 2.1.
 
 | Language | What the compiler reports | What it misses, and the tools that find it |
 | --- | --- | --- |
 | Rust | `dead_code` for items nothing in the crate uses, and `unused_imports`, `unused_variables`, and `unreachable_code`. An item that only tests use counts as unused in `cargo check`. | The `pub` items a library exports. Clippy (`cargo clippy --all-targets --all-features`) for likely bugs; Miri (`cargo +nightly miri test`) for undefined behavior in `unsafe` code, though it can't run most foreign function interface (FFI) calls; `cargo machete` (fast but imprecise) or `cargo +nightly udeps` for unused dependencies; `cargo audit` or `cargo deny check advisories` for dependencies with known vulnerabilities |
 | Kotlin and Android | With `-Wextra` only: unused local variables and unreachable code. The experimental `-Xreturn-value-checker=full` reports ignored return values. | Unused private functions, properties, and parameters, and unused imports: detekt's `Unused…` rules in its style rule set, some of them off by default. Android Lint's `UnusedResources`, and `ObsoleteSdkInt` for version checks that `minSdk` makes always true. The Dependency Analysis Gradle Plugin's `buildHealth` task for unused dependencies |
+| Java | Nothing about unused code: `-Xlint:all` stays silent about unused imports, private fields and methods, parameters, local variables, and a `@SuppressWarnings` that suppresses nothing. A statement after a `return` is a compile error, but an `if (false)` block compiles without a warning, because the language allows it for conditional compilation. | Error Prone's `UnusedVariable` and `UnusedMethod` checks; PMD's `UnusedPrivateField`, `UnusedPrivateMethod`, `UnusedLocalVariable`, and `UnusedFormalParameter` rules; SpotBugs for likely bugs; and `mvn dependency:analyze`, which lists dependencies the code declares but doesn't use, or uses without declaring. For Gradle, the Dependency Analysis Gradle Plugin in the Kotlin row |
 | Swift | Unused local constants and variables, ignored results of functions without `@discardableResult`, and, in a full build but not with `-typecheck`, code after a `return` | Unused functions, types, properties, and parameters: Periphery (`periphery scan`), now a commercial product, which on Linux scans only Swift packages. The sanitizers for bugs: `swift test --sanitize=thread`, `address`, or `undefined` |
 | Dart and Flutter | `unused_import`, `unused_local_variable`, `unused_field`, `dead_code`, and `unused_element` for private declarations (names that start with `_`) | Unused public declarations, which no analyzer diagnostic reports: search for them, and rule out the ways in above. `dependency_validator` for unused packages |
 | JavaScript and TypeScript | TypeScript with `noUnusedLocals`, `noUnusedParameters`, `allowUnreachableCode: false`, and `noFallthroughCasesInSwitch`; ESLint's `no-unused-vars`, `no-unreachable`, and `no-fallthrough`, which its recommended config turns on | Unused exports, files, and dependencies: knip. Conditions that the types show are always true or always false, and so guard dead branches: typescript-eslint's `no-unnecessary-condition`. CSS and JavaScript a page never runs: the **Coverage** panel in Chrome DevTools. `npm audit` for dependencies with known vulnerabilities |

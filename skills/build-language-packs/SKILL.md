@@ -24,14 +24,14 @@ Bold names are values from the "Project details" of the adopted rules:
 
 - **Where text lives**, **Project name**, and **Names to spell exactly** from `writing.md`;
 - **Git access**, **Done checks**, **Never commit**, and **Scopes** from `commits.md`;
-- **Languages** from `android.md`, `swift.md`, `web-front-end.md`, `kotlin.md`, `rust.md`,
-  `lua.md`, `python.md`, and `typescript.md`, **Localization** from `flutter.md`, and **Resources**
-  from `kotlin-multiplatform.md`, which say which languages the app ships, where its strings live,
-  and who reviews translations;
+- **Languages** from `android.md`, `swift.md`, `web-front-end.md`, `kotlin.md`, `java.md`,
+  `rust.md`, `lua.md`, `python.md`, and `typescript.md`, **Localization** from `flutter.md`, and
+  **Resources** from `kotlin-multiplatform.md`, which say which languages the app ships, where its
+  strings live, and who reviews translations;
 - **Check commands**, **Dependency policy**, **Design system**, and **Test layout** from the
   language rules (`android.md`, `kotlin-multiplatform.md`, `swift.md`, `flutter.md`, `kotlin.md`,
-  `rust.md`, `lua.md`, `python.md`, and `typescript.md`), and **Build and dependencies**,
-  **Design tokens**, and **Test tools** from `web-front-end.md`;
+  `java.md`, `rust.md`, `lua.md`, `python.md`, and `typescript.md`), and
+  **Build and dependencies**, **Design tokens**, and **Test tools** from `web-front-end.md`;
 - the **Docs folder** from `roadmap-and-docs.md`, where it is adopted.
 
 Where a value doesn't exist, because a rule isn't adopted or its value still reads
