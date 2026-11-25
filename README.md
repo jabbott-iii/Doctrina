@@ -51,6 +51,14 @@ has no details of its own: it uses the values of the rules it relies on.
   input, Java and platform interop, binary compatibility, KDoc and Dokka docs, module READMEs,
   tests, lints, and Gradle builds. It relies on `writing.md` for KDoc and error messages, so adopt
   both.
+- [`rules/java.md`](rules/java.md): how to write Java as a senior engineer, covering the features
+  each release adds and compiling with `--release`, records and sealed types, nulls, traps such as
+  boxed `==` and `BigDecimal.equals`, exceptions and interrupts, logging, `java.time` and money,
+  files and processes, virtual threads and other concurrency, text for users and its translations,
+  untrusted input, including XML external entities and deserialization, the FFM API and JNI, public
+  APIs and binary compatibility, Javadoc with snippets, READMEs and Maven Central metadata, JUnit
+  tests, lints, and Gradle and Maven builds. It relies on `writing.md` for Javadoc and error
+  messages, so adopt both.
 - [`rules/android.md`](rules/android.md): how to build Android apps with Jetpack Compose as a senior
   mobile developer, covering app architecture, Compose state and performance, adaptive layouts,
   accessibility, translations, lifecycle and process death, background work, Room migrations,
