@@ -3,7 +3,7 @@
 **Objectives:** LO-2.1, LO-2.2, LO-2.3, LO-2.4\
 **Prerequisites:** [Module 1](../01-first-steps/index.md)\
 **Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 2](lab02.ipynb), 1.5 for the
-[practice](practice.md), and 3 for PA1, which is due in week 3
+[practice](practice.md), and 3 for PA1, which follows this module
 
 This module covers the statements that decide what runs and how often, and the functions that
 package code for reuse. Most of it will look familiar from other languages. Three parts won't:

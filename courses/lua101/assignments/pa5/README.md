@@ -2,8 +2,8 @@
 
 **Objectives:** LO-10.1, LO-10.3, LO-11.1, LO-11.2, LO-11.3, LO-11.4, and, revisited, LO-4.2,
 LO-6.1, and LO-8.1\
-**Due:** week 12, as the [schedule](../../README.md#schedule) gives it\
-**Weight:** 9% of the course grade: 70 points from hidden tests, and 30 from the rubric below\
+**When:** after Module 12, as the [suggested pace](../../README.md#suggested-pace) places it\
+**Checking your work:** the example tests, your own tests, and the rubric below\
 **Time:** about 6 hours, spread over modules 11 and 12
 
 You will build `csvstats`, a rock that installs a command of the same name. Given a CSV file, the
@@ -149,6 +149,10 @@ promise in this handout.
 
 ## How it is graded
 
+The course has no grades. This section describes the full check that an instructor or a
+mentor who reviews your work can run. The hidden tests aren't published, so when you work
+alone, test every promise in this handout yourself, and score your work with the rubric.
+
 ### Hidden tests: 70 points
 
 | Part | Points |
@@ -169,9 +173,8 @@ promise in this handout.
 
 ## Policies
 
-The course's [policies](../../README.md#policies) apply. Late work uses your grace days, then
-loses 10% a day for up to three days. Discuss ideas with anyone, but write your own code and
-tests, and name everyone you discussed the assignment with on the third line of
+The course's [policies](../../README.md#policies) apply. Discuss ideas with anyone, but write your
+own code and tests, and name everyone you discussed the assignment with on the third line of
 `src/csvstats.lua`. Generative AI tools may explain concepts and error messages to you, but may not
 write any part of the project; say on the second line of `src/csvstats.lua` which tools you used,
 and how, or write "none".

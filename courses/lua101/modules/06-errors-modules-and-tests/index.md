@@ -3,7 +3,7 @@
 **Objectives:** LO-6.1, LO-6.2, LO-6.3\
 **Prerequisites:** [Module 5](../05-closures-and-iterators/index.md)\
 **Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 6](lab06.ipynb), 1.5 for the
-[practice](practice.md), and 3 for PA3, which is due in week 7
+[practice](practice.md), and 3 for PA3, which follows this module
 
 Programs so far have lived in one file or one notebook, and stopped at the first error. This
 module turns them into code other code can rely on. It covers how a Lua function reports that it

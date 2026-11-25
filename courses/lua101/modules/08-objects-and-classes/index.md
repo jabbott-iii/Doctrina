@@ -2,8 +2,8 @@
 
 **Objectives:** LO-8.1, LO-8.2, LO-8.3\
 **Prerequisites:** [Module 7](../07-metatables/index.md)\
-**Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 8](lab08.ipynb), 1.5 for the
-[practice](practice.md), and 3 for the midterm exam, which is this week
+**Time:** about 6 hours: 2.5 for this reading, 2 for [Lab 8](lab08.ipynb), and 1.5 for the
+[practice](practice.md)
 
 Lua has no `class` keyword. An object is a table that holds its own data, and a class is a table
 of the methods its objects share, connected to them through `__index` from module 7. This module

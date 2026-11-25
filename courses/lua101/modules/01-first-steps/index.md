@@ -3,7 +3,7 @@
 **Objectives:** LO-1.1, LO-1.2, LO-1.3, LO-1.4\
 **Prerequisites:** the course's prerequisites; this is the first module\
 **Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 1](lab01.ipynb), 1.5 for the
-[practice](practice.md), and 3 toward PA1, which is due in week 3
+[practice](practice.md), and 3 toward PA1, which follows Module 2
 
 This module gets you running Lua and predicting what small pieces of Lua do. You will run code
 three ways, read the error messages Lua gives when code fails, and learn the four simplest of

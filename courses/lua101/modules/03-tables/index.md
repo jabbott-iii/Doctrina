@@ -3,7 +3,7 @@
 **Objectives:** LO-3.1, LO-3.2, LO-3.3, LO-3.4\
 **Prerequisites:** [Module 2](../02-control-flow-and-functions/index.md)\
 **Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 3](lab03.ipynb), 1.5 for the
-[practice](practice.md), and 3 for PA2, which is due in week 5 and covers this module and the next
+[practice](practice.md), and 3 for PA2, which follows Module 4 and covers this module and the next
 
 Lua has one data structure, the **table**, and builds everything else from it: arrays, records,
 sets, queues, modules, and, in modules 7 and 8, objects and classes. This module covers how to

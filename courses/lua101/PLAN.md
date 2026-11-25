@@ -1,6 +1,7 @@
 # LUA101 plan
 
-**Status:** approved by the instructor on 2026-11-23, as written.
+**Status:** approved by the instructor on 2026-11-23, as written, and changed to a self-paced
+edition on 2026-11-25.
 
 This is the instructor's blueprint and build checklist for LUA101. It stays out of the published
 course: `myst.yml` excludes it.
@@ -18,6 +19,18 @@ The instructor decided these on 2026-11-23:
 - **Installs:** all of section 8 approved. The instructor installs TeX Live.
 - **Interactivity:** static pages; readers run notebooks locally (section 11).
 - **Exam accessibility:** the accommodations route in section 12.
+
+The instructor changed these on 2026-11-25, for a self-paced edition:
+
+- **Delivery:** self-paced, with no deadlines. A suggested pace of 15 weeks at about 9 hours a week
+  replaces the schedule, and each assignment follows the modules it covers.
+- **Grades:** none. Every piece is checked by its published tests, rubric, or answers, and the
+  grading weights are gone.
+- **Exams:** the midterm and the final exam became two ungraded self-tests, published in Markdown
+  with their answers in collapsed blocks: Self-test 1 after Module 7, and Self-test 2 after Module
+  14. The Markdown replaced the LaTeX sources, so each has one source.
+- **Final project:** replaced by a capstone project of intermediate difficulty, a Lua package that
+  a student can add to a portfolio. The C, sandbox, and host tracks became optional extensions.
 
 ## 1. The course
 
@@ -205,8 +218,9 @@ Each module objective serves the course objective in brackets.
 
 ## 4. Modules
 
-Each module takes about 9 hours: about 2.5 for the reading, 2 for the lab, 1.5 for the practice,
-and 3 for the assignment due that week or the next. Every module has the same four pieces:
+Most modules take about 9 hours: about 2.5 for the reading, 2 for the lab, 1.5 for the practice,
+and 3 for the assignment or self-test that follows. Module 7 takes 8, with 2 for Self-test 1, and
+Module 8 takes 6. Every module has the same four pieces:
 
 | Piece | File | Format | Why this format |
 | :- | :- | :- | :- |
@@ -237,45 +251,46 @@ work on files and programs outside a notebook. Their labs run those tools from P
 
 ## 5. Assessment
 
-| Component | Weight | Objectives | Graded by |
-| :- | :- | :- | :- |
-| Labs 1–14 | 10% | Each module's own | Completion: every visible check in the notebook passes |
-| PA1–PA2: graded notebooks | 10% (5% each) | PA1: LO-1.1, 1.2, 1.4, 2.1–2.4. PA2: LO-3.1–3.4, 4.1, 4.2, 4.4, 2.2 | nbgrader: visible and hidden tests in `%%lua` cells |
-| PA3–PA5: Lua projects | 25% (PA3 7%, PA4 9%, PA5 9%) | See below | Hidden busted tests (70%) and a rubric for design, tests, and style (30%) |
-| Midterm exam | 15% | LO-1.1–7.2 | Printed, 75 minutes, no computer; graded against a key |
-| Final project | 20% | LO-6.x, LO-11.x–14.x, and one track | Rubric, at three milestones |
-| Final exam | 20% | All modules, weighted toward 8–14 | Printed, 120 minutes, no computer; graded against a key |
+The self-paced edition has no grades. Every piece comes with a way to check it:
 
-- **PA1: Numbers and functions** (graded notebook, due week 3): Collatz step counts,
+| Piece | Objectives | Checked by |
+| :- | :- | :- |
+| Labs 1–14 | Each module's own | Every visible check in the notebook passes |
+| PA1–PA2: notebook assignments | PA1: LO-1.1, 1.2, 1.4, 2.1–2.4. PA2: LO-3.1–3.4, 4.1, 4.2, 4.4, 2.2 | Visible tests in `%%lua` cells. The hidden tests stay in `solutions/`, for a reviewer |
+| PA3–PA5: Lua projects | See below | Published example tests and rubrics. The hidden busted tests and the broken versions stay in `solutions/`, for a reviewer |
+| Self-test 1, after Module 7 | LO-1.1–7.2 | 14 questions, 75 points, 75 minutes, no computer; answers and scoring notes in the page |
+| Self-test 2, after Module 14 | All modules, weighted toward 8–14 | 20 questions, 105 points, 125 minutes, no computer; answers and scoring notes in the page |
+| Capstone project | LO-6.1–6.3, LO-11.1–11.4, LO-12.1, LO-12.3, and its idea's objectives | Checklists at the proposal and the milestone, a three-level rubric at the release, and `tools/check_project.py` |
+
+- **PA1: Numbers and functions** (notebook, after Module 2): Collatz step counts,
   integer-or-float formatting, a recursive digit sum, a tail-recursive greatest common divisor,
   and a function with named options.
-- **PA2: Tables and text** (graded notebook, due week 5): word frequencies, a set type built on
+- **PA2: Tables and text** (notebook, after Module 4): word frequencies, a set type built on
   tables, run-length encoding, and a UTF-8-aware reverse.
-- **PA3: An iterator library** (Lua project, due week 7; LO-5.2, 5.3, 6.1–6.3, revisits LO-3.1,
-  4.2): a module of lazy iterators (`map`, `filter`, `take`, `zip`) and `memoize`, with the
-  student's own busted tests.
-- **PA4: A discrete-event simulation** (Lua project, due week 10; LO-7.1, 7.2, 8.1, 8.2, 9.2,
+- **PA3: An iterator library** (Lua project, after Module 6; LO-5.2, 5.3, 6.1–6.3, revisits
+  LO-3.1, 4.2): a module of lazy iterators (`map`, `filter`, `take`, `zip`) and `memoize`, with
+  the student's own busted tests.
+- **PA4: A discrete-event simulation** (Lua project, after Module 10; LO-7.1, 7.2, 8.1, 8.2, 9.2,
   9.3, revisits LO-5.3, 6.3): classes for customers and servers, and a coroutine scheduler that
   runs a queue simulation with a fixed random seed, so the output can be checked exactly.
-- **PA5: A command-line tool** (Lua project, due week 12; LO-10.1, 10.3, 11.1–11.4, revisits
+- **PA5: A command-line tool** (Lua project, after Module 12; LO-10.1, 10.3, 11.1–11.4, revisits
   LO-4.2, 6.1, 8.1): a rock that prints statistics for each column of a CSV file, with a
   rockspec, no luacheck findings, StyLua formatting, LuaCATS annotations, and coverage measured.
-- **Final project** (proposal week 11, milestone week 13, final week 15): every project is a rock
-  with busted tests, coverage, and no lint findings, and includes a measured speed-up of one hot
-  path (LO-12.1, 12.3). Each student also picks one track:
-  - **C:** a C program that Lua scripts, or a C module with userdata (LO-13.2–13.4).
-  - **Sandbox:** a plugin system that runs untrusted scripts with limits (LO-14.2, LO-10.3).
-  - **Host:** a Neovim plugin, a LÖVE game, or a Pandoc filter, with the host replaced by a
-    stand-in in tests (LO-14.3).
+- **Capstone project** (proposal after Module 11, milestone after Module 13, release after Module
+  14): a Lua package of the student's design, from five ideas in the brief or one of their own,
+  released as version 1.0.0 for a portfolio. Every project is a rock with busted tests, coverage,
+  clean tooling, LuaCATS annotations, and a measured speed-up of one hot path (LO-12.1, 12.3),
+  plus a `README.md` written for a stranger, a license, a changelog, a tag, and a GitHub Actions
+  workflow. The C, sandbox, and host tracks of the old final project are optional extensions.
 
-Later assessments revisit earlier objectives, and the final exam mixes question types from every
-module, so students practice choosing a method as well as applying one.
+Later pieces revisit earlier objectives, and Self-test 2 mixes question types from every module,
+so students practice choosing a method as well as applying one.
 
 **Answer keys** go in `courses/lua101/solutions/`, as the repository's teaching rule already
 decided (committed, never linked from coursework, and never built into the website): nbgrader
 sources for PA1 and PA2, model solutions and hidden tests for PA3–PA5, rubrics with model
-answers, the project rubric's examples, and the exams' keys. The rubrics' criteria are published
-with each assignment.
+answers, and the capstone's reviewers' notes. The self-tests publish their own answers, so they
+have no separate key. The rubrics' criteria are published with each assignment.
 
 ## 6. Alignment
 
@@ -283,68 +298,68 @@ Every objective is taught before it is assessed, and assessed at least once beyo
 
 | Objective | Taught | Assessed |
 | :- | :- | :- |
-| LO-1.1, LO-1.2, LO-1.4 | Module 1 | Lab 1, PA1, midterm |
-| LO-1.3 | Module 1 | Lab 1, midterm |
-| LO-2.1, LO-2.3 | Module 2 | Lab 2, PA1, midterm |
-| LO-2.2 | Module 2 | Lab 2, PA1, PA2, midterm |
+| LO-1.1, LO-1.2, LO-1.4 | Module 1 | Lab 1, PA1, Self-test 1 |
+| LO-1.3 | Module 1 | Lab 1, Self-test 1 |
+| LO-2.1, LO-2.3 | Module 2 | Lab 2, PA1, Self-test 1 |
+| LO-2.2 | Module 2 | Lab 2, PA1, PA2, Self-test 1 |
 | LO-2.4 | Module 2 | Lab 2, PA1 |
-| LO-3.1 | Module 3 | Lab 3, PA2, PA3, midterm |
-| LO-3.2 | Module 3 | Lab 3, PA2, midterm |
-| LO-3.3 | Module 3 | Lab 3, PA2, midterm, final exam |
+| LO-3.1 | Module 3 | Lab 3, PA2, PA3, Self-test 1 |
+| LO-3.2 | Module 3 | Lab 3, PA2, Self-test 1 |
+| LO-3.3 | Module 3 | Lab 3, PA2, Self-test 1, Self-test 2 |
 | LO-3.4 | Module 3 | Lab 3, PA2 |
 | LO-4.1 | Module 4 | Lab 4, PA2 |
-| LO-4.2 | Module 4 | Lab 4, PA2, PA3, PA5, midterm |
-| LO-4.3 | Module 4 | Lab 4, midterm |
-| LO-4.4 | Module 4 | Lab 4, PA2, final exam |
-| LO-5.1 | Module 5 | Lab 5, midterm, final exam |
+| LO-4.2 | Module 4 | Lab 4, PA2, PA3, PA5, Self-test 1 |
+| LO-4.3 | Module 4 | Lab 4, Self-test 1 |
+| LO-4.4 | Module 4 | Lab 4, PA2, Self-test 2 |
+| LO-5.1 | Module 5 | Lab 5, Self-test 1, Self-test 2 |
 | LO-5.2 | Module 5 | Lab 5, PA3 |
 | LO-5.3 | Module 5 | Lab 5, PA3, PA4 |
-| LO-6.1 | Module 6 | Lab 6, PA3, PA5, midterm |
-| LO-6.2 | Module 6 | Lab 6, PA3 |
-| LO-6.3 | Module 6 | Lab 6, PA3, PA4, PA5 |
-| LO-7.1, LO-7.2 | Module 7 | Lab 7, PA4, midterm |
-| LO-7.3 | Module 7 | Lab 7, final exam |
-| LO-8.1 | Module 8 | Lab 8, PA4, PA5, final exam |
-| LO-8.2 | Module 8 | Lab 8, PA4, final exam |
-| LO-8.3 | Module 8 | Lab 8, final exam |
-| LO-9.1 | Module 9 | Lab 9, final exam |
-| LO-9.2, LO-9.3 | Module 9 | Lab 9, PA4, final exam |
+| LO-6.1 | Module 6 | Lab 6, PA3, PA5, Self-test 1, capstone |
+| LO-6.2 | Module 6 | Lab 6, PA3, capstone |
+| LO-6.3 | Module 6 | Lab 6, PA3, PA4, PA5, capstone |
+| LO-7.1, LO-7.2 | Module 7 | Lab 7, PA4, Self-test 1 |
+| LO-7.3 | Module 7 | Lab 7, Self-test 2 |
+| LO-8.1 | Module 8 | Lab 8, PA4, PA5, Self-test 2 |
+| LO-8.2 | Module 8 | Lab 8, PA4, Self-test 2 |
+| LO-8.3 | Module 8 | Lab 8, Self-test 2 |
+| LO-9.1 | Module 9 | Lab 9, Self-test 2 |
+| LO-9.2, LO-9.3 | Module 9 | Lab 9, PA4, Self-test 2 |
 | LO-10.1 | Module 10 | Lab 10, PA5 |
-| LO-10.2 | Module 10 | Lab 10, final exam |
-| LO-10.3 | Module 10 | Lab 10, PA5, final exam |
-| LO-11.1, LO-11.2, LO-11.4 | Module 11 | Lab 11, PA5, final project |
-| LO-11.3 | Module 11 | Lab 11, PA5 |
-| LO-12.1, LO-12.3 | Module 12 | Lab 12, final project, final exam |
-| LO-12.2 | Module 12 | Lab 12, final exam |
-| LO-13.1, LO-13.4 | Module 13 | Lab 13, final exam |
-| LO-13.2, LO-13.3 | Module 13 | Lab 13, final project (C track), final exam |
-| LO-14.1 | Module 14 | Lab 14, final exam |
-| LO-14.2 | Module 14 | Lab 14, final project (sandbox track), final exam |
-| LO-14.3 | Module 14 | Lab 14, final project (host track) |
+| LO-10.2 | Module 10 | Lab 10, Self-test 2 |
+| LO-10.3 | Module 10 | Lab 10, PA5, Self-test 2 |
+| LO-11.1–LO-11.4 | Module 11 | Lab 11, PA5, capstone |
+| LO-12.1, LO-12.3 | Module 12 | Lab 12, capstone, Self-test 2 |
+| LO-12.2 | Module 12 | Lab 12, Self-test 2 |
+| LO-13.1, LO-13.4 | Module 13 | Lab 13, Self-test 2 |
+| LO-13.2, LO-13.3 | Module 13 | Lab 13, Self-test 2, capstone (C extension) |
+| LO-14.1 | Module 14 | Lab 14, Self-test 2 |
+| LO-14.2 | Module 14 | Lab 14, Self-test 2, capstone (sandbox extension) |
+| LO-14.3 | Module 14 | Lab 14, Self-test 2, capstone (host extension) |
 
-Module 8 comes in the midterm's week, so the midterm covers modules 1–7.
+Self-test 1 follows Module 7, so it covers modules 1–7. The capstone's ideas add objectives of
+their own, which its brief lists.
 
-## 7. Schedule
+## 7. Suggested pace
 
-Each lab is due at the start of the following week.
+The self-paced edition has no deadlines. This pace takes 15 weeks at about 9 hours a week:
 
-| Week | Module | Due |
+| Week | Module | Then |
 | :- | :- | :- |
 | 1 | 1: First steps | |
-| 2 | 2: Control flow and functions | Lab 1 |
-| 3 | 3: Tables | Lab 2, PA1 |
-| 4 | 4: Strings and patterns | Lab 3 |
-| 5 | 5: Closures and iterators | Lab 4, PA2 |
-| 6 | 6: Errors, modules, and tests | Lab 5 |
-| 7 | 7: Metatables | Lab 6, PA3 |
-| 8 | 8: Objects and classes; **midterm exam** (modules 1–7) | Lab 7 |
-| 9 | 9: Coroutines | Lab 8 |
-| 10 | 10: Files, the OS, and data | Lab 9, PA4 |
-| 11 | 11: Packages and tooling | Lab 10, project proposal |
-| 12 | 12: Performance and memory | Lab 11, PA5 |
-| 13 | 13: Lua and C | Lab 12, project milestone |
-| 14 | 14: Versions, sandboxes, and hosts | Lab 13 |
-| 15 | Review and project demonstrations; **final exam** | Lab 14, final project |
+| 2 | 2: Control flow and functions | PA1 |
+| 3 | 3: Tables | |
+| 4 | 4: Strings and patterns | PA2 |
+| 5 | 5: Closures and iterators | |
+| 6 | 6: Errors, modules, and tests | PA3 |
+| 7 | 7: Metatables | Self-test 1 (modules 1–7) |
+| 8 | 8: Objects and classes | |
+| 9 | 9: Coroutines | |
+| 10 | 10: Files, the OS, and data | PA4 |
+| 11 | 11: Packages and tooling | Capstone proposal |
+| 12 | 12: Performance and memory | PA5 |
+| 13 | 13: Lua and C | Capstone milestone |
+| 14 | 14: Versions, sandboxes, and hosts | Self-test 2 (all modules) |
+| 15 | The capstone project | Capstone release |
 
 ## 8. Environment
 
@@ -359,10 +374,11 @@ Each item needs the instructor's approval before it is installed or added:
 | Lua 5.4 and LuaRocks, built by hererocks | `.venv/lua/` (ignored by Git) | Modules 6 and 11–13, the Lua projects, and checking every example outside the notebooks |
 | The rocks busted, luacheck, and luacov | LuaRocks, into `.venv/lua/` | Tests, lints, and coverage for modules 6 and 11 and the projects |
 | StyLua and lua-language-server | `cargo install stylua`, and the lua-language-server release from GitHub | Module 11's formatting and type checks |
-| TeX Live with LuaLaTeX, `latexmk`, `chktex`, and the `exam` class | You run `sudo apt install texlive-luatex texlive-latex-extra latexmk chktex`, which needs your password | The two exams and their keys |
+| TeX Live with LuaLaTeX, `latexmk`, `chktex`, and the `exam` class | You run `sudo apt install texlive-luatex texlive-latex-extra latexmk chktex`, which needs your password | The two exams and their keys; no longer needed since the self-paced edition of 2026-11-25, which has no LaTeX documents |
 
-LaTeX packages beyond the preamble: `listings` for Lua code (it knows Lua up to 5.3, which covers
-everything the exams show), `fontspec`, `xcolor`, and `hyperref`. All four ship with TeX Live.
+Until 2026-11-25, LaTeX packages beyond the preamble: `listings` for Lua code (it knows Lua up to
+5.3, which covers everything the exams show), `fontspec`, `xcolor`, and `hyperref`. All four ship
+with TeX Live.
 
 ## 9. Sources
 
@@ -387,21 +403,22 @@ Lua 5.0, so the course doesn't assign it.
 
 ## 10. Policies
 
-Approved as drafted on 2026-11-23. The syllabus states them plainly.
+Approved as drafted on 2026-11-23, and revised for the self-paced edition on 2026-11-25. The
+syllabus states them plainly.
 
-- **Late work:** each student has four grace days for the term, used one day at a time on labs
-  and programming assignments. After those, late work loses 10% a day for up to three days. Exams
-  and the final project's last milestone take no late work, except through accommodations.
+- **Pace:** the course is self-paced and has no deadlines; the suggested pace is a guide. This
+  replaces the late-work policy of grace days and daily penalties.
 - **Collaboration and academic integrity:** discuss ideas with anyone, but write your own code and
-  answers. Don't share or look at another student's solution. Name everyone you discussed an
+  answers. Don't share or look at another learner's solution. Name everyone you discussed an
   assignment with, and cite any code you adapted.
 - **Generative AI tools:** allowed for explaining concepts, error messages, and documentation, and
-  in the final project with disclosure. Not allowed for writing any part of a lab, programming
-  assignment, or exam answer. Every submission ends with a short note saying which tools were used
-  and how, or "none".
-- **Accommodations:** students with a disability get the accommodations the institution's
-  disability services office approves, such as extra exam time and accessible formats of every
-  material. Students arrange them through that office and the learning management system.
+  in the capstone project with disclosure. Not for writing any part of a lab, programming
+  assignment, or self-test answer. Every assignment, and the capstone's `README.md`, ends with a
+  short note saying which tools were used and how, or "none".
+- **Accommodations:** every page is HTML or Markdown, which screen readers can read, and nothing is
+  timed except the self-tests' suggested sittings, which a learner can lengthen. A learner who
+  takes the course through an institution arranges any other accommodations through its disability
+  services office. This wording is a draft for the instructor to confirm.
 
 ## 11. Interactivity
 
@@ -413,10 +430,10 @@ extension that JupyterLite's browser-based Python can't load.
 
 ## 12. Exam accessibility
 
-The `exam` class doesn't support PDF tagging yet, so the exam PDFs won't pass a PDF accessibility
-checker. Decided on 2026-11-23: exams aren't published on the website, and an accessible version
-goes to each student who needs one through the accommodations process. If a past exam is
-published later, an accessible Markdown version is published with it.
+Decided on 2026-11-23: the exams weren't published on the website, and an accessible version went
+to each student who needed one through the accommodations process. Resolved on 2026-11-25: the
+self-tests that replaced the exams are Markdown pages, which screen readers can read, so no PDF
+needs tagging.
 
 ## Build notes
 
@@ -437,7 +454,8 @@ Choices made while building, on 2026-11-23, within the approved plan:
 - **Exercise IDs:** practice exercises are numbered `Exercise 1.4`, and lab exercises
   `Exercise L1.4`, so the two never collide.
 - **Exam sources:** each exam's LaTeX source holds its key in `solution` environments, so the
-  sources live in `solutions/exams/`, not in `exams/`.
+  sources live in `solutions/exams/`, not in `exams/`. Superseded on 2026-11-25: the self-tests
+  replaced them.
 - **Website URLs:** `site.options.folders` is on, so pages keep their folders in their URLs
   (MyST drops the number prefix): `modules/first-steps/practice`.
 - **Further reading:** DOI links go to the publisher's page (`dl.acm.org/doi/…`), because MyST
@@ -476,7 +494,8 @@ Choices made while building, on 2026-11-23, within the approved plan:
   (`.lua`, `.csv`, `.toml`) become downloads. A link to a dotfile such as `.luacheckrc` crashed the
   HTML export, and every later build failed until `_build/site` and `_build/cache` were deleted; so
   handouts name dotfiles and extensionless scripts without linking them.
-- **Final project:** the brief is `assignments/final-project/README.md`, with its rubrics, and
+- **Final project** (superseded on 2026-11-25 by the capstone project, below): the brief is
+  `assignments/final-project/README.md`, with its rubrics, and
   `solutions/final-project/README.md` holds the graders' notes and the sandbox attacks to try. The
   split of the project's 20% (proposal 10%, milestone 30%, final 60%), the rubrics' points, and
   letting the proposal and the milestone use grace days are drafts for the instructor to confirm.
@@ -495,7 +514,8 @@ Choices made while building, on 2026-11-23, within the approved plan:
   controls it with `collectgarbage`. Module 12 should explain both. lupa's Lua also lacks
   `io.popen` (`'popen' not supported`), and its `os.execute` returns the raw wait status, 768 for
   `exit 3`; Module 10 says so, and Lab 10 uses `os.execute` with output to a file instead.
-- **Exams:** each exam's LaTeX source, with its key, is in `solutions/exams/`, with a
+- **Exams** (superseded on 2026-11-25 by the self-tests, below): each exam's LaTeX source, with
+  its key, is in `solutions/exams/`, with a
   `latexmkrc` that builds with LuaLaTeX and finds the shared preamble. The preamble's `\code`
   reads its code verbatim, as `\code|…|`, so Lua's `%` and `#` need no escapes. In the `exam`
   class, a question whose parts have points must not have points of its own, or they are counted
@@ -524,13 +544,54 @@ Choices made while building, on 2026-11-23, within the approved plan:
   printed floats with 17 digits where 14 don't read back (`0.1 + 0.2` as `0.30000000000000004`),
   which the manual doesn't list. LÖVE's Lua is unconfirmed (love2d.org refused automated reads),
   so the reading doesn't state it, and the project's grading notes mark it `[citation needed]`.
-- **Final exam:** `solutions/exams/final.tex`, 19 questions, 100 points, 120 minutes, with 81
+- **Final exam** (superseded on 2026-11-25 by Self-test 2): `solutions/exams/final.tex`, 19
+  questions, 100 points, 120 minutes, with 81
   points on modules 8–14 and one question for each objective the alignment table sends to the
   final exam. Its grade table runs down the page (`\gradetable[v][pages]`), because 14 pages
   across overflowed the line. Every Lua answer was run on Lua 5.4.8, the porting answer on all four
   Luas, and the C answers compiled with gcc 13.3.0. chktex reports only warnings caused by the Lua
   and shell code in listings, as for the midterm. Whether it is closed book is still open, as for
   the midterm.
+
+## Build notes for the self-paced edition
+
+Choices made on 2026-11-25, within the instructor's decisions above:
+
+- **Self-tests:** `self-tests/self-test-1.md` and `self-test-2.md`, converted from the exams'
+  LaTeX by a script for the `exam` class's commands, then proofread. Every inline code span and
+  listing carried over: 170 and 9 in Self-test 1, 198 and 24 in Self-test 2. Each question keeps
+  its number, objectives, and points, which the page says are for scoring oneself. The website
+  lists each self-test after the module it follows.
+- **Question 20 of Self-test 2** is new, for LO-14.3, which only the old final project's host
+  track had assessed beyond Lab 14. Its answer's busted test passed with busted 2.3.0 on Lua 5.4.8,
+  and failed on a broken version; lupa's LuaJIT 2.1 confirmed that `//` and `<const>` don't
+  compile there and that `utf8` and `math.type` are `nil`.
+- **Removed:** `solutions/exams/` and `latex/preamble.sty`, which only the exams used.
+  `latex/macros.tex` stays, because the teaching rule keeps the notation's macros there.
+- **Where each piece falls:** after the module whose reading already gave it time: PA1 after
+  Module 2, PA2 after 4, PA3 after 6, PA4 after 10, PA5 after 12, Self-test 1 after 7, and
+  Self-test 2 after 14. The capstone's proposal comes after Module 11, its milestone after 13, and
+  its release after 14. Modules 7 and 8 lost the midterm's hours: Module 7 now takes 8 hours, with
+  2 for Self-test 1, and Module 8 takes 6.
+- **Hidden tests stay private.** The handouts of PA1–PA5 now say the course has no grades, that
+  the hidden tests aren't published, and that a reviewer can run them. Publishing them, for
+  learners working alone, is the instructor's decision; PA3–PA5's broken versions are edits of the
+  model solutions, so they can't be published without the keys.
+- **Capstone project:** the brief keeps its path, `assignments/final-project/README.md`, so links to
+  it keep working. Its continuous integration workflow copies its steps from
+  `.github/workflows/lua101.yml`; the YAML parses, and its luacheck and busted commands passed on a
+  sample project, but the workflow hasn't run on GitHub. `solutions/final-project/README.md`
+  became reviewers' notes, with the sandbox attacks kept for the optional sandbox extension.
+- **Errata and the teaching rule:** `ERRATA.md` now groups corrections by edition, named by release
+  date. The **Course structure** and **Errata** values in `.claude/rules/teaching-materials.md`
+  now allow a self-paced course.
+- **Checks on 2026-11-25:** Labs 1 and 7 ran as students get them and with their keys; PA1's and
+  PA2's sources ran under `pytest --nbmake` and passed `nbgrader validate`, their regenerated
+  student versions failed it on every graded cell and matched the committed ones; PA3–PA5's
+  graders passed their self-tests, each catching 10 of 10 broken versions; and the website built 54
+  pages. The built site holds no nbgrader markers, no text from this plan or the reviewers' notes,
+  and no model-solution code; its only lines shared with the hidden tests are in the published
+  example specs.
 
 ## Build checklist
 
@@ -549,7 +610,7 @@ Tick each line once its piece passes its checks.
 - [x] Module 6: reading, lab, and practice
 - [x] PA3: handout, starter code, hidden tests, model solution, and rubric
 - [x] Module 7: reading, lab, and practice
-- [x] Midterm exam and key
+- [x] Midterm exam and key (replaced by Self-test 1 on 2026-11-25)
 - [x] Module 8: reading, lab, and practice
 - [x] Module 9: reading, lab, and practice
 - [x] PA4: handout, starter code, hidden tests, model solution, and rubric
@@ -557,9 +618,13 @@ Tick each line once its piece passes its checks.
 - [x] Module 11: reading, lab, and practice
 - [x] PA5: handout, starter code, hidden tests, model solution, and rubric
 - [x] Module 12: reading, lab, and practice
-- [x] Final project: brief, milestones, and rubric
+- [x] Final project: brief, milestones, and rubric (replaced by the capstone on 2026-11-25)
 - [x] Module 13: reading, lab, and practice
 - [x] Module 14: reading, lab, and practice
-- [x] Final exam and key
+- [x] Final exam and key (replaced by Self-test 2 on 2026-11-25)
 - [x] Whole-course checks: notebooks, LaTeX, website build, leak search, alignment, answers,
   accessibility, links, and the rules' checks
+- [x] Self-paced edition: syllabus, suggested pace, policies, module times, and handouts
+- [x] Self-test 1 and Self-test 2, from the exams, with Question 20 added
+- [x] Capstone project: brief, checkpoints, rubric, and reviewers' notes
+- [x] Self-paced edition: whole-course checks

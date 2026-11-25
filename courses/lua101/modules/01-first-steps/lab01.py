@@ -336,4 +336,4 @@ print("passed")
 # - Only `nil` and `false` are falsy, and `cond and a or b` fails when `a` is falsy.
 # - A missing `local` passes the function's own tests and breaks code elsewhere.
 #
-# Next, do the [Module 1 practice](practice.md). PA1 starts in week 2, after Module 2.
+# Next, do the [Module 1 practice](practice.md). PA1 follows Module 2.

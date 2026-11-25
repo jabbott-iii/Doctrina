@@ -4,7 +4,8 @@
 **Prerequisites:** [Module 6](../06-errors-modules-and-tests/index.md),
 [Module 9](../09-coroutines/index.md), and [Module 10](../10-files-os-and-data/index.md)\
 **Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 14](lab14.ipynb), 1.5 for the
-[practice](practice.md), and 3 for the final project
+[practice](practice.md), and 3 for [Self-test 2](../../self-tests/self-test-2.md), which follows
+this module
 
 Most Lua code doesn't run in the standalone `lua`. It runs inside a host: an editor, a database, a
 document converter, or a game. The host chooses which Lua runs your code, what your code can reach,

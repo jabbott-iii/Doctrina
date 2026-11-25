@@ -49,8 +49,7 @@ Before you open a pull request, run the checks for what you changed:
   .venv/bin/pytest --nbmake courses/lua101/modules/01-first-steps/lab01.ipynb
   ```
 
-- **A LaTeX document:** build it with `latexmk -lualatex`, from the folder its README names, such
-  as [LUA101's exams](courses/lua101/solutions/exams/README.md).
+- **A LaTeX document:** build it with `latexmk -lualatex`, from the folder its README names.
 - **A course's website:** build it from the course's folder, and check that it finishes without
   errors:
 
@@ -67,7 +66,7 @@ GitHub Actions runs checks on every pull request to `main`:
   that the student versions match their sources, runs the project graders' self-tests, and builds
   the website. The [workflow](.github/workflows/lua101.yml) shows each command.
 
-Neither workflow builds the LaTeX documents, so build those yourself.
+Neither workflow builds LaTeX documents, so build any you add yourself.
 
 ## Commit
 

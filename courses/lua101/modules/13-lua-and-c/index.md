@@ -4,7 +4,8 @@
 **Prerequisites:** [Module 6](../06-errors-modules-and-tests/index.md) and
 [Module 7](../07-metatables/index.md)\
 **Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 13](lab13.ipynb), 1.5 for the
-[practice](practice.md), and 3 for the final project's milestone, which is due this week
+[practice](practice.md), and 3 toward the milestone of the
+[capstone project](../../assignments/final-project/README.md), which follows this module
 
 Lua was built to live inside programs written in C, and it talks to them through a small
 interface, the **C API**. The API works in two directions. **Extending** Lua means writing

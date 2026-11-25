@@ -1,4 +1,0 @@
-# latexmk settings for LUA101's exams: build with LuaLaTeX, and find the shared preamble and
-# macros in courses/lua101/latex/. Run latexmk from this folder.
-$pdf_mode = 4;
-ensure_path('TEXINPUTS', '../../latex//');

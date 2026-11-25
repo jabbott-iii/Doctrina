@@ -4,7 +4,7 @@
 **Prerequisites:** [Module 2](../02-control-flow-and-functions/index.md) and
 [Module 3](../03-tables/index.md)\
 **Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 5](lab05.ipynb), 1.5 for the
-[practice](practice.md), and 3 to start PA3, which is due in week 7
+[practice](practice.md), and 3 to start PA3, which follows Module 6
 
 Module 2 showed that a function is a value you can store and pass around. This module adds the
 idea that makes that useful: a function can keep the local variables of the function that created

@@ -3,7 +3,7 @@
 **Objectives:** LO-11.1, LO-11.2, LO-11.3, LO-11.4\
 **Prerequisites:** [Module 6](../06-errors-modules-and-tests/index.md)\
 **Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 11](lab11.ipynb), 1.5 for the
-[practice](practice.md), and 3 to start PA5, which is due in week 12
+[practice](practice.md), and 3 to start PA5, which follows Module 12
 
 So far your code has been a file or two that you ran by hand. Code that other people install,
 review, and maintain needs more: a package that says what it contains and what it depends on, and

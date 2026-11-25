@@ -394,4 +394,5 @@ print("Python", sys.version.split()[0], "| lupa", lupa.__version__)
 # - Weak tables drop entries whose weak part is an unreachable object, at the next collection;
 #   strings, numbers, and the entries of ordinary tables stay.
 #
-# Next, do the [Module 7 practice](practice.md), then review for the midterm exam.
+# Next, do the [Module 7 practice](practice.md), then take
+# [Self-test 1](../../self-tests/self-test-1.md).

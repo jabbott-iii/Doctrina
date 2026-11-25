@@ -3,7 +3,7 @@
 **Objectives:** LO-10.1, LO-10.2, LO-10.3\
 **Prerequisites:** [Module 6](../06-errors-modules-and-tests/index.md)\
 **Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 10](lab10.ipynb), 1.5 for the
-[practice](practice.md), and 3 to finish PA4, which is due this week
+[practice](practice.md), and 3 to finish PA4, which follows this module
 
 Programs so far have kept their data in memory and printed their results. This module connects
 them to the world outside: files, the clock, the environment, and other programs. It also covers

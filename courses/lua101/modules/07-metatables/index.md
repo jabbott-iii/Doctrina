@@ -3,8 +3,9 @@
 **Objectives:** LO-7.1, LO-7.2, LO-7.3\
 **Prerequisites:** [Module 3](../03-tables/index.md) and
 [Module 5](../05-closures-and-iterators/index.md)\
-**Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 7](lab07.ipynb), 1.5 for the
-[practice](practice.md), and 3 to prepare for the midterm exam in week 8
+**Time:** about 8 hours: 2.5 for this reading, 2 for [Lab 7](lab07.ipynb), 1.5 for the
+[practice](practice.md), and 2 for [Self-test 1](../../self-tests/self-test-1.md), which follows
+this module
 
 Lua has no classes, no operator overloading, and no properties, yet Lua programs have all three.
 They build them from one mechanism: the **metatable**, a table that changes how another table

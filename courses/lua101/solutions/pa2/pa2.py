@@ -17,15 +17,15 @@
 # # PA2: Tables and text
 #
 # **Objectives:** LO-2.2, LO-3.1, LO-3.2, LO-3.3, LO-3.4, LO-4.1, LO-4.2, LO-4.4\
-# **Due:** week 5, as the [schedule](../../README.md#schedule) gives it\
-# **Weight:** 5% of the course grade; 22 points\
+# **When:** after Module 4, as the [suggested pace](../../README.md#suggested-pace) places it\
+# **Points:** 22, for scoring yourself; the course has no grades\
 # **Time:** about 3 hours
 #
 # Write each answer in the cell marked `-- YOUR CODE HERE`, replacing the line
 # `error("not implemented")`. Each problem's test cell checks your answer with visible tests,
-# which you can run as often as you like. When you submit, the grader also runs hidden tests,
-# which check the cases the problem statement describes but the visible tests don't. A problem's
-# points go to the hidden and visible tests together, so read each statement closely. Where a
+# which you can run as often as you like. An instructor or a mentor who reviews your work can
+# also run hidden tests, which check the cases the problem statement describes but the
+# visible tests don't, so read each statement closely and test those cases yourself. Where a
 # statement says how fast a function must be, the hidden tests time it on a large input.
 #
 # - Don't change or delete the test cells.

@@ -3,7 +3,7 @@
 **Objectives:** LO-4.1, LO-4.2, LO-4.3, LO-4.4\
 **Prerequisites:** [Module 3](../03-tables/index.md)\
 **Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 4](lab04.ipynb), 1.5 for the
-[practice](practice.md), and 3 for PA2, which is due in week 5
+[practice](practice.md), and 3 for PA2, which follows this module
 
 This module covers Lua's string library: cutting and formatting text, searching it with Lua's
 **patterns**, building long strings efficiently, and handling text that isn't plain ASCII.

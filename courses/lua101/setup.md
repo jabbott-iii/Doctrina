@@ -1,8 +1,8 @@
 # Setting up your environment
 
 You need two things for this course: a Python environment that runs the lab notebooks, and a
-standalone Lua 5.4 interpreter with LuaRocks, Lua's package manager, for scripts and projects.
-Set up both in the first week. The commands below are for Linux and macOS; on Windows, run them
+standalone Lua 5.4 interpreter with LuaRocks, Lua's package manager, for scripts and projects. Set
+up both before you start Module 1. The commands below are for Linux and macOS; on Windows, run them
 inside the Windows Subsystem for Linux (WSL).
 
 Run every command from the root folder of the repository that holds the course, the folder with

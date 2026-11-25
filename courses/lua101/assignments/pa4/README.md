@@ -1,8 +1,8 @@
 # PA4: A discrete-event simulation
 
 **Objectives:** LO-7.1, LO-7.2, LO-8.1, LO-8.2, LO-9.2, LO-9.3, and, revisited, LO-5.3 and LO-6.3\
-**Due:** week 10, as the [schedule](../../README.md#schedule) gives it\
-**Weight:** 9% of the course grade: 70 points from hidden tests, and 30 from the rubric below\
+**When:** after Module 10, as the [suggested pace](../../README.md#suggested-pace) places it\
+**Checking your work:** the example tests, your own tests, and the rubric below\
 **Time:** about 6 hours, spread over modules 9 and 10
 
 You will simulate a bank. Customers arrive, wait in one line, and are served by the first free
@@ -147,6 +147,10 @@ least one of your tests fail.
 
 ## How it is graded
 
+The course has no grades. This section describes the full check that an instructor or a
+mentor who reviews your work can run. The hidden tests aren't published, so when you work
+alone, test every promise in this handout yourself, and score your work with the rubric.
+
 ### Hidden tests: 70 points
 
 | Part | Points | Part | Points |
@@ -168,9 +172,8 @@ ones, so a broken `Scheduler` costs points in `run_bank` too.
 
 ## Policies
 
-The course's [policies](../../README.md#policies) apply. Late work uses your grace days, then
-loses 10% a day for up to three days. Discuss ideas with anyone, but write your own code and
-tests, and name everyone you discussed the assignment with on the third line of `sim.lua`.
-Generative AI tools may explain concepts and error messages to you, but may not write any part of
-the module or its tests; say on the second line of `sim.lua` which tools you used, and how, or
-write "none".
+The course's [policies](../../README.md#policies) apply. Discuss ideas with anyone, but write your
+own code and tests, and name everyone you discussed the assignment with on the third line of
+`sim.lua`. Generative AI tools may explain concepts and error messages to you, but may not write any
+part of the module or its tests; say on the second line of `sim.lua` which tools you used, and how,
+or write "none".

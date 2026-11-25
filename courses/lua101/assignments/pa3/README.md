@@ -1,8 +1,8 @@
 # PA3: An iterator library
 
 **Objectives:** LO-5.2, LO-5.3, LO-6.1, LO-6.2, LO-6.3, and, revisited, LO-3.1 and LO-4.2\
-**Due:** week 7, as the [schedule](../../README.md#schedule) gives it\
-**Weight:** 7% of the course grade: 70 points from hidden tests, and 30 from the rubric below\
+**When:** after Module 6, as the [suggested pace](../../README.md#suggested-pace) places it\
+**Checking your work:** the example tests, your own tests, and the rubric below\
 **Time:** about 6 hours, spread over modules 5 and 6
 
 You will write `iter`, a module of **lazy iterators**: functions that produce values one at a
@@ -116,6 +116,10 @@ broken versions; work out from the handout what a careless implementation would 
 
 ## How it is graded
 
+The course has no grades. This section describes the full check that an instructor or a
+mentor who reviews your work can run. The hidden tests aren't published, so when you work
+alone, test every promise in this handout yourself, and score your work with the rubric.
+
 ### Hidden tests: 70 points
 
 The hidden tests check the promises above, function by function. Each function's tests earn its
@@ -139,9 +143,8 @@ points in proportion to how many of them pass:
 
 ## Policies
 
-The course's [policies](../../README.md#policies) apply. Late work uses your grace days, then
-loses 10% a day for up to three days. Discuss ideas with anyone, but write your own code and
-tests, and name everyone you discussed the assignment with on the third line of `iter.lua`.
-Generative AI tools may explain concepts and error messages to you, but may not write any part of
-the module or its tests; say on the second line of `iter.lua` which tools you used, and how, or
-write "none".
+The course's [policies](../../README.md#policies) apply. Discuss ideas with anyone, but write your
+own code and tests, and name everyone you discussed the assignment with on the third line of
+`iter.lua`. Generative AI tools may explain concepts and error messages to you, but may not write
+any part of the module or its tests; say on the second line of `iter.lua` which tools you used, and
+how, or write "none".

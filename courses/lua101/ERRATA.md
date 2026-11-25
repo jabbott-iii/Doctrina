@@ -1,7 +1,7 @@
 # Errata
 
-Corrections to published LUA101 material, newest first, grouped by the term whose edition they
-correct. Each entry gives the date, the file, and what changed, so you can tell whether the
-version you used had the error.
+Corrections to published LUA101 material, newest first, grouped by the edition they correct, which
+is named by its release date. Each entry gives the date, the file, and what changed, so you can tell
+whether the version you used had the error.
 
 No corrections yet.

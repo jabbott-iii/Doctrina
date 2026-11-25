@@ -4,16 +4,15 @@
 version: 1
 project:
   title: "LUA101: Lua from Front to Back"
-  description: "A 15-week course that takes programmers from their first Lua 5.4 program to embedding Lua in C."
+  description: "A self-paced course that takes programmers from their first Lua 5.4 program to embedding Lua in C."
   license:
     content: CC-BY-4.0
     code: MIT
-  # Answer keys, the instructor's plan, exam sources, and the lab helper's code stay out.
+  # Answer keys, the instructor's plan, the tools, and the lab helper's code stay out.
   exclude:
     - "solutions/**"
     - "PLAN.md"
     - "lualab/**"
-    - "exams/**"
     - "tools/**"
   math:
     '\bigO': 'O\left(#1\right)'
@@ -56,6 +55,7 @@ project:
         - file: modules/07-metatables/index.md
         - file: modules/07-metatables/lab07.ipynb
         - file: modules/07-metatables/practice.md
+    - file: self-tests/self-test-1.md
     - title: "Module 8: Objects and classes"
       children:
         - file: modules/08-objects-and-classes/index.md
@@ -91,6 +91,7 @@ project:
         - file: modules/14-versions-sandboxes-and-hosts/index.md
         - file: modules/14-versions-sandboxes-and-hosts/lab14.ipynb
         - file: modules/14-versions-sandboxes-and-hosts/practice.md
+    - file: self-tests/self-test-2.md
     - title: "Assignments"
       children:
         - file: assignments/pa1/pa1.ipynb

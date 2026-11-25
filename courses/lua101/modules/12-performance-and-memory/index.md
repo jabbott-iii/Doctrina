@@ -4,7 +4,7 @@
 **Prerequisites:** [Module 3](../03-tables/index.md),
 [Module 4](../04-strings-and-patterns/index.md), and [Module 7](../07-metatables/index.md)\
 **Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 12](lab12.ipynb), 1.5 for the
-[practice](practice.md), and 3 to finish PA5, which is due this week, or to start the final project
+[practice](practice.md), and 3 to finish PA5, which follows this module
 
 Most code is fast enough, and the code that isn't is rarely where you would guess. This module
 teaches the method that finds it: measure, form a hypothesis from how Lua stores data, change one

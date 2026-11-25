@@ -1,10 +1,9 @@
-# Final project: grading notes
+# Capstone project: reviewers' notes
 
-The brief and its rubrics are published in `assignments/final-project/README.md`. These notes are
-for the people who grade it: how to run the checks, what to look for in each track, and the
-attacks to try on a sandbox. The split of the project's 20% among the milestones (10%, 30%, 60%)
-and the rubrics' points are drafts in the brief; change them there if the instructor decides
-otherwise.
+The brief, its checklists, and its rubric are published in `assignments/final-project/README.md`.
+The course has no grades, so these notes are for an instructor or a mentor who reviews a capstone
+project: how to run the checks, what to look for in a portfolio release and in each optional
+extension, and the attacks to try on a sandbox.
 
 ## Running the checks
 
@@ -16,15 +15,29 @@ python courses/lua101/tools/check_project.py path/to/project --lpath='./src/?.lu
 
 It copies the project, and reports the rockspec's lint and build, luacheck, `stylua --check`,
 lua-language-server, the tests' result, each file's coverage, and the number of lines the tests
-never ran. Its results feed **Builds** and **Tooling** at the milestone, and **Package and
-tooling** and part of **Tests and coverage** in the final project. Read `README.md` for the
-explanation of every line never run.
+never ran. Its results answer most of the milestone's checklist, and the rubric's **Package and
+tooling** and part of **Tests and coverage**. Read `README.md` for the explanation of every line
+never run.
 
 A project that uses another `--lpath`, or C code that needs a compiler flag, may need its own
-options; the student's `README.md` says how to build and test it, and is part of the documentation
+options; the student's `README.md` says how to build and test it, and is part of the `README.md`
 criterion.
 
-## What to look for in each track
+## What to look for in a portfolio release
+
+- **The example runs.** Install the rock from a fresh clone at the tag `v1.0.0`, following only the
+  `README.md`, and run its example. Its output should match the output the `README.md` shows.
+- **CI passed on the tagged commit,** not only on a later one. The workflow's run for that commit
+  is listed on the repository's Actions page.
+- **The design notes name trade-offs.** "I used a heap" isn't a trade-off; "a heap makes each push
+  cost $O(\log n)$ instead of a re-sort's $O(n \log n)$, but listing every item in order now needs
+  a sort of its own" is.
+- **The disclosure is specific.** It names the tools, the parts they helped with, and how the
+  student checked the result, as the course's policy on generative AI asks.
+
+## What to look for in each extension
+
+Every extension is optional; review only the ones a project includes.
 
 ### C
 
@@ -39,12 +52,12 @@ criterion.
 - **Errors in an embedding host** are caught with `lua_pcall`, and the program reports the message
   and carries on, or exits with a status, without `abort`.
 - If the student ran Valgrind or AddressSanitizer (`-fsanitize=address`), the report belongs in the
-  `README.md`; credit it under documentation.
+  `README.md`; it belongs under the `README.md` criterion.
 
 ### Sandbox
 
-Try each attack on the student's sandbox with a plugin of your own. Each must fail with an error
-the host catches, or be listed in `THREATS.md` as something the sandbox doesn't stop:
+Try each attack on the student's sandbox with a plugin or helper of your own. Each must fail with an
+error the host catches, or be listed in `THREATS.md` as something the sandbox doesn't stop:
 
 | Attack | Plugin code | Why it matters |
 | :- | :- | :- |
@@ -58,8 +71,8 @@ the host catches, or be listed in `THREATS.md` as something the sandbox doesn't 
 
 A sandbox that offers `coroutine`, `load`, or `getmetatable` to plugins must wrap them: set the hook
 in each coroutine it creates (`debug.sethook(co, hook, "", count)`), pass the sandbox's environment
-to every `load`, and offer a `getmetatable` that refuses strings. Grade **Function and track** on
-the attacks it stops, and credit a `THREATS.md` that names honestly the ones it doesn't.
+to every `load`, and offer a `getmetatable` that refuses strings. Judge the extension by the
+attacks it stops, and by a `THREATS.md` that names honestly the ones it doesn't.
 
 ### Host
 
@@ -77,8 +90,8 @@ the attacks it stops, and credit a `THREATS.md` that names honestly the ones it 
 
 ## Proposals that work, and proposals that don't
 
-A good proposal names a small core, such as a CSV-to-JSON converter, a rate limiter for plugin
-calls, or a Pandoc filter that numbers figures, and grows from it. Steer students away from
+A good proposal names a small core, such as one of the brief's five ideas, a CSV-to-JSON converter,
+or a rate limiter for plugin calls, and grows from it. Steer students away from
 proposals whose core depends on something the course didn't cover, such as a network protocol or a
 GUI framework, and from proposals with no plausible hot path: the performance criterion needs a
 loop that runs often enough to measure.

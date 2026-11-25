@@ -17,15 +17,15 @@
 # # PA1: Numbers and functions
 #
 # **Objectives:** LO-1.1, LO-1.2, LO-1.4, LO-2.1, LO-2.2, LO-2.3, LO-2.4\
-# **Due:** week 3, as the [schedule](../../README.md#schedule) gives it\
-# **Weight:** 5% of the course grade; 22 points\
+# **When:** after Module 2, as the [suggested pace](../../README.md#suggested-pace) places it\
+# **Points:** 22, for scoring yourself; the course has no grades\
 # **Time:** about 3 hours
 #
 # Write each answer in the cell marked `-- YOUR CODE HERE`, replacing the line
 # `error("not implemented")`. Each problem's test cell checks your answer with visible tests,
-# which you can run as often as you like. When you submit, the grader also runs hidden tests,
-# which check the cases the problem statement describes but the visible tests don't. A problem's
-# points go to the hidden and visible tests together, so read each statement closely.
+# which you can run as often as you like. An instructor or a mentor who reviews your work can
+# also run hidden tests, which check the cases the problem statement describes but the
+# visible tests don't, so read each statement closely and test those cases yourself.
 #
 # - Don't change or delete the test cells.
 # - Define each function as a global, as each problem's starter code does, so the test cells can

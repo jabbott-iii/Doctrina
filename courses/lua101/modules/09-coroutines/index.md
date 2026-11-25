@@ -4,7 +4,7 @@
 **Prerequisites:** [Module 5](../05-closures-and-iterators/index.md) and
 [Module 6](../06-errors-modules-and-tests/index.md)\
 **Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 9](lab09.ipynb), 1.5 for the
-[practice](practice.md), and 3 for PA4, which is due in week 10
+[practice](practice.md), and 3 for PA4, which follows Module 10
 
 A **coroutine** is a function that can pause in the middle, hand values back to whoever started
 it, and later continue exactly where it stopped, with its local variables intact. Lua's

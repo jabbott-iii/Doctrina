@@ -8,7 +8,8 @@ language's central idea, the table, which serves as array, record, module, objec
 use closures, metatables, and coroutines to build abstractions, and you package, test, lint, and
 measure your code with the tools Lua programmers use at work. The last third extends Lua with C,
 runs untrusted code in a sandbox, and adapts code to the other Lua versions and hosts you will
-meet. The course teaches Lua 5.4.
+meet. The course teaches Lua 5.4. It is self-paced, with no deadlines and no grades: 14 modules,
+two self-tests, and a capstone project, a Lua package for your portfolio.
 
 Start with [setting up your environment](setup.md).
 
@@ -32,8 +33,8 @@ By the end of the course, you can:
 - **LO-8:** Adapt code to the Lua version and host it runs in, and run untrusted code in a
   sandbox, stating what the sandbox can't stop.
 
-Each module's objectives serve the course objective in brackets. Every exercise, lab, and exam
-question names the objectives it tests.
+Each module's objectives serve the course objective in brackets. Every exercise, lab, and
+self-test question names the objectives it tests.
 
 ### Module 1: First steps [LO-1]
 
@@ -179,75 +180,84 @@ its reading explains the C it uses.
 4. Run a program from a terminal with a file path as its argument, and read its error message.
 5. Clone a Git repository, change a file, and commit the change.
 
-## Schedule
+## Suggested pace
 
-Each week is one module of about 9 hours: about 2.5 for the reading, 2 for the lab, 1.5 for the
-practice, and 3 for the assignment due that week or the next. Each lab is due at the start of the
-following week. Modules without a link aren't published yet.
+The course is self-paced, so it has no deadlines: take as long as you need. This pace takes 15
+weeks at about 9 hours a week. Most modules take about 9 hours: about 2.5 for the reading, 2 for
+the lab, 1.5 for the practice, and 3 for the assignment or self-test that follows, as each module's
+reading says. Modules 7 and 8 take less.
 
-| Week | Topic | Reading | Due |
+| Week | Topic | Reading | Then |
 | :- | :- | :- | :- |
 | 1 | First steps | [Module 1](modules/01-first-steps/index.md) | |
-| 2 | Control flow and functions | [Module 2](modules/02-control-flow-and-functions/index.md) | Lab 1 |
-| 3 | Tables | [Module 3](modules/03-tables/index.md) | Lab 2, [PA1](assignments/pa1/pa1.ipynb) |
-| 4 | Strings and patterns | [Module 4](modules/04-strings-and-patterns/index.md) | Lab 3 |
-| 5 | Closures and iterators | [Module 5](modules/05-closures-and-iterators/index.md) | Lab 4, [PA2](assignments/pa2/pa2.ipynb) |
-| 6 | Errors, modules, and tests | [Module 6](modules/06-errors-modules-and-tests/index.md) | Lab 5 |
-| 7 | Metatables | [Module 7](modules/07-metatables/index.md) | Lab 6, [PA3](assignments/pa3/README.md) |
-| 8 | Objects and classes; **midterm exam** on modules 1–7 | [Module 8](modules/08-objects-and-classes/index.md) | Lab 7 |
-| 9 | Coroutines | [Module 9](modules/09-coroutines/index.md) | Lab 8 |
-| 10 | Files, the operating system, and data | [Module 10](modules/10-files-os-and-data/index.md) | Lab 9, [PA4](assignments/pa4/README.md) |
-| 11 | Packages and tooling | [Module 11](modules/11-packages-and-tooling/index.md) | Lab 10, [project proposal](assignments/final-project/README.md) |
-| 12 | Performance and memory | [Module 12](modules/12-performance-and-memory/index.md) | Lab 11, [PA5](assignments/pa5/README.md) |
-| 13 | Lua and C | [Module 13](modules/13-lua-and-c/index.md) | Lab 12, [project milestone](assignments/final-project/README.md) |
-| 14 | Versions, sandboxes, and hosts | [Module 14](modules/14-versions-sandboxes-and-hosts/index.md) | Lab 13 |
-| 15 | Review and project demonstrations; **final exam** | | Lab 14, [final project](assignments/final-project/README.md) |
+| 2 | Control flow and functions | [Module 2](modules/02-control-flow-and-functions/index.md) | [PA1](assignments/pa1/pa1.ipynb) |
+| 3 | Tables | [Module 3](modules/03-tables/index.md) | |
+| 4 | Strings and patterns | [Module 4](modules/04-strings-and-patterns/index.md) | [PA2](assignments/pa2/pa2.ipynb) |
+| 5 | Closures and iterators | [Module 5](modules/05-closures-and-iterators/index.md) | |
+| 6 | Errors, modules, and tests | [Module 6](modules/06-errors-modules-and-tests/index.md) | [PA3](assignments/pa3/README.md) |
+| 7 | Metatables | [Module 7](modules/07-metatables/index.md) | [Self-test 1](self-tests/self-test-1.md), on modules 1–7 |
+| 8 | Objects and classes | [Module 8](modules/08-objects-and-classes/index.md) | |
+| 9 | Coroutines | [Module 9](modules/09-coroutines/index.md) | |
+| 10 | Files, the operating system, and data | [Module 10](modules/10-files-os-and-data/index.md) | [PA4](assignments/pa4/README.md) |
+| 11 | Packages and tooling | [Module 11](modules/11-packages-and-tooling/index.md) | The [capstone project](assignments/final-project/README.md)'s proposal |
+| 12 | Performance and memory | [Module 12](modules/12-performance-and-memory/index.md) | [PA5](assignments/pa5/README.md) |
+| 13 | Lua and C | [Module 13](modules/13-lua-and-c/index.md) | The capstone project's milestone |
+| 14 | Versions, sandboxes, and hosts | [Module 14](modules/14-versions-sandboxes-and-hosts/index.md) | [Self-test 2](self-tests/self-test-2.md), on all modules |
+| 15 | The capstone project | [The brief](assignments/final-project/README.md) | The capstone project's release |
 
-## Assessment
+## Checking your work
 
-| Component | Weight | Objectives |
+The course has no grades. Instead, every piece comes with a way to check it, so you can tell what
+you have learned and what to review:
+
+| Piece | How you check it | Objectives |
 | :- | :- | :- |
-| Labs 1–14, graded for completion: every check in the notebook passes | 10% | Each lab's module |
-| PA1: Numbers and functions (graded notebook) | 5% | LO-1.1, LO-1.2, LO-1.4, LO-2.1–2.4 |
-| PA2: Tables and text (graded notebook) | 5% | LO-3.1–3.4, LO-4.1, LO-4.2, LO-4.4, LO-2.2 |
-| PA3: An iterator library (Lua project) | 7% | LO-5.2, LO-5.3, LO-6.1–6.3, LO-3.1, LO-4.2 |
-| PA4: A discrete-event simulation (Lua project) | 9% | LO-7.1, LO-7.2, LO-8.1, LO-8.2, LO-9.2, LO-9.3, LO-5.3, LO-6.3 |
-| PA5: A command-line tool (Lua project) | 9% | LO-10.1, LO-10.3, LO-11.1–11.4, LO-4.2, LO-6.1, LO-8.1 |
-| Midterm exam: printed, 75 minutes, no computer | 15% | Modules 1–7 |
-| Final project: proposal, milestone, and final version | 20% | LO-6, LO-11.1, LO-11.2, LO-11.4, LO-12.1, LO-12.3, and one track |
-| Final exam: printed, 120 minutes, no computer | 20% | All modules, weighted toward modules 8–14 |
+| Labs 1–14 | Every check cell in the notebook passes | Each lab's module |
+| PA1: Numbers and functions (notebook) | Its visible tests | LO-1.1, LO-1.2, LO-1.4, LO-2.1–2.4 |
+| PA2: Tables and text (notebook) | Its visible tests | LO-3.1–3.4, LO-4.1, LO-4.2, LO-4.4, LO-2.2 |
+| PA3: An iterator library (Lua project) | Its example tests, your own tests, and its rubric | LO-5.2, LO-5.3, LO-6.1–6.3, LO-3.1, LO-4.2 |
+| PA4: A discrete-event simulation (Lua project) | Its example tests, your own tests, and its rubric | LO-7.1, LO-7.2, LO-8.1, LO-8.2, LO-9.2, LO-9.3, LO-5.3, LO-6.3 |
+| PA5: A command-line tool (Lua project) | Its example tests, your own tests, its rubric, and the course's project checker | LO-10.1, LO-10.3, LO-11.1–11.4, LO-4.2, LO-6.1, LO-8.1 |
+| Self-test 1, after Module 7 | The answers and scoring notes in the page | Modules 1–7 |
+| Self-test 2, after Module 14 | The answers and scoring notes in the page | All modules, weighted toward modules 8–14 |
+| Capstone project: proposal, milestone, and release | The brief's checklists and rubric, and the course's project checker | LO-6.1–6.3, LO-11.1–11.4, LO-12.1, LO-12.3, and those of the idea you choose |
 
-- **Graded notebooks** (PA1 and PA2) check your answers with visible tests, which you can run, and
-  hidden tests, which the grader runs.
-- **Lua projects** (PA3–PA5) are graded 70% by hidden busted tests and 30% by a rubric for design,
-  tests, and style. Each project's handout publishes its rubric.
-- **The final project** is a LuaRocks package with busted tests, measured coverage, no lint
-  findings, and a measured speed-up of one hot path. You also pick one track: **C** (a C program
-  that Lua scripts, or a C module with userdata; LO-13.2–13.4), **sandbox** (a plugin system that
-  runs untrusted scripts with limits; LO-14.2, LO-10.3), or **host** (a Neovim plugin, a LÖVE
-  game, or a Pandoc filter, tested with the host replaced by a stand-in; LO-14.3).
+- **The notebook assignments** (PA1 and PA2) check your answers with visible tests, which you can
+  run as often as you like.
+- **The Lua projects** (PA3–PA5) each publish example tests and a rubric. Write your own tests for
+  every promise in the handout, as each handout asks, and score your work with the rubric.
+- **The assignments' hidden tests aren't published.** They stay with the answer keys, for an
+  instructor or a mentor who reviews your work, so test the cases each statement describes
+  yourself.
+- **The self-tests** mix questions from many modules. Take each in one sitting, without notes, then
+  open the answers and score yourself.
+- **The capstone project** is a LuaRocks package of your own design, of intermediate size, built to
+  show in a portfolio: tested, linted, documented, measured, released as version 1.0.0, and
+  checked by continuous integration. If you want more, it can grow into C, a sandbox, or a host,
+  as Modules 13 and 14 teach.
 
-Later assessments revisit earlier objectives on purpose, so that you keep practicing them.
+Later pieces revisit earlier objectives on purpose, so that you keep practicing them.
 
 ## Policies
 
-- **Late work:** you have four grace days for the term, used one day at a time on labs and
-  programming assignments. After those, late work loses 10% a day for up to three days. Exams and
-  the final project's last milestone take no late work, except through accommodations.
+- **Pace:** the course is self-paced and has no deadlines. The suggested pace is a guide, not a
+  requirement.
 - **Collaboration and academic integrity:** discuss ideas with anyone, but write your own code and
-  answers. Don't share or look at another student's solution. Name everyone you discussed an
+  answers. Don't share or look at another learner's solution. Name everyone you discussed an
   assignment with, and cite any code you adapted.
 - **Generative AI tools:** you may use them to explain concepts, error messages, and
-  documentation, and in the final project with disclosure. You may not use them to write any part
-  of a lab, a programming assignment, or an exam answer. End every submission with a short note
-  saying which tools you used and how, or "none".
-- **Accommodations:** students with a disability get the accommodations that the institution's
-  disability services office approves, such as extra exam time and accessible formats of every
-  material, exams included. Arrange them through that office and the learning management system.
+  documentation, and in the capstone project with disclosure. Don't use them to write any part of
+  a lab, a programming assignment, or a self-test answer: doing that work yourself is how the
+  course teaches. End every assignment, and your capstone's `README.md`, with a short note saying
+  which tools you used and how, or "none".
+- **Accommodations:** every page of the course is HTML or Markdown, which screen readers can read,
+  and nothing is timed except the self-tests' suggested sittings, which you can lengthen as you
+  need. If you take the course through an institution, its disability services office arranges
+  any other accommodations, through the learning management system.
 
 ## Course materials
 
 - [Notation and conventions](notation.md)
-- [Errata](ERRATA.md): corrections to published material, by term
+- [Errata](ERRATA.md): corrections to published material, by edition
 - Text and figures are under the Creative Commons Attribution 4.0 International license (CC BY
   4.0), and code is under the MIT License in the repository's `LICENSE` file.
