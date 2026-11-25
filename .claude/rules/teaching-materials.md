@@ -35,8 +35,9 @@ so they can fill them in.
 - **Audience:** set by each piece of material: a course in its syllabus
   (`courses/<code>/README.md`, under "Prerequisites"), and a workbook or article in its
   introduction.
-- **Course structure:** set by each course's syllabus, which gives the term's length and its
-  modules. Every module follows the shape under "Modules" in this rule.
+- **Course structure:** set by each course's syllabus, which gives the term's length, or the
+  suggested pace of a self-paced course, and its modules. Every module follows the shape under
+  "Modules" in this rule.
 - **Learning objectives:** listed in each course's syllabus, with IDs of the form
   `LO-<module>.<n>`, such as `LO-3.2`.
 - **Build tool:** Jupyter Book, the user's choice on 2026-11-22, for the Markdown and notebooks,
@@ -67,7 +68,8 @@ so they can fill them in.
   a PDF accessibility checker, such as veraPDF.
 - **Check commands:** `pytest --nbmake` on changed notebooks, `latexmk -lualatex` on changed
   LaTeX documents, and the Jupyter Book build once the first course adds it.
-- **Errata:** each course's `ERRATA.md`, with editions named by term, such as "Spring 2027".
+- **Errata:** each course's `ERRATA.md`, with editions named by term, such as "Spring 2027", or,
+  for a self-paced course, by release date, such as "the 2026-11-25 edition".
 
 ## Decisions that are the user's
 
