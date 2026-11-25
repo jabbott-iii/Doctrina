@@ -79,6 +79,13 @@ has no details of its own: it uses the values of the rules it relies on.
   translations, untrusted input, sandboxing code the program didn't ship, the C API and LuaJIT's
   FFI, LuaCATS or LDoc docs, rockspecs, tests on every supported version, and lints. It relies on
   `writing.md` for doc comments and error messages, so adopt both.
+- [`rules/python.md`](rules/python.md): how to write Python as a senior engineer, covering the
+  features each version adds, type hints and data design, traps such as mutable default arguments
+  and late-binding closures, exceptions, files and encodings, logging, time and money, text for
+  users and its translations through gettext, untrusted input, threads, processes, and `asyncio`,
+  native code, public APIs, docstrings, READMEs and metadata for the Python Package Index (PyPI),
+  tests with pytest, lints and type checking, and packaging with `pyproject.toml` and lock files. It
+  relies on `writing.md` for docstrings and error messages, so adopt both.
 - [`rules/roadmap-and-docs.md`](rules/roadmap-and-docs.md): how to plan and document a project
   in the style of Nadir's `docs/` folder, covering the numbered core documents, a roadmap of
   milestones and checkable tasks with a backlog of triggers, append-only decision records,

@@ -29,7 +29,8 @@ and skills in two folders each, with different jobs.
   `kotlin-multiplatform.md`, `swift.md`, `flutter.md`, `lua.md`, and `roadmap-and-docs.md` have
   none, because Doctrina has no web pages, Rust, Kotlin, Android, iOS, Swift, Flutter, or Lua
   code, and no roadmap or design documents, for them to apply to. `dependencies.md`,
-  `testing.md`, and `pair-programming.md` have none either, because Doctrina hasn't adopted them.
+  `testing.md`, `pair-programming.md`, and `python.md` have none either, because Doctrina hasn't
+  adopted them.
 
 ## Keep each copy in sync with its source
 
