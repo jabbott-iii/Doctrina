@@ -86,6 +86,15 @@ has no details of its own: it uses the values of the rules it relies on.
   native code, public APIs, docstrings, READMEs and metadata for the Python Package Index (PyPI),
   tests with pytest, lints and type checking, and packaging with `pyproject.toml` and lock files. It
   relies on `writing.md` for docstrings and error messages, so adopt both.
+- [`rules/typescript.md`](rules/typescript.md): how to write TypeScript and JavaScript as a senior
+  engineer, on Node.js, in browsers, or both, covering runtimes and ES modules, Node.js running
+  `.ts` files directly, strict compiler options, type design, traps such as the default sort order
+  and the limits of `number`, errors and unhandled promises, logging, async code and cancellation,
+  text for users and its translations through `Intl`, untrusted input and prototype pollution,
+  native addons, public APIs and the `exports` field, doc comments, READMEs and metadata for npm,
+  tests, linting with type information, and dependencies and install scripts. It relies on
+  `writing.md` for doc comments and error messages, so adopt both. Code that runs in web pages also
+  follows `web-front-end.md`.
 - [`rules/roadmap-and-docs.md`](rules/roadmap-and-docs.md): how to plan and document a project
   in the style of Nadir's `docs/` folder, covering the numbered core documents, a roadmap of
   milestones and checkable tasks with a backlog of triggers, append-only decision records,
