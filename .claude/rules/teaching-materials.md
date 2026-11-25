@@ -15,11 +15,10 @@ paths:
 
 # Teaching materials standards
 
-These rules cover materials written to educate readers: courses, workbooks, and formal articles
-for journals and informational series. They describe how a university professor designs and
-writes them, which of Markdown, Jupyter notebooks, and LaTeX to use for each piece, and how to
-work with the user as a pair: you draft and check the material, and they decide what is taught,
-how it is assessed, and what is published. The text follows `writing.md` in this folder.
+These rules cover materials written to educate readers: courses, workbooks, and formal articles for
+journals and informational series. They describe how a university professor designs and writes them,
+and which of Markdown, Jupyter notebooks, and LaTeX to use for each piece. The text follows
+`writing.md` in this folder.
 
 Apply them to materials you write or edit. Don't restructure published material only to make it
 conform; bring a section into shape when you are already changing it.
@@ -70,41 +69,30 @@ so they can fill them in.
   LaTeX documents, and the Jupyter Book build once the first course adds it.
 - **Errata:** each course's `ERRATA.md`, with editions named by term, such as "Spring 2027".
 
-## Working as a pair
+## Decisions that are the user's
 
-- **Read before you write.** Read the **Learning objectives**, the module or chapter around the
+Stop and ask the user before you:
+
+- add, remove, or reword a learning objective;
+- change grading weights, a rubric, a deadline, or a course policy;
+- put a solution or an answer key anywhere students can see it;
+- renumber or remove a published module, exercise, or equation that readers may cite;
+- change the format of existing material (for example, from Markdown to LaTeX);
+- add a package to the **Notebook environment** or the **LaTeX setup**;
+- use a figure, text, or data set that someone else owns;
+- change the **License**;
+- or submit, share, or publish anything outside the repository.
+
+## Making a change
+
+- **Read what comes before.** Read the **Learning objectives**, the module or chapter around the
   change, the **Notation**, and the materials that come before it, so a new piece builds on what
-  readers have already learned. Check the **Materials** to find where new material belongs, and
-  match the patterns already there unless they are the problem.
-- **Say the plan first.** For anything bigger than a short fix, say in two or three sentences
-  what you will write, in which format and why, which objectives it serves, and how you will
-  check it. Then go ahead, unless the plan includes one of the decisions in the next point.
-- **Ask before decisions that are the user's.** Stop and ask before you:
-  - add, remove, or reword a learning objective;
-  - change grading weights, a rubric, a deadline, or a course policy;
-  - put a solution or an answer key anywhere students can see it;
-  - renumber or remove a published module, exercise, or equation that readers may cite;
-  - change the format of existing material (for example, from Markdown to LaTeX);
-  - add a package to the **Notebook environment** or the **LaTeX setup**;
-  - use a figure, text, or data set that someone else owns;
-  - change the **License**;
-  - or submit, share, or publish anything outside the repository.
-
-  For anything else, choose the conventional option and say what you chose.
-- **Push back with reasons.** If an exercise doesn't test the objective it claims, a problem
-  statement can be read two ways, a claim has no source, or a notebook depends on hidden state,
-  say so with the reason and a concrete fix. Once the user decides, follow their decision.
+  readers have already learned. Check the **Materials** to find where new material belongs.
 - **Never invent a source.** Cite only works you have confirmed exist and say what you cite them
-  for. Never make up a citation, a DOI, a quotation, or a statistic. If you can't confirm one,
-  mark the place `[citation needed: …]` and say so in your report.
-- **Check every answer yourself.** Work each new exercise, run each code example, and recompute
-  each number before you report it done. An error in a key teaches the error.
-- **Keep the change focused.** No unrelated rewrites, renumbering, or reformatting. Mention
-  problems you notice elsewhere instead of fixing them.
-- **Report honestly.** Say what you wrote and why, which notebooks ran from a fresh start, which
-  documents compiled and with what warnings, which sources you confirmed, what you couldn't
-  check and why, and what remains. Never say a check passed unless you ran it in this session
-  and saw it pass.
+  for. Never make up a citation, a DOI, a quotation, or a statistic. If you can't confirm one, mark
+  the place `[citation needed: …]` and say so in your report.
+- **Check every answer yourself.** Work each new exercise, run each code example, and recompute each
+  number before you report it done. An error in a key teaches the error.
 
 ## Choose the format
 
@@ -410,7 +398,7 @@ Appendices: proofs, derivations, and details that would interrupt the main text
   its complete fields and a DOI where one exists.
 - Cite a source for every claim that isn't common knowledge in the field or shown in the article.
   Prefer primary sources to summaries of them.
-- Cite only what you have confirmed, as "Working as a pair" says. Quote rarely, briefly, and with
+- Cite only what you have confirmed, as "Making a change" says. Quote rarely, briefly, and with
   attribution; paraphrase in your own words otherwise.
 - Get permission for every figure, table, or long quotation from someone else's work, unless its
   license allows the use, and credit it as the license requires.
@@ -445,5 +433,5 @@ Appendices: proofs, derivations, and details that would interrupt the main text
 7. Confirm every citation you added, and list any you couldn't confirm.
 8. Do the two-reader check from `writing.md`, reading as a student at the level the **Audience**
    describes and as a colleague in the field.
-9. Review your changes as described in "Working as a pair", then report what you checked, what
-   you didn't, and what remains.
+9. Review your changes as a reviewer would, then report what you checked, what you didn't, and what
+   remains.

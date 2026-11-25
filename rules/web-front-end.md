@@ -11,10 +11,9 @@ paths:
 
 # Web front-end standards
 
-These rules cover the HTML, CSS, and JavaScript of a website or web app in this repository, and
-the templates that produce its pages. They describe how a senior front-end developer builds for
-the web, and how to work with the user as a pair: you write the code, and they review it and make
-the calls that are theirs. Text on the pages follows `writing.md` in this folder.
+These rules cover the HTML, CSS, and JavaScript of a website or web app in this repository, and the
+templates that produce its pages. They describe how a senior front-end developer builds for the web.
+Text on the pages follows `writing.md` in this folder.
 
 Apply them to code you write or edit. Don't rewrite existing files only to make them conform; fix
 a passage when you are already changing it, and mention anything else you notice.
@@ -61,48 +60,30 @@ so they can fill them in.
 - **Test tools:** [FILL IN: the automated front-end checks and their commands, for example the Nu
   HTML Checker, axe, Lighthouse, or Playwright tests, or "none"]
 
-## Working as a pair
+## Decisions that are the user's
 
-- **Read before you write.** Read the page's template, the components and tokens already in the
+Stop and ask the user before you:
+
+- add a framework, package, third-party script, font, or tracker;
+- change the design (colors, type, spacing, layout, or tokens) beyond what was asked;
+- change or remove a published URL;
+- collect any data from visitors, through a form, analytics, or a cookie;
+- or weaken an accessibility requirement, a lint, or a check.
+
+## Making a change
+
+- **Read first.** Read the page's template, the components and tokens already in the
   **Stylesheets**, and how the **Scripts** are organized. Reuse an existing component or class
-  before you add one, and match the patterns already there unless they are the problem.
-- **Say the plan first.** For a change bigger than a few lines, say in two or three sentences
-  what will change, where, and how you will check it. Then go ahead, unless the plan includes one
-  of the decisions in the next point.
-- **Ask before decisions that are the user's.** Stop and ask before you:
-  - add a framework, package, third-party script, font, or tracker;
-  - change the design (colors, type, spacing, layout, or tokens) beyond what was asked;
-  - change or remove a published URL;
-  - collect any data from visitors, through a form, analytics, or a cookie;
-  - weaken an accessibility requirement, a lint, or a check;
-  - or build something different from what was asked.
-
-  For anything else, choose the conventional option and say what you chose.
-- **Push back with reasons.** If a requested approach hurts accessibility, performance, security,
-  or how the page works without JavaScript, say so before you implement it, with the reason and a
-  concrete alternative: a `button` instead of a clickable `div`, or a restyled focus outline
-  instead of a removed one. Once the user decides, follow their decision, and say in your report
-  what it costs, for example which WCAG criterion the page now fails.
-- **Work in small steps, and look at each one.** Check each step in the browser with the
-  **Preview command**, not only in the source. Markup that looks right in an editor can still
-  overflow on a phone or lose its focus outline.
-- **Fix the cause, not the symptom.** Find the element that makes a page scroll sideways instead
-  of hiding overflow on `body`. Lower the specificity that wins instead of adding `!important`,
-  and fix the stacking context instead of raising a `z-index`.
-- **Don't paper over problems.** Never add `!important`, a magic number, a `setTimeout` that
-  waits for rendering, browser sniffing, or an ARIA attribute only to make a symptom or an audit
-  warning go away. Work out why it happens, then fix that.
-- **Explain what isn't obvious.** In your reply, say why a selector, an ARIA attribute, or a
-  layout technique is needed. Write for the audience in `writing.md`, and cover only what this
-  change needs.
-- **Keep the change focused.** No unrelated refactors, renames, or reformatting. Mention problems
-  you notice outside the task instead of fixing them.
-- **Review your own diff** before you report, as a reviewer would. Look for inline styles,
-  hard-coded colors or sizes, missing `alt` text or labels, controls without an accessible name,
-  outside data in `innerHTML`, and leftover `console.log` calls.
-- **Report honestly.** Say what changed and why, which browsers, widths, and tools you checked
-  with and what they found, what you didn't check and why, your assumptions, and the risks that
-  remain. Never say a check passed unless you ran it in this session and saw it pass.
+  before you add one.
+- **Check each step in the browser.** Look at each step with the **Preview command**, not only in
+  the source. Markup that looks right in an editor can still overflow on a phone or lose its focus
+  outline.
+- **Fix the cause, not the symptom.** Find the element that makes a page scroll sideways instead of
+  hiding overflow on `body`. Lower the specificity that wins instead of adding `!important`, and fix
+  the stacking context instead of raising a `z-index`.
+- **Don't paper over problems.** Never add `!important`, a magic number, a `setTimeout` that waits
+  for rendering, browser sniffing, or an ARIA attribute only to make a symptom or an audit warning
+  go away. Work out why it happens, then fix that.
 
 ## HTML
 
@@ -302,10 +283,11 @@ only", the first two points still apply, so the site can be translated later.
   `hreflang` on each link. Don't use flags: a flag stands for a country, and Spanish, Arabic, and
   Portuguese are each spoken in many. Never choose the language from the reader's location. Once
   a reader picks one, keep them in it: each page links to the same language's other pages.
-- Make sure the fonts cover every script the site ships, and ask before adding one, as "Working
-  as a pair" says. Give a script's font a `unicode-range` in `@font-face`, so browsers download
-  it only for pages that use its characters. Check the line height, too: Urdu's Nastaliq style,
-  and the marks above and below Devanagari and Bengali letters, often need more than Latin text.
+- Make sure the fonts cover every script the site ships, and ask before adding one, as
+  "Decisions that are the user's" says. Give a script's font a `unicode-range` in `@font-face`,
+  so browsers download it only for pages that use its characters. Check the line height, too:
+  Urdu's Nastaliq style, and the marks above and below Devanagari and Bengali letters, often need
+  more than Latin text.
 - Leave room for longer text. Translations of labels up to 10 characters can run two to three
   times the English length, so let buttons and labels grow and wrap instead of setting their
   width.
@@ -331,7 +313,7 @@ only", the first two points still apply, so the site can be translated later.
   that limits where scripts and styles may come from: no inline scripts, inline styles, or `on*`
   handlers.
 - Collect no data from visitors, and send none to a third party, without the user's approval
-  (see "Working as a pair").
+  (see "Decisions that are the user's").
 
 ## Performance
 
@@ -382,5 +364,7 @@ only", the first two points still apply, so the site can be translated later.
 9. If you changed a config file, a data file, or front matter, check that it parses with the
    command in `writing.md`.
 10. Check changed page text against `writing.md`, including its two-reader check.
-11. Review your diff as described in "Working as a pair", then report what you checked, what you
-    didn't, and what remains.
+11. Review your diff as a reviewer would. Look for inline styles, hard-coded colors or sizes,
+    missing `alt` text or labels, controls without an accessible name, outside data in `innerHTML`,
+    and leftover `console.log` calls. Then report what you checked, what you didn't, and what
+    remains.

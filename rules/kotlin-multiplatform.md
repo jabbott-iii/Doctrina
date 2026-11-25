@@ -13,11 +13,10 @@ paths:
 # Kotlin Multiplatform standards
 
 These rules cover Kotlin Multiplatform (KMP) code that runs on Android and iOS: the shared source
-sets, the platform source sets that implement them, the framework that iOS imports, and the
-Swift and Xcode code that meets it. They describe how a senior mobile developer shares code
-across platforms, and how to work with the user as a pair: you write the code, and they review it
-and make the calls that are theirs. Kotlin itself follows `kotlin.md` in this folder, Android code
-follows `android.md`, Swift code follows `swift.md`, and text follows `writing.md`.
+sets, the platform source sets that implement them, the framework that iOS imports, and the Swift
+and Xcode code that meets it. They describe how a senior mobile developer shares code across
+platforms. Kotlin itself follows `kotlin.md` in this folder, Android code follows `android.md`,
+Swift code follows `swift.md`, and text follows `writing.md`.
 
 Apply them to code you write or edit. Don't rewrite existing code only to make it conform; fix a
 passage when you are already changing it, and mention anything else you notice.
@@ -67,56 +66,37 @@ so they can fill them in.
 - **Release:** [FILL IN: how the iOS app is built, signed, and shipped, for example CD on a macOS
   runner uploading to TestFlight, and who triggers it]
 
-## Working as a pair
+## Decisions that are the user's
 
-- **Read before you write.** Read the shared code around a change, its `actual`s or platform
-  implementations on every target, and the Swift that calls it. Check the **Modules** and
-  **What is shared** to find where new code belongs, and match the patterns already there unless
-  they are the problem.
-- **Say the plan first.** For a change bigger than a few lines, say in two or three sentences
-  what will change, on which targets, and how you will check each one. Then go ahead, unless the
-  plan includes one of the decisions in the next point.
-- **Ask before decisions that are the user's.** Stop and ask before you:
-  - move code into or out of common code, or add or remove a target;
-  - add a library to common code, or a platform library behind it;
-  - add an `expect class`, an `@OptIn`, or a `-X` compiler flag;
-  - change the API that Swift sees, which can break the iOS app's build;
-  - change the **iOS framework** setup, the Xcode project, or signing;
-  - change the **UI strategy**, or share UI that each platform builds natively today;
-  - change a **Toolchain** version, including Xcode;
-  - or build something different from what was asked.
+Stop and ask the user before you:
 
-  For anything else, choose the conventional option and say what you chose.
-- **Push back with reasons.** If a request would put platform code in common code, force one
-  platform's conventions on the other, or share something that costs more to share than to write
-  twice, say so before you implement it, with the reason and a concrete alternative. Once the
-  user decides, follow their decision.
-- **Work in small steps.** Move or change one piece at a time, and build every target that it
-  affects after each step. Moving a declaration into common code keeps its package, so imports
-  don't change.
+- move code into or out of common code, or add or remove a target;
+- add a library to common code, or a platform library behind it;
+- add an `expect class`, an `@OptIn`, or a `-X` compiler flag;
+- change the API that Swift sees, which can break the iOS app's build;
+- change the **iOS framework** setup, the Xcode project, or signing;
+- change the **UI strategy**, or share UI that each platform builds natively today;
+- or change a **Toolchain** version, including Xcode.
+
+## Making a change
+
+- **Read first.** Read the shared code around a change, its `actual`s or platform implementations on
+  every target, and the Swift that calls it. Check the **Modules** and **What is shared** to find
+  where new code belongs.
+- **Check each step on every target.** Move or change one piece at a time, and build every target
+  that it affects after each step. Moving a declaration into common code keeps its package, so
+  imports don't change.
 - **Fix the cause, not the symptom.** If Swift code is awkward to write against the shared API,
   change the Kotlin API; don't copy logic into Swift to work around it. If a platform API seems
   needed in common code, add a platform interface; don't suppress the error.
-- **Explain what isn't obvious.** In your reply, say why code is common or platform code, how a
-  Kotlin declaration looks from Swift, and what each target does differently. Write for the
-  audience in `writing.md`, and cover only what this change needs.
-- **Keep the change focused.** No unrelated refactors, renames, or reformatting. Mention problems
-  you notice outside the task instead of fixing them.
-- **Review your own diff** before you report, as a reviewer would. Look for platform imports in
-  common code, an `actual` missing on a target, a throwing function that Swift calls without
-  `@Throws`, Kotlin types leaking into the exported API by accident, and a library that doesn't
-  publish every target.
-- **Report honestly.** Say what changed and why, which targets you built and tested, on which
-  machine, with each command's real result, what you couldn't run and why (iOS builds need a
-  Mac), your assumptions, and the risks that remain. Never say a check passed unless you ran it
-  in this session and saw it pass.
 
 ## What to share
 
 - Follow **What is shared**. Share what must behave the same on both platforms: domain models and
   rules, validation, data access, networking, and formatting logic. Keep what each platform does
   its own way on that platform, or behind a platform interface: system UI, permissions,
-  notifications, background work, and anything users expect to feel native.
+  notifications, background work, and anything users expect to feel native. Keep code on each
+  platform, too, when sharing it would cost more than writing it twice.
 - Share UI only as the **UI strategy** says. Even with Compose Multiplatform, follow each
   platform's conventions where users notice them, such as Back on Android and the swipe from the
   edge on iOS.
@@ -149,8 +129,8 @@ so they can fill them in.
   - shared mutable state: a `Mutex` or kotlinx-atomicfu;
   - files and streams: kotlinx-io or a platform interface.
 - Add a library to common code only if it publishes every target in the **Targets**, and only
-  after the user agrees (see "Working as a pair"). Check its published targets on Maven Central or
-  klibs.io, not only its README.
+  after the user agrees (see "Decisions that are the user's"). Check its published targets on
+  Maven Central or klibs.io, not only its README.
 - Use `api` for a dependency whose types appear in the shared module's public API, and
   `implementation` for the rest, as `kotlin.md` describes.
 - Format numbers, dates, and currency for the user's locale on the platform, behind the
@@ -367,5 +347,7 @@ performance), which apply on both platforms.
 5. If you changed the UI, check it on both platforms: on Android as `android.md` describes, and
    on an iOS simulator with VoiceOver, the largest text size, dark appearance, the keyboard open,
    and the edge-swipe back gesture on every screen you pushed.
-6. Review your diff as described in "Working as a pair", then report which targets you built and
-   tested, what you couldn't run, and what remains.
+6. Review your diff as a reviewer would. Look for platform imports in common code, an `actual`
+   missing on a target, a throwing function that Swift calls without `@Throws`, Kotlin types leaking
+   into the exported API by accident, and a library that doesn't publish every target. Then report
+   which targets you built and tested, what you couldn't run, and what remains.

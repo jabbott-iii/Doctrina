@@ -11,11 +11,10 @@ has no details of its own: it uses the values of the rules it relies on.
   for an audience from students to senior engineers, and a check to run before finishing. It
   covers all prose in a repository, including code comments and commit messages.
 - [`rules/web-front-end.md`](rules/web-front-end.md): how to build a website or web app as a senior
-  front-end developer and work with the user as a pair, covering semantic HTML, CSS that meets the
-  Web Content Accessibility Guidelines (WCAG) 2.2 at level AA, progressively enhanced JavaScript,
-  languages and right-to-left layout, security and privacy, performance budgets, hosting limits, and
-  the checks to run in the browser. It relies on `writing.md` for page text and YAML checks, so
-  adopt both.
+  front-end developer, covering semantic HTML, CSS that meets the Web Content Accessibility
+  Guidelines (WCAG) 2.2 at level AA, progressively enhanced JavaScript, languages and right-to-left
+  layout, security and privacy, performance budgets, hosting limits, and the checks to run in the
+  browser. It relies on `writing.md` for page text and YAML checks, so adopt both.
 - [`rules/commits.md`](rules/commits.md): copy-ready commit messages, how much Git Claude may run,
   one change per commit, the Conventional Commits format, and pull request descriptions, with no
   attribution lines. It relies on `writing.md` for the text of each message, so adopt both.
@@ -34,57 +33,63 @@ has no details of its own: it uses the values of the rules it relies on.
   fail the build, security tests with hostile input and fuzzing, required checks in CI, and a
   diff check for new skips and removed assertions. It relies on `writing.md` and on the language
   rules' test commands, and on `dependencies.md` for test tools where that rule is adopted.
-- [`rules/rust.md`](rules/rust.md): how to write Rust as a senior engineer and work with the user as
-  a pair, covering type design, ownership, errors, text for users and its translations, hostile
-  input, concurrency, `unsafe`, public APIs, tests, lints, and dependencies. Its documentation
-  section covers doc comments and crate docs for docs.rs, a tested README for each crate on
-  crates.io, and the docs.rs and crates.io metadata. It relies on `writing.md` for doc comments and
-  error messages, so adopt both.
-- [`rules/kotlin.md`](rules/kotlin.md): how to write Kotlin as a senior engineer and work with the
-  user as a pair, covering type design, null safety, errors, coroutines and Flow, text for users and
-  its translations, hostile input, Java and platform interop, binary compatibility, KDoc and Dokka
-  docs, module READMEs, tests, lints, and Gradle builds. It relies on `writing.md` for KDoc and
-  error messages, so adopt both.
-- [`rules/android.md`](rules/android.md): how to build Android apps with Jetpack Compose as a
-  senior mobile developer and work with the user as a pair, covering app architecture, Compose
-  state and performance, adaptive layouts, accessibility, translations, lifecycle and process
-  death, background work, Room migrations, security and privacy, tests, and release builds. It
-  relies on `kotlin.md` for the language and on `writing.md` for strings, so adopt all three.
-- [`rules/kotlin-multiplatform.md`](rules/kotlin-multiplatform.md): how to share Kotlin code
-  between Android and iOS as a senior mobile developer and work with the user as a pair,
-  covering what to share, source sets and targets, common-code limits, platform APIs, the API
-  that Swift sees, coroutines across platforms, the Xcode toolchain, and tests on every target.
-  Its Compose Multiplatform section covers shared UI: setup and entry points, shared resources,
-  iOS behavior and look, native views, accessibility, iOS performance, previews, and UI tests.
-  It relies on `kotlin.md`, `android.md`, `swift.md`, and `writing.md`, so adopt all five.
-- [`rules/swift.md`](rules/swift.md): how to write Swift and SwiftUI as a senior mobile developer
-  and work with the user as a pair, covering type design, optionals and errors, memory, strict
-  concurrency, SwiftUI state and identity, layout, accessibility, localization, persistence,
-  security and privacy, Kotlin Multiplatform interop, tests, and release. It relies on
-  `writing.md` for doc comments and strings, so adopt both.
+- [`rules/pair-programming.md`](rules/pair-programming.md): how to work with the user as a pair, in
+  which you write the code or draft the material, and they review it and make the calls that are
+  theirs. It covers reading before you write, saying the plan first, asking before the decisions
+  that are the user's, pushing back with reasons, small steps checked one at a time, fixing causes
+  instead of silencing tools, focused changes, explanations at the depth the user wants, a review of
+  your own diff, and an honest report. The other rules add what their own work needs: the changes
+  listed in each one's "Decisions that are the user's" section, and the checks and warnings in each
+  language rule's "Making a change" section. It relies on `writing.md`, so adopt both.
+- [`rules/rust.md`](rules/rust.md): how to write Rust as a senior engineer, covering type design,
+  ownership, errors, text for users and its translations, hostile input, concurrency, `unsafe`,
+  public APIs, tests, lints, and dependencies. Its documentation section covers doc comments and
+  crate docs for docs.rs, a tested README for each crate on crates.io, and the docs.rs and crates.io
+  metadata. It relies on `writing.md` for doc comments and error messages, so adopt both.
+- [`rules/kotlin.md`](rules/kotlin.md): how to write Kotlin as a senior engineer, covering type
+  design, null safety, errors, coroutines and Flow, text for users and its translations, hostile
+  input, Java and platform interop, binary compatibility, KDoc and Dokka docs, module READMEs,
+  tests, lints, and Gradle builds. It relies on `writing.md` for KDoc and error messages, so adopt
+  both.
+- [`rules/android.md`](rules/android.md): how to build Android apps with Jetpack Compose as a senior
+  mobile developer, covering app architecture, Compose state and performance, adaptive layouts,
+  accessibility, translations, lifecycle and process death, background work, Room migrations,
+  security and privacy, tests, and release builds. It relies on `kotlin.md` for the language and on
+  `writing.md` for strings, so adopt all three.
+- [`rules/kotlin-multiplatform.md`](rules/kotlin-multiplatform.md): how to share Kotlin code between
+  Android and iOS as a senior mobile developer, covering what to share, source sets and targets,
+  common-code limits, platform APIs, the API that Swift sees, coroutines across platforms, the Xcode
+  toolchain, and tests on every target. Its Compose Multiplatform section covers shared UI: setup
+  and entry points, shared resources, iOS behavior and look, native views, accessibility, iOS
+  performance, previews, and UI tests. It relies on `kotlin.md`, `android.md`, `swift.md`, and
+  `writing.md`, so adopt all five.
+- [`rules/swift.md`](rules/swift.md): how to write Swift and SwiftUI as a senior mobile developer,
+  covering type design, optionals and errors, memory, strict concurrency, SwiftUI state and
+  identity, layout, accessibility, localization, persistence, security and privacy, Kotlin
+  Multiplatform interop, tests, and release. It relies on `writing.md` for doc comments and strings,
+  so adopt both.
 - [`rules/flutter.md`](rules/flutter.md): how to build cross-platform mobile apps with Dart and
-  Flutter as a senior mobile developer and work with the user as a pair, covering Dart types,
-  errors, and isolates, widgets and `build`, layout and performance, state management,
-  navigation, platform adaptation, accessibility, localization, platform channels, data and
-  security, tests, and release. It relies on `writing.md`, and on `android.md`, `kotlin.md`, and
-  `swift.md` for native code, so adopt those that apply.
-- [`rules/lua.md`](rules/lua.md): how to write Lua as a senior engineer and work with the user as a
-  pair, covering the differences between Lua 5.1, 5.4, 5.5, and LuaJIT, locals and modules, tables
-  and strings, numbers, errors and cleanup, metatables, coroutines inside a host's event loop,
-  performance, text for users and its translations, untrusted input, sandboxing code the program
-  didn't ship, the C API and LuaJIT's FFI, LuaCATS or LDoc docs, rockspecs, tests on every supported
-  version, and lints. It relies on `writing.md` for doc comments and error messages, so adopt both.
+  Flutter as a senior mobile developer, covering Dart types, errors, and isolates, widgets and
+  `build`, layout and performance, state management, navigation, platform adaptation, accessibility,
+  localization, platform channels, data and security, tests, and release. It relies on `writing.md`,
+  and on `android.md`, `kotlin.md`, and `swift.md` for native code, so adopt those that apply.
+- [`rules/lua.md`](rules/lua.md): how to write Lua as a senior engineer, covering the differences
+  between Lua 5.1, 5.4, 5.5, and LuaJIT, locals and modules, tables and strings, numbers, errors and
+  cleanup, metatables, coroutines inside a host's event loop, performance, text for users and its
+  translations, untrusted input, sandboxing code the program didn't ship, the C API and LuaJIT's
+  FFI, LuaCATS or LDoc docs, rockspecs, tests on every supported version, and lints. It relies on
+  `writing.md` for doc comments and error messages, so adopt both.
 - [`rules/roadmap-and-docs.md`](rules/roadmap-and-docs.md): how to plan and document a project
   in the style of Nadir's `docs/` folder, covering the numbered core documents, a roadmap of
   milestones and checkable tasks with a backlog of triggers, append-only decision records,
   specs for each part of the system, a feature list tied to the roadmap, and where status is
   reported. It includes a template for each document, and relies on `writing.md` for the text,
   so adopt both.
-- [`rules/teaching-materials.md`](rules/teaching-materials.md): how to write courses, workbooks,
-  and formal articles that educate readers, as a university professor working with the user as
-  a pair. It covers when to use Markdown, Jupyter notebooks, or LaTeX; objectives-first course
-  design; exercises, answer keys, and rubrics; each format's practices; accessible PDFs;
-  citations; and integrity and student privacy. It relies on `writing.md`, so adopt both.
+- [`rules/teaching-materials.md`](rules/teaching-materials.md): how to write courses, workbooks, and
+  formal articles that educate readers, as a university professor. It covers when to use Markdown,
+  Jupyter notebooks, or LaTeX; objectives-first course design; exercises, answer keys, and rubrics;
+  each format's practices; accessible PDFs; citations; and integrity and student privacy. It relies
+  on `writing.md`, so adopt both.
 
 ## Skills
 
@@ -127,31 +132,31 @@ has no details of its own: it uses the values of the rules it relies on.
   decisions, documents, and risks. Given a phase, it evaluates that gate with evidence gathered
   in this session and records the result, and you confirm a pass. Empty, it shows every gate's
   state. It relies on `roadmap-and-docs.md`, `commits.md`, and `writing.md`.
-- [`skills/sweep-code/`](skills/sweep-code/SKILL.md): `/sweep-code [scope]` scans the code for
-  bugs and dead code: the bugs tools miss, from dropped errors to races, and unreachable code,
-  unused declarations, files, and dependencies, and suppressions that hide nothing. It proves
-  each finding with a failing test, a traced path, or a check of every way the code could be
-  reached, and shows them all before it changes anything. It fixes only what you approve, one
-  change at a time, with a regression test for each bug. It relies on `commits.md`,
-  `writing.md`, and the language rules, and uses `roadmap-and-docs.md` where it is adopted.
-- [`skills/security-sweep/`](skills/security-sweep/SKILL.md): `/security-sweep [scope]` finds
-  and patches security vulnerabilities. It starts from a threat model of what an attacker would
-  want and where data comes in, then checks the Git history for secrets, the dependencies for
-  known vulnerabilities and supply-chain risks, the code against a checklist of weaknesses
-  numbered as in the Common Weakness Enumeration (CWE), and the continuous integration (CI)
-  workflows for script injection and unpinned actions. It proves each finding with a local test,
-  never against a deployed system, never uses a secret it finds, and keeps findings private
-  until you decide how to disclose them. It patches only what you approve, each with a
-  regression test. It relies on `commits.md`, `writing.md`, and the language rules, and uses
-  `roadmap-and-docs.md` where it is adopted.
-- [`skills/simplify-code/`](skills/simplify-code/SKILL.md): `/simplify-code [scope]` finds code
-  that is longer or more convoluted than its job requires, such as deep nesting, long functions,
-  copied code, and layers that only forward calls. It simplifies the parts you approve without
-  giving up any functionality: every input, output, error, side effect, edge case, option,
-  supported platform, and performance budget stays as it was. It first checks why code is long,
-  because much length is functionality, pins the current behavior with tests, and then makes one
-  simplification at a time. It relies on `commits.md`, `writing.md`, and the language rules, and
-  uses `roadmap-and-docs.md` where it is adopted.
+- [`skills/sweep-code/`](skills/sweep-code/SKILL.md): `/sweep-code [scope]` scans the code for bugs
+  and dead code: the bugs tools miss, from dropped errors to races, and unreachable code, unused
+  declarations, files, and dependencies, and suppressions that hide nothing. It proves each finding
+  with a failing test, a traced path, or a check of every way the code could be reached, and shows
+  them all before it changes anything. It fixes only what you approve, one change at a time, with a
+  regression test for each bug. It relies on `commits.md`, `writing.md`, and the language rules, and
+  uses `roadmap-and-docs.md` and `pair-programming.md` where they are adopted.
+- [`skills/security-sweep/`](skills/security-sweep/SKILL.md): `/security-sweep [scope]` finds and
+  patches security vulnerabilities. It starts from a threat model of what an attacker would want and
+  where data comes in, then checks the Git history for secrets, the dependencies for known
+  vulnerabilities and supply-chain risks, the code against a checklist of weaknesses numbered as in
+  the Common Weakness Enumeration (CWE), and the continuous integration (CI) workflows for script
+  injection and unpinned actions. It proves each finding with a local test, never against a deployed
+  system, never uses a secret it finds, and keeps findings private until you decide how to disclose
+  them. It patches only what you approve, each with a regression test. It relies on `commits.md`,
+  `writing.md`, and the language rules, and uses `roadmap-and-docs.md` and `pair-programming.md`
+  where they are adopted.
+- [`skills/simplify-code/`](skills/simplify-code/SKILL.md): `/simplify-code [scope]` finds code that
+  is longer or more convoluted than its job requires, such as deep nesting, long functions, copied
+  code, and layers that only forward calls. It simplifies the parts you approve without giving up
+  any functionality: every input, output, error, side effect, edge case, option, supported platform,
+  and performance budget stays as it was. It first checks why code is long, because much length is
+  functionality, pins the current behavior with tests, and then makes one simplification at a time.
+  It relies on `commits.md`, `writing.md`, and the language rules, and uses `roadmap-and-docs.md`
+  and `pair-programming.md` where they are adopted.
 - [`skills/build-course/`](skills/build-course/SKILL.md): `/build-course <description>` builds
   a whole course from a description such as "numerical methods for second-year engineers, 12
   weeks". It proposes a plan for you to approve, with the learning objectives, modules,

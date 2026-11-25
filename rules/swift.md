@@ -15,11 +15,10 @@ paths:
 # Swift and SwiftUI standards
 
 These rules cover Swift code and SwiftUI interfaces for Apple platforms in this repository: app
-targets, extensions, Swift packages, tests, and the project files around them. They describe how
-a senior mobile developer writes Swift, and how to work with the user as a pair: you write the
-code, and they review it and make the calls that are theirs. Doc comments, user-facing strings,
-and other text follow `writing.md` in this folder. Code that uses a Kotlin Multiplatform
-framework also follows `kotlin-multiplatform.md`.
+targets, extensions, Swift packages, tests, and the project files around them. They describe how a
+senior mobile developer writes Swift. Doc comments, user-facing strings, and other text follow
+`writing.md` in this folder. Code that uses a Kotlin Multiplatform framework also follows
+`kotlin-multiplatform.md`.
 
 Apply them to code you write or edit. Don't rewrite existing code only to make it conform; fix a
 passage when you are already changing it, and mention anything else you notice.
@@ -65,53 +64,34 @@ so they can fill them in.
 - **Release:** [FILL IN: how builds are signed and shipped, for example Xcode Cloud uploading to
   TestFlight, and who submits to App Review]
 
-## Working as a pair
+## Decisions that are the user's
 
-- **Read before you write.** Read the code around a change, the model and views of the screen
-  it touches, and the tests that cover it, and reuse the **Design system** components. Check the
-  **Targets and modules** to find where new code belongs, and match the patterns already there
-  unless they are the problem.
-- **Say the plan first.** For a change bigger than a few lines, say in two or three sentences
-  what will change, where, and how you will check it. Then go ahead, unless the plan includes one
-  of the decisions in the next point.
-- **Ask before decisions that are the user's.** Stop and ask before you:
-  - add a Swift package or a binary framework;
-  - raise a minimum OS version, or change the Swift language mode, the concurrency checking, or
-    the Xcode version;
-  - add a capability, an entitlement, a background mode, a permission's usage description, or
-    an App Transport Security exception;
-  - change a persisted model, which needs a migration;
-  - change signing, provisioning, or anything App Store Connect shows;
-  - change the design beyond what was asked;
-  - weaken a lint rule, a test, or a check;
-  - or build something different from what was asked.
+Stop and ask the user before you:
 
-  For anything else, choose the conventional option and say what you chose.
-- **Push back with reasons.** If a requested approach blocks the main actor, races on shared
-  state, loses user data, or breaks accessibility, say so before you implement it, with the
-  reason and a concrete alternative. Once the user decides, follow their decision.
-- **Work in small steps, and look at each one.** Build after each step. After a UI change, run
-  the app in a simulator and use the changed screen; a preview isn't the app.
-- **Fix the cause, not the symptom.** If a view doesn't update, fix who owns and observes the
-  state; don't force a redraw with `.id(UUID())`. If a layout is off, fix the layout; don't add a
-  magic offset. If a test is flaky, wait for the real condition; don't add a sleep.
+- add a Swift package or a binary framework;
+- raise a minimum OS version, or change the Swift language mode, the concurrency checking, or the
+  Xcode version;
+- add a capability, an entitlement, a background mode, a permission's usage description, or an App
+  Transport Security exception;
+- change a persisted model, which needs a migration;
+- change signing, provisioning, or anything App Store Connect shows;
+- change the design beyond what was asked;
+- or weaken a lint rule, a test, or a check.
+
+## Making a change
+
+- **Read first.** Read the code around a change, the model and views of the screen it touches, and
+  the tests that cover it, and reuse the **Design system** components. Check the
+  **Targets and modules** to find where new code belongs.
+- **Check each step.** Build after each step. After a UI change, run the app in a simulator and use
+  the changed screen; a preview isn't the app.
+- **Fix the cause, not the symptom.** If a view doesn't update, fix who owns and observes the state;
+  don't force a redraw with `.id(UUID())`. If a layout is off, fix the layout; don't add a magic
+  offset. If a test is flaky, wait for the real condition; don't add a sleep.
 - **Don't silence the compiler.** Never add `!`, `try!`, `as!`, `@unchecked Sendable`,
   `nonisolated(unsafe)`, `@preconcurrency`, `MainActor.assumeIsolated`, a hop to
-  `DispatchQueue.main`, or a lint-disable comment only to make an error or a warning go away.
-  Work out what the compiler is saying, then fix the types, the isolation, or the design.
-- **Explain the Swift that isn't obvious.** In your reply, say why you chose `@State`,
-  `@Binding`, or `@Bindable`, where a piece of code is isolated and why, or why a type is a value
-  or a reference. Write for the audience in `writing.md`, and cover only what this change needs.
-- **Keep the change focused.** No unrelated refactors, renames, or reformatting. Mention problems
-  you notice outside the task instead of fixing them.
-- **Review your own diff** before you report, as a reviewer would. Look for force unwraps,
-  strong reference cycles, work in `body`, hard-coded strings, colors, and sizes, controls without
-  an accessibility label, `print` calls, and new warnings.
-- **Report honestly.** Say what changed and why, each command you ran with its real result, which
-  simulators, devices, OS versions, and settings (Dynamic Type, Dark Mode, right to left,
-  VoiceOver) you checked, what you couldn't run and why (Xcode needs a Mac), your assumptions,
-  and the risks that remain. Never say a check passed unless you ran it in this session and saw
-  it pass.
+  `DispatchQueue.main`, or a lint-disable comment only to make an error or a warning go away. Work
+  out what the compiler is saying, then fix the types, the isolation, or the design.
 
 ## Design with types
 
@@ -401,5 +381,6 @@ When the **Kotlin interop** value names a framework:
    version.
 4. If you changed `Info.plist`, entitlements, capabilities, or the privacy manifest, list each
    change in your report.
-5. Review your diff as described in "Working as a pair", then report what you checked, what you
-   didn't, and what remains.
+5. Review your diff as a reviewer would. Look for force unwraps, strong reference cycles, work in
+   `body`, hard-coded strings, colors, and sizes, controls without an accessibility label, `print`
+   calls, and new warnings. Then report what you checked, what you didn't, and what remains.

@@ -13,9 +13,8 @@ paths:
 # Lua standards
 
 These rules cover the Lua in this repository: modules, scripts, plugins, tests, and the
-configuration around them. They describe how a senior engineer writes Lua, and how to work with
-the user as a pair: you write the code, and they review it and make the calls that are theirs.
-Doc comments, error messages, and other text follow `writing.md` in this folder.
+configuration around them. They describe how a senior engineer writes Lua. Doc comments, error
+messages, and other text follow `writing.md` in this folder.
 
 Apply them to code you write or edit. Don't rewrite existing code only to make it conform; fix a
 passage when you are already changing it, and mention anything else you notice.
@@ -70,48 +69,30 @@ so they can fill them in.
   tests run on, for example busted with specs in `spec/` named `*_spec.lua`, on Lua 5.4 and
   LuaJIT in continuous integration (CI)]
 
-## Working as a pair
+## Decisions that are the user's
 
-- **Read before you write.** Read the code around a change and the tests that cover it, and
-  match the patterns already there unless they are the problem. Check the **Modules** to find
-  where new code belongs, and the **Host** to learn what it already provides.
-- **Say the plan first.** For a change bigger than a few lines, say in two or three sentences
-  what will change, where, and how you will check it. Then go ahead, unless the plan includes one
-  of the decisions in the next point.
-- **Ask before decisions that are the user's.** Stop and ask before you:
-  - add a rock or a vendored library;
-  - change a public module's functions, a saved data format, or the API the code offers to the
-    **Host** or to plugins;
-  - use a feature that one of the versions in the **Lua version** lacks, or change that list;
-  - add a global;
-  - change anything at the **C boundary** or in the **Sandbox**;
-  - weaken a lint, a test, or a check;
-  - or build something different from what was asked.
+Stop and ask the user before you:
 
-  For anything else, choose the conventional option and say what you chose.
-- **Push back with reasons.** If a requested approach is unsound, slow, or fights the codebase,
-  say so before you implement it, with the reason and a concrete alternative. Once the user
-  decides, follow their decision.
-- **Work in small steps.** Run the spec file for the module you changed after each step; that is
-  much faster than the whole suite. Run all the **Check commands** before you report done.
-- **Fix the cause, not the symptom.** For a bug, first write a test that fails, then fix the bug
-  and show the test passing. Don't add an `or {}` or an `if x == nil then return end` that
-  quietly skips a `nil` that should never be there; find out why it is `nil`.
+- add a rock or a vendored library;
+- change a public module's functions, a saved data format, or the API the code offers to the
+  **Host** or to plugins;
+- use a feature that one of the versions in the **Lua version** lacks, or change that list;
+- add a global;
+- change anything at the **C boundary** or in the **Sandbox**;
+- or weaken a lint, a test, or a check.
+
+## Making a change
+
+- **Read first.** Read the code around a change and the tests that cover it. Check the **Modules**
+  to find where new code belongs, and the **Host** to learn what it already provides.
+- **Check each step.** Run the spec file for the module you changed after each step; that is much
+  faster than the whole suite.
+- **Fix the cause, not the symptom.** For a bug, first write a test that fails, then fix the bug and
+  show the test passing. Don't add an `or {}` or an `if x == nil then return end` that quietly skips
+  a `nil` that should never be there; find out why it is `nil`.
 - **Don't silence the linter.** Never add `-- luacheck: ignore`, `-- selene: allow(…)`,
   `---@diagnostic disable`, a new entry in `globals`, or a `pcall` only to make a warning or an
   error go away. Work out what it is saying, then fix the code.
-- **Explain the Lua that isn't obvious.** In your reply, say why you used a metatable, an
-  `__index` chain, varargs, a coroutine, an upvalue, or an environment (`_ENV` or `setfenv`).
-  Write for the audience in `writing.md`, and cover only what this change needs.
-- **Keep the change focused.** No unrelated refactors, renames, or reformatting. When the
-  formatter changes files you didn't otherwise touch, revert those changes. Mention problems you
-  notice outside the task instead of fixing them.
-- **Review your own diff** before you report, as a reviewer would. Look for a missing `local`, a
-  call with `.` where `:` was meant, `#` on a table that can have holes, `..` in a loop, a
-  `pcall` whose error is dropped, a debugging `print`, and missing docs or tests.
-- **Report honestly.** Say what changed and why, each command you ran with its real result, what
-  you didn't run and why, your assumptions, and the risks that remain. Never say a check passed
-  unless you ran it in this session and saw it pass.
 
 ## Know which Lua you are writing
 
@@ -536,5 +517,7 @@ Each of the **Published rocks** needs a README and a rockspec of its own.
 4. If you changed a rockspec, run `luarocks make` with it in a clean tree.
 5. If you touched the **C boundary** or the **Sandbox**, name each change in your report and say
    why it is still safe.
-6. Review your diff as described in "Working as a pair", then report what you ran, what you
-   didn't, and what remains.
+6. Review your diff as a reviewer would. Look for a missing `local`, a call with `.` where `:` was
+   meant, `#` on a table that can have holes, `..` in a loop, a `pcall` whose error is dropped, a
+   debugging `print`, and missing docs or tests. Then report what you ran, what you didn't, and what
+   remains.
