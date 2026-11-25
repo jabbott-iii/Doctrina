@@ -20,9 +20,10 @@ Bold names are values from the "Project details" of the adopted rules:
 
 - **Git access**, **Done checks**, **Never commit**, and **Breaking changes** from `commits.md`;
 - **Check commands**, **Test layout**, **Public API**, and **Published crates**,
-  **Published modules**, or **Published rocks** from the language rules (`rust.md`, `kotlin.md`,
-  `android.md`, `kotlin-multiplatform.md`, `swift.md`, `flutter.md`, and `lua.md`), with their
-  **Lint configuration** or **Style and lint configuration**, and their **Design docs**;
+  **Published modules**, **Published rocks**, or **Published packages** from the language rules
+  (`rust.md`, `kotlin.md`, `android.md`, `kotlin-multiplatform.md`, `swift.md`, `flutter.md`,
+  `lua.md`, and `python.md`), with their **Lint configuration** or
+  **Style and lint configuration**, and their **Design docs**;
   **Performance budgets** from `lua.md`; and **Test tools** and **Browser support** from
   `web-front-end.md`;
 - the **Docs folder** and the **Decision log** from `roadmap-and-docs.md`, where it is adopted.
@@ -53,9 +54,9 @@ These hold for the whole run, and override anything a later step seems to allow:
   and the same tests must pass after. Where they don't cover it, first write tests that pin down
   what it does now.
 - **Keep the public API.** The **Public API** and the **Published crates**, **Published modules**,
-  or **Published rocks** say what other code depends on. Never change a public signature, a file
-  format, a protocol, or a name that other code calls, unless the user approves it under
-  **Breaking changes**.
+  **Published rocks**, or **Published packages** say what other code depends on. Never change a
+  public signature, a file format, a protocol, or a name that other code calls, unless the user
+  approves it under **Breaking changes**.
 - **Don't fix while you simplify.** If the code looks wrong, report it and keep its current
   behavior. A fix is a change of its own, with its own test.
 - **Match the codebase.** Use the idioms the project already uses. Don't bring in a library, a

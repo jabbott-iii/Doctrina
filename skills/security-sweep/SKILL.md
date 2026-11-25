@@ -21,11 +21,11 @@ Bold names are values from the "Project details" of the adopted rules:
 - **Git access**, **Done checks**, **Never commit**, **Push effect**, and **Breaking changes**
   from `commits.md`;
 - **Check commands**, **Test layout**, and **Dependency policy** from the language rules;
-  **Untrusted input** from `rust.md`, `kotlin.md`, and `lua.md`; **Unsafe policy** from `rust.md`;
-  **Sandbox** and **C boundary** from `lua.md`; **Security controls** from `android.md`, `swift.md`,
-  and `flutter.md`; **Exported components** and **Permissions** from `android.md`;
-  **Platform channels** from `flutter.md`; **Networking** from `swift.md`; and **Test tools** and
-  **Hosting** from `web-front-end.md`;
+  **Untrusted input** from `rust.md`, `kotlin.md`, `lua.md`, and `python.md`; **Unsafe policy**
+  from `rust.md`; **Sandbox** and **C boundary** from `lua.md`; **Native code** from `python.md`;
+  **Security controls** from `android.md`, `swift.md`, and `flutter.md`; **Exported components**
+  and **Permissions** from `android.md`; **Platform channels** from `flutter.md`; **Networking**
+  from `swift.md`; and **Test tools** and **Hosting** from `web-front-end.md`;
 - the **Decision log** from `roadmap-and-docs.md`, where it is adopted.
 
 Where a value doesn't exist because a rule isn't adopted, work from what the repository has, and
@@ -41,6 +41,7 @@ The language rules' own security sections are part of this sweep:
 | `swift.md` | "Data and networking", "Security and privacy", and "Dependencies and release" |
 | `flutter.md` | "Data, security, and generated code" |
 | `lua.md` | "Untrusted input", "Sandboxing code you didn't write", and "The C boundary" |
+| `python.md` | "Untrusted input", "Native code", and "Dependencies and packaging" |
 | `web-front-end.md` | "Security and privacy" |
 
 ## Ground rules
@@ -149,16 +150,17 @@ something your work broke.
 Trace data from each entry point in the threat model to each place it can do harm (the sink): a
 query, a shell, a file path, the page, a deserializer, or an outgoing request. Start with the entry
 points that the most attackers can reach. Check the code against the language rules' security
-sections, then against this list. In Rust, read every `unsafe` block the **Unsafe policy** allows,
-and in Lua, everything at the **C boundary**, because memory-safety bugs live there. The numbers are
-IDs in MITRE's Common Weakness Enumeration (CWE), which advisories and scanners use.
+sections, then against this list. In Rust, read every `unsafe` block the **Unsafe policy** allows;
+in Lua, everything at the **C boundary**; and in Python, everything the **Native code** lists,
+because memory-safety bugs live there. The numbers are IDs in MITRE's Common Weakness Enumeration
+(CWE), which advisories and scanners use.
 
 | Class | CWE | What to look for |
 | --- | --- | --- |
 | SQL injection | 89 | Queries built by joining or formatting strings with input, instead of passing parameters |
 | Command injection | 78 | A shell running a string built from input: `sh -c`, `os.system`, `subprocess` with `shell=True`, Node's `child_process.exec`, Lua's `os.execute` and `io.popen` |
 | Code injection | 94 | `eval`, `new Function`, Python's `exec`, Lua's `load`, `loadstring`, or `dofile`, and scripting engines fed input |
-| Template injection | 1336 | Input used as a template, instead of as a value passed to one |
+| Template injection | 1336 | Input used as a template, instead of as a value passed to one, including Python's `str.format` called on a template from input, whose fields can read the attributes of the values passed in |
 | Cross-site scripting (XSS) | 79 | Input written into HTML without the framework's escaping, or with it turned off |
 | Path traversal | 22 | File paths built from input, including archive entries named `../…` (before Python 3.14, `tarfile`'s `extractall` writes them outside the folder unless you pass `filter="data"`) |
 | Unsafe deserialization | 502 | Java serialization, Python's `pickle`, PyYAML's `Loader` or `UnsafeLoader`, and `NSKeyedUnarchiver` without secure coding: each can build objects or run code while it reads. Also Lua bytecode, which `load` accepts unless its mode is `"t"`, and which can crash the interpreter when crafted |
@@ -174,7 +176,7 @@ IDs in MITRE's Common Weakness Enumeration (CWE), which advisories and scanners 
 | Timing leaks | 208 | Secrets and tokens compared with `==`, which returns at the first difference, instead of in constant time |
 | Broken Transport Layer Security (TLS) | 295, 319 | Certificate or host-name checks turned off, trust-all certificate managers, and plain HTTP for anything sensitive |
 | Resource exhaustion | 770, 1333, 409 | Sizes, counts, and recursion without limits; regular expressions and Lua patterns that backtrack for exponential or polynomial time on crafted input (regular expression denial of service, ReDoS); decompression without a size limit |
-| Memory safety | 787, 416, 190 | In `unsafe` code, foreign function interface (FFI) calls (LuaJIT's FFI included), the Lua C API, and C or C++: out-of-bounds writes, use after free, and integer overflow in sizes |
+| Memory safety | 787, 416, 190 | In `unsafe` code, foreign function interface (FFI) calls (LuaJIT's FFI and Python's `ctypes` and `cffi` included), the Lua C API, and C or C++: out-of-bounds writes, use after free, and integer overflow in sizes |
 | Race conditions | 367 | Checking a file or a permission, then using it, when an attacker can change it in between (time-of-check to time-of-use, TOCTOU); temporary files at predictable paths |
 | Leaky logs and errors | 532, 209 | Secrets, tokens, and personal data in logs, crash reports, and analytics; stack traces and internal details in error responses |
 | Cookies | 614, 1004 | Session cookies without the `Secure` and `HttpOnly` attributes |
