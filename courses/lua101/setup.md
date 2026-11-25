@@ -80,11 +80,12 @@ Install these when the module that uses them begins:
 
 | Tool | Module | Install |
 | :- | :- | :- |
+| LPeg, the parsing library | 4 | `luarocks install lpeg`, which compiles it with the C compiler from step 1 |
 | busted, the test framework | 6 | `luarocks install busted` |
 | luacheck, the linter, and LuaCov, the coverage tool | 11 | `luarocks install luacheck` and `luarocks install luacov` |
 | StyLua, the formatter | 11 | `cargo install stylua --locked --features lua54`, or a release from [StyLua's GitHub page](https://github.com/JohnnyMorganz/StyLua); a build without `lua54` can't read `<close>` |
 | lua-language-server, the type checker | 11 | A release from [lua-language-server's site](https://luals.github.io/) |
 | A C compiler and the Lua headers | 13 | The compiler from step 1 above; hererocks already installed the headers in `.venv/lua/include` |
 
-The course's examples were checked with busted 2.3.0, luacheck 1.2.0, LuaCov 0.17.0, StyLua
-2.6.0, and lua-language-server 3.19.2.
+The course's examples were checked with LPeg 1.1.0, busted 2.3.0, luacheck 1.2.0, LuaCov 0.17.0,
+StyLua 2.6.0, and lua-language-server 3.19.2.

@@ -374,6 +374,7 @@ Each item needs the instructor's approval before it is installed or added:
 | `lualab`, a small helper written for this course that adds the `%%lua` cell magic | `courses/lua101/lualab/`, installed from `requirements.txt` | Runs each cell in one Lua 5.4 state that persists between cells, prints to the notebook, and turns Lua errors into failed cells; `%%lua --version 5.1` runs a cell on lupa's other runtimes |
 | Lua 5.4 and LuaRocks, built by hererocks | `.venv/lua/` (ignored by Git) | Modules 6 and 11–13, the Lua projects, and checking every example outside the notebooks |
 | The rocks busted, luacheck, and luacov | LuaRocks, into `.venv/lua/` | Tests, lints, and coverage for modules 6 and 11 and the projects |
+| The rock lpeg 1.1.0-2, added on 2026-11-25 | LuaRocks, into `.venv/lua/` | Module 4's LPeg section; `setup.md` installs it with the other tools |
 | StyLua and lua-language-server | `cargo install stylua`, and the lua-language-server release from GitHub | Module 11's formatting and type checks |
 | TeX Live with LuaLaTeX, `latexmk`, `chktex`, and the `exam` class | You run `sudo apt install texlive-luatex texlive-latex-extra latexmk chktex`, which needs your password | The two exams and their keys; no longer needed since the self-paced edition of 2026-11-25, which has no LaTeX documents |
 
@@ -616,9 +617,18 @@ instructor approved closing them. Each fits an existing objective, so no objecti
 - **`string.pack` and `string.unpack`** (LO-10.3), in Module 10's "Data formats". Lua 5.1 and
   LuaJIT lack them; `i16` is the widest integer code. Exercise 10.7.
 - **LO-5.3** now names all four values the generic `for` keeps.
-- **LPeg is still missing.** Its rockspec on LuaRocks (1.1.0-2) downloads its source from LPeg's
-  home server, which refused connections on 2026-11-25. LuaRocks.org also showed a notice of a
-  security incident in September 2026. LPeg isn't installed, so no example could be run.
+- **LPeg** (LO-4.3), a section of Module 4 after "Patterns are not regular expressions": building
+  patterns with `P`, `R`, `S`, and operators, captures with `/` and `Ct`, a grammar for two kinds
+  of nested brackets, ordered choice, and the `re` module. Exercise 4.8, a misconception row, and
+  a row in `setup.md`'s table of tools. Module 4 now takes about 10 hours.
+- **How LPeg was checked:** its rockspec downloads the source from LPeg's home server, which refused
+  connections on 2026-11-25, and LuaRocks.org showed a notice of a security incident in September
+  2026. With the instructor's approval, `luarocks download --source` fetched `lpeg-1.1.0-2.src.rock`
+  (78,933 bytes, dated 2024-09-13) from LuaRocks.org instead. Its tarball's MD5 matched the
+  rockspec's, its files were LPeg's C sources, `re.lua`, and its manuals, and the rockspec's build
+  only compiles those sources. It was built into a scratch tree, not `.venv/lua/`; installing by
+  name, as `setup.md` tells students, also fetched that source rock. Every example ran on LPeg
+  1.1.0 with Lua 5.4.8. The notebooks can't load LPeg, so the section's examples run as scripts.
 
 Every new example and answer ran on Lua 5.4.8 or lupa's LuaJIT 2.1, and printed what the text
 says. The labs are unchanged.
@@ -660,4 +670,4 @@ Tick each line once its piece passes its checks.
 - [x] Self-paced edition: whole-course checks
 - [x] Gaps: `_ENV` and LuaJIT's FFI (Module 14), `package.searchers` (Module 6), `string.pack`
   (Module 10), and LO-5.3's wording
-- [ ] Gap: LPeg in Module 4, waiting on how to install LPeg
+- [x] Gap: LPeg in Module 4

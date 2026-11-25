@@ -186,7 +186,7 @@ its reading explains the C it uses.
 The course is self-paced, so it has no deadlines: take as long as you need. This pace takes 15
 weeks at about 9 hours a week. Most modules take about 9 hours: about 2.5 for the reading, 2 for
 the lab, 1.5 for the practice, and 3 for the assignment or self-test that follows, as each module's
-reading says. Modules 7 and 8 take less, and Module 14 takes about 10.
+reading says. Modules 7 and 8 take less, and Modules 4 and 14 take about 10.
 
 | Week | Topic | Reading | Then |
 | :- | :- | :- | :- |

@@ -2,7 +2,7 @@
 
 **Objectives:** LO-4.1, LO-4.2, LO-4.3, LO-4.4\
 **Prerequisites:** [Module 3](../03-tables/index.md)\
-**Time:** about 9 hours: 2.5 for this reading, 2 for [Lab 4](lab04.ipynb), 1.5 for the
+**Time:** about 10 hours: 3 for this reading, 2 for [Lab 4](lab04.ipynb), 2 for the
 [practice](practice.md), and 3 for PA2, which follows this module
 
 This module covers Lua's string library: cutting and formatting text, searching it with Lua's
@@ -271,9 +271,96 @@ print(is_image("cat.png"), is_image("notes.txt"), is_image("png"))   --> true  f
 
 The table of extensions is a set, from module 3, and testing it is $O(1)$. When the alternatives
 are whole patterns rather than words, try each pattern in turn. When a format needs alternation
-everywhere, or nesting deeper than `%b` handles, a parser is the better tool: LPeg, a pattern
-library written by one of Lua's authors, builds parsers from parsing expression grammars, and is
-installed with LuaRocks (module 11).
+everywhere, or nesting deeper than `%b` handles, a parser is the better tool, which the next section
+introduces.
+
+## Beyond patterns: LPeg
+
+When patterns aren't enough, the usual next step is **LPeg**, a library by Roberto Ierusalimschy,
+one of Lua's authors, for **parsing expression grammars** (PEGs): a way to describe a format by
+rules that try their alternatives in order. LPeg is written in C, so it runs in the standalone
+`lua`, but not in the notebooks' `%%lua` cells, which can't load C libraries. Install it with
+LuaRocks, as [setting up your environment](../../setup.md) shows, and run these examples as
+scripts.
+
+An LPeg pattern is a Lua value that you build with functions and operators, not a string. A string
+or a number where LPeg expects a pattern becomes one, so `lpeg.P("a") * "b"` works:
+
+| LPeg | Matches | As a regular expression |
+| :- | :- | :- |
+| `lpeg.P("cat")` | The text `cat` | `cat` |
+| `lpeg.R("az")` | One character in a range | `[a-z]` |
+| `lpeg.S("+-")` | One character from a set | `[+-]` |
+| `1` | Any one character | `.` |
+| `p1 * p2` | `p1`, then `p2` | `p1p2` |
+| `p1 + p2` | `p1`, or else `p2` | `p1\|p2` |
+| `p^0`, `p^1`, and `p^-1` | Zero or more, one or more, and at most one `p` | `p*`, `p+`, and `p?` |
+| `p1 - p2` | `p1`, where `p2` doesn't match | `(?!p2)p1` |
+| `p * -1` | `p`, then the end of the text | `p$` |
+| `lpeg.C(p)` | `p`, captured as a string | `(p)` |
+
+The regular expression `^(cat|dog)s?$`, which the previous section had to rewrite as code, is one
+LPeg pattern:
+
+```lua
+local lpeg = require("lpeg")
+local P = lpeg.P
+
+local pet = (P("cat") + P("dog")) * P("s")^-1 * -1
+print(pet:match("cats"), pet:match("dog"), pet:match("catss"))   --> 5  4  nil
+```
+
+`match` returns the position just after the match, or `nil`. A pattern matches only at the start
+of the text, as if it began with `^`.
+
+Captures turn what matched into values. `p / f` passes `p`'s captures to the function `f` and
+captures what it returns, and `lpeg.Ct(p)` collects `p`'s captures into a table. This pattern reads
+a list of numbers, with a quantifier on a whole group, which Lua patterns can't do:
+
+```lua
+local R, S, C, Ct = lpeg.R, lpeg.S, lpeg.C, lpeg.Ct
+
+local space = S(" \t")^0
+local number = C(R("09")^1) / tonumber                -- capture the digits, then convert them
+local list = Ct(space * number * (space * "," * space * number)^0 * space) * -1
+
+local t = list:match("1, 22,333 ")
+print(#t, t[1] + t[2] + t[3])                         --> 3  356
+print(list:match("1,,2"))                             --> nil
+```
+
+A **grammar** is a table of rules that can refer to each other, and to themselves, with
+`lpeg.V("name")`; its first entry names the rule to match. That handles nesting of any depth.
+`%b()` knows one kind of bracket: `("([a)]"):match("%b()")` returns `([a)`. A grammar checks two
+kinds, nested in any order:
+
+```lua
+local V = lpeg.V
+
+local brackets = P({
+  "pair",                                                 -- the rule to match first
+  pair = "(" * V("inner") * ")" + "[" * V("inner") * "]",
+  inner = ((1 - S("()[]")) + V("pair"))^0,                -- non-brackets, or nested pairs
+})
+print(brackets:match("([a]())"), brackets:match("([a)]"))   --> 8  nil
+```
+
+One difference from regular expressions catches everyone. LPeg's `+` is **ordered choice**: it
+tries `p1`, and tries `p2` only if `p1` fails. Once `p1` has matched, a later failure doesn't go
+back to try `p2`, as a regular expression's `|` would:
+
+```lua
+print(((P("a") + "ab") * "c"):match("abc"))   --> nil: "a" matched, then "c" failed at "b"
+print(((P("ab") + "a") * "c"):match("abc"))   --> 4
+```
+
+Put the longer alternative first. LPeg also ships the `re` module, which writes the same patterns
+in a syntax closer to regular expressions: `re.match("cats", "('cat' / 'dog') 's'? !.")` returns
+5, where `/` is ordered choice and `!.` means "no character follows".
+
+Use patterns for one field or one line, and LPeg when a format needs alternation, quantified
+groups, or nesting, such as a configuration language, a query syntax, or JSON. The cost is a C
+library that everyone who runs your program must install too.
 
 ## Building long strings
 
@@ -346,6 +433,7 @@ sees. Full Unicode text handling needs a library beyond Lua's standard one.
 | Captures of digits are numbers | Captures are strings | `("x=10"):match("=(%d+)") + 1` works, but `== 10` is `false` |
 | `return s:gsub(...)` returns the string | It returns the string and the count | `print(("aaa"):gsub("a", "b"))` prints `bbb  3` |
 | Patterns support `\|` like regular expressions | There is no alternation | Match the shape, then test a set |
+| LPeg's `+` works like a regular expression's `\|` | It is ordered: once the first option matches, the second is never tried | `((P("a") + "ab") * "c"):match("abc")` is `nil` |
 | `^` anchors a `gmatch` pattern | It matches a literal `^` there | `("aaa"):gmatch("^a")` finds nothing |
 | `s = s .. piece` in a loop is fine | It is $O(n^2)$ | 40,000 pieces took 0.59 s instead of 1.7 ms |
 | `#s` counts characters | It counts bytes | `#"héllo"` is 6 |
@@ -367,6 +455,8 @@ sees. Full Unicode text handling needs a library beyond Lua's standard one.
   $O(n^2)$.
 - For UTF-8 text, count and walk characters with the `utf8` library; `#`, `sub`, `reverse`,
   `upper`, and `%a` work on bytes and ASCII.
+- LPeg, a C library, builds patterns from functions and operators, with ordered choice (`+`),
+  quantified groups, captures that become values, and grammars for nested formats.
 
 ## Self-check
 
@@ -436,3 +526,5 @@ sees. Full Unicode text handling needs a library beyond Lua's standard one.
   ["A Text Pattern-Matching Tool Based on Parsing Expression Grammars"](https://onlinelibrary.wiley.com/doi/10.1002/spe.892),
   *Software: Practice and Experience* 39(3), 2009. It introduces LPeg and the parsing expression
   grammars it is built on: the next step when Lua patterns aren't enough.
+- [LPeg on LuaRocks](https://luarocks.org/modules/gvvaughan/lpeg). Its source package holds LPeg's
+  own manual, `lpeg.html`, and the manual of the `re` module, `re.html`.

@@ -186,3 +186,42 @@ end
 `utf8.charpattern` matches exactly one character from `start`, however many bytes it takes. For
 `i` one past the end, `utf8.offset` gives `#s + 1`, which the test `start > #s` catches.
 </details>
+
+### Exercise 4.8 (LO-4.3, ★★, about 20 minutes)
+
+Run this exercise as a script with the standalone `lua`, after `luarocks install lpeg`.
+
+1. Write an LPeg pattern `request` that matches a whole line of the form `GET /path` or
+   `POST /path`, where the path is a `/` followed by any number of lowercase letters and slashes,
+   and captures the method and the path. `request:match("GET /index")` should return `"GET"` and
+   `"/index"`, and `request:match("PUT /x")` should return `nil`.
+2. A teammate writes `(P("GET") + P("GETS")) * " "` to accept both words. Which line does it fail
+   on, and how do you fix it?
+
+<details>
+<summary>Hint</summary>
+
+The pieces are `lpeg.C`, `+` for the two methods, `lpeg.R("az")` for the letters, `^0` for "any
+number", and `-1` for the end of the line. For part 2, remember that `+` is ordered choice.
+</details>
+
+<details>
+<summary>Answer</summary>
+
+1. One pattern, built from the pieces in the reading:
+
+   ```lua
+   local lpeg = require("lpeg")
+   local P, R, C = lpeg.P, lpeg.R, lpeg.C
+
+   local request = C(P("GET") + P("POST")) * " " * C("/" * (R("az") + "/")^0) * -1
+   print(request:match("GET /index"))   --> GET  /index
+   print(request:match("PUT /x"))       --> nil
+   ```
+
+   It also rejects `GET index`, with no slash, and `GET /Index`, with a capital letter.
+2. It fails on `GETS /x`. `P("GET")` matches the first three letters, then `" "` fails at `S`,
+   and ordered choice never goes back to try `P("GETS")`. Put the longer word first:
+   `(P("GETS") + P("GET")) * " "`.
+</details>
+
