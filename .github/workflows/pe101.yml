@@ -1,0 +1,101 @@
+# PE101's checks, as the course's PLAN.md describes them: promptlab's tests, each lab as students
+# get it and with its answer key, the graded notebooks and their student versions, and the
+# website. The course calls no model, so the checks need no API key or secret.
+name: "PE101"
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "courses/pe101/**"
+      - "requirements.txt"
+      - ".github/workflows/pe101.yml"
+  pull_request:
+    branches: ["main"]
+    paths:
+      - "courses/pe101/**"
+      - "requirements.txt"
+      - ".github/workflows/pe101.yml"
+
+permissions: {}
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: "promptlab, labs, graded notebooks, and website"
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      contents: read # check out the code
+    env:
+      COURSE: "courses/pe101"
+    steps:
+      - name: "Check out the repository"
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: "Set up Python 3.12"
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+
+      - name: "Create the notebook environment"
+        run: |
+          python -m venv .venv
+          .venv/bin/pip install -r requirements.txt
+          echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
+
+      - name: "promptlab's tests"
+        run: pytest -q "$COURSE/promptlab"
+
+      - name: "Each lab, as students get it and with its answer key"
+        run: |
+          status=0
+          for lab in "$COURSE"/modules/*/lab*.ipynb; do
+            name=$(basename "$lab" .ipynb)
+            key="$COURSE/solutions/labs/${name}_answers.py"
+            echo "::group::$name"
+            python "$COURSE/tools/check_lab.py" "$lab" "$key" || status=1
+            echo "::endgroup::"
+          done
+          exit "$status"
+
+      - name: "The graded notebooks' sources run"
+        run: pytest -q --nbmake "$COURSE"/solutions/pa*/pa*.ipynb
+
+      - name: "nbgrader passes each source and fails each student version"
+        working-directory: courses/pe101
+        run: |
+          # nbgrader validate exits with status 0 even when validation fails, so read its verdict.
+          status=0
+          for source in solutions/pa*/pa*.ipynb; do
+            pa=$(basename "$source" .ipynb)
+            out=$(nbgrader validate "$source" 2>&1) || true
+            if ! grep -q "^Success! Your notebook passes all the tests." <<< "$out"; then
+              echo "$out"; status=1
+            fi
+            out=$(nbgrader validate --invert "assignments/$pa/$pa.ipynb" 2>&1) || true
+            if ! grep -q "^Success! The notebook does not pass any tests." <<< "$out"; then
+              echo "$out"; status=1
+            fi
+          done
+          exit "$status"
+
+      - name: "The student versions match their sources"
+        run: |
+          status=0
+          for source in "$COURSE"/solutions/pa*/pa*.ipynb; do
+            pa=$(basename "$source" .ipynb)
+            fresh="$RUNNER_TEMP/$pa.ipynb"
+            python "$COURSE/tools/student_version.py" "$source" "$fresh"
+            diff -q "$fresh" "$COURSE/assignments/$pa/$pa.ipynb" || status=1
+          done
+          exit "$status"
+
+      - name: "The website builds"
+        working-directory: courses/pe101
+        run: jupyter book build --html

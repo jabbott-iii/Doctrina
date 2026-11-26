@@ -65,8 +65,14 @@ GitHub Actions runs checks on every pull request to `main`:
   graded notebooks' sources, has nbgrader pass each source and fail each student version, checks
   that the student versions match their sources, runs the project graders' self-tests, and builds
   the website. The [workflow](.github/workflows/lua101.yml) shows each command.
+- **PE101** runs when a change touches `courses/pe101/` or `requirements.txt`. It runs
+  `promptlab`'s tests, checks each lab as students get it and with its answer key
+  (`courses/pe101/tools/check_lab.py`), runs the graded notebooks' sources, has nbgrader pass each
+  source and fail each student version, checks that the student versions match their sources, and
+  builds the website. The course calls no model, so the
+  checks need no API key. The [workflow](.github/workflows/pe101.yml) shows each command.
 
-Neither workflow builds LaTeX documents, so build any you add yourself.
+None of these workflows builds LaTeX documents, so build any you add yourself.
 
 ## Commit
 
