@@ -1,0 +1,56 @@
+{
+  "source": "Anthropic, Pricing, https://platform.claude.com/docs/en/about-claude/pricing",
+  "taken": "2026-11-26",
+  "currency": "USD",
+  "unit": "dollars per million tokens",
+  "notes": [
+    "Prices change. Check the pricing page before you rely on any number here.",
+    "A cache write costs 1.25 times the input price for a 5-minute cache, and 2 times for a 1-hour cache.",
+    "A cache read costs 0.05 times the input price on Opus 5.5 and Sonnet 5.5, and 0.1 times on Haiku 5.5.",
+    "The Message Batches API takes 50 percent off both input and output prices.",
+    "Thinking tokens are billed as output tokens.",
+    "On Haiku 5.5, a request whose prompt is over 100,000 tokens pays the long_prompt prices for the whole request. Its prompt length counts every input token, cache reads and writes included."
+  ],
+  "batch_discount": 0.5,
+  "models": {
+    "claude-opus-5-5": {
+      "input": 4.0,
+      "output": 20.0,
+      "cache_write_5m": 5.0,
+      "cache_write_1h": 8.0,
+      "cache_read": 0.2
+    },
+    "claude-sonnet-5-5": {
+      "input": 2.0,
+      "output": 10.0,
+      "cache_write_5m": 2.5,
+      "cache_write_1h": 4.0,
+      "cache_read": 0.1
+    },
+    "claude-haiku-5-5": {
+      "input": 0.1,
+      "output": 0.5,
+      "cache_write_5m": 0.125,
+      "cache_write_1h": 0.2,
+      "cache_read": 0.01,
+      "long_prompt": {
+        "above_tokens": 100000,
+        "input": 0.5,
+        "output": 2.5,
+        "cache_write_5m": 0.625,
+        "cache_write_1h": 1.0,
+        "cache_read": 0.05
+      }
+    }
+  },
+  "context_window": {
+    "claude-opus-5-5": 1000000,
+    "claude-sonnet-5-5": 1000000,
+    "claude-haiku-5-5": 1000000
+  },
+  "max_output_tokens": {
+    "claude-opus-5-5": 128000,
+    "claude-sonnet-5-5": 128000,
+    "claude-haiku-5-5": 128000
+  }
+}

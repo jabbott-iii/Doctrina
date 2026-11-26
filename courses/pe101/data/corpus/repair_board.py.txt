@@ -1,0 +1,40 @@
+"""The repair board: which bikes are in the shop, and which to work on next."""
+
+from dataclasses import dataclass
+from datetime import date
+
+
+@dataclass
+class Ticket:
+    number: int
+    customer: str
+    problem: str
+    due: date
+    waiting_for_part: bool = False
+
+
+def next_jobs(tickets: list[Ticket], today: date) -> list[Ticket]:
+    """Return the tickets to work on, the ones due soonest first.
+
+    A bike that is waiting for a part goes to the back of the line.
+    """
+    ready = [t for t in tickets if not t.waiting_for_part]
+    waiting = [t for t in tickets if t.waiting_for_part]
+    ready.sort(key=lambda t: (t.due, t.number))
+    return ready + waiting
+
+
+def overdue(tickets: list[Ticket], today: date) -> list[int]:
+    """Return the numbers of the tickets that were due before today."""
+    return [t.number for t in tickets if t.due < today]
+
+
+if __name__ == "__main__":
+    board = [
+        Ticket(1041, "A. Rivera", "flat tire", date(2026, 11, 26)),
+        Ticket(1042, "J. Okafor", "brakes feel soft", date(2026, 11, 25)),
+        Ticket(1043, "M. Chen", "chain skips", date(2026, 11, 27), waiting_for_part=True),
+    ]
+    for ticket in next_jobs(board, date(2026, 11, 26)):
+        print(ticket.number, ticket.problem)
+    print("overdue:", overdue(board, date(2026, 11, 26)))

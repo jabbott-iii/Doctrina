@@ -1,0 +1,44 @@
+# The PE101 website, built with Jupyter Book 2 from this folder:
+#   jupyter book start          (preview)
+#   jupyter book build --html   (writes _build/html)
+version: 1
+project:
+  title: "PE101: Prompt Engineering from First Prompt to Coding Agents"
+  description: "A free, self-paced course that takes programmers from their first prompt to configuring coding agents, with no model calls."
+  license:
+    content: CC-BY-4.0
+    code: MIT
+  # Answer keys, the instructor's plan, the tools, the lab helper's code, and the starter
+  # repository's files stay out.
+  exclude:
+    - "solutions/**"
+    - "PLAN.md"
+    - "promptlab/**"
+    - "tools/**"
+    - "data/**"
+    - "starter-repo/**"
+  toc:
+    - file: README.md
+    - file: setup.md
+    - file: python-primer.md
+    - file: notation.md
+    - title: "Module 1: How language models produce text"
+      children:
+        - file: modules/01-how-models-produce-text/index.md
+        - file: modules/01-how-models-produce-text/lab01.ipynb
+        - file: modules/01-how-models-produce-text/practice.md
+    - title: "Module 2: The anatomy of a request"
+      children:
+        - file: modules/02-anatomy-of-a-request/index.md
+        - file: modules/02-anatomy-of-a-request/lab02.ipynb
+        - file: modules/02-anatomy-of-a-request/practice.md
+    - title: "Assignments"
+      children:
+        - file: assignments/pa1/pa1.ipynb
+    - file: ERRATA.md
+site:
+  template: book-theme
+  options:
+    # Keep the folders in URLs, so each module's index.md and practice.md get their own
+    # address (modules/01-how-models-produce-text/practice) instead of colliding.
+    folders: true

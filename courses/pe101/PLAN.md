@@ -1,7 +1,7 @@
 # PE101 plan
 
-**Status:** draft for the instructor's approval, 2026-11-26. It replaces the 2026-11-25 draft,
-whose labs called the Claude API. Nothing in this plan is built yet.
+**Status:** approved by the instructor on 2026-11-26, as written. It replaces the 2026-11-25
+draft, whose labs called the Claude API. The build checklist at the end shows what is built.
 
 This is the instructor's blueprint and build checklist for PE101. It stays out of the published
 course: `myst.yml` excludes it.
@@ -34,7 +34,9 @@ The instructor changed these on 2026-11-26:
 - **Packages:** approved (section 9): matplotlib, pinned versions of jsonschema and PyYAML, and a
   course helper, `promptlab`.
 
-Still to decide: everything else in this plan, and the questions in section 14.
+- **Blueprint:** approved as written on 2026-11-26, including the objectives, the way work is
+  checked, the policies in section 11, static pages (section 12), and the illustrative response
+  sets that section 3 describes.
 
 ## 1. The course
 
@@ -569,23 +571,26 @@ LUA101's, which checks every lab with and without its key and builds the website
 
 ## 14. Questions for the instructor
 
-1. **Approve or change** the objectives, the modules, the way work is checked, the policies, and
-   the interactivity choice above.
-2. **The illustrative responses** in section 3: response sets written for the course, labeled as
-   not model output, as the data for grading and evaluation practice.
+Both were answered on 2026-11-26, when the instructor approved the plan as written:
+
+1. **The blueprint:** the objectives, the modules, the way work is checked, the policies, and
+   static pages, all approved.
+2. **The illustrative responses** in section 3: approved, as response sets written for the
+   course, labeled as not model output, for grading and evaluation practice.
 
 ## Build checklist
 
 Tick each line once its piece passes its checks. Each data set is built with the first piece that
 uses it.
 
-- [ ] Environment: packages in `requirements.txt`, and `promptlab` with its tests
-- [ ] Layout: syllabus (`README.md`), `setup.md`, `python-primer.md`, `notation.md`,
+- [x] Environment: packages in `requirements.txt`, and `promptlab` with its tests (its later
+  helpers are added with the modules that first use them)
+- [x] Layout: syllabus (`README.md`), `setup.md`, `python-primer.md`, `notation.md`,
   `references.bib`, `ERRATA.md`, `myst.yml`, `nbgrader_config.py`, the check tools, and the CI
   workflow
-- [ ] Module 1: reading, lab, practice, and the corpus
-- [ ] Module 2: reading, lab, practice, and the price table
-- [ ] PA1: source, student version, hidden tests, and key
+- [x] Module 1: reading, lab, practice, and the corpus
+- [x] Module 2: reading, lab, practice, and the price table
+- [x] PA1: source, student version, hidden tests, and key
 - [ ] Module 3: reading, lab, practice, the prompt rubric, and the tickets
 - [ ] Module 4: reading, lab, and practice
 - [ ] PA2: source, student version, hidden tests, and model answers

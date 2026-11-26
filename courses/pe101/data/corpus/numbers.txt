@@ -1,0 +1,6 @@
+Ticket 1041: tube 29.95, labor 15.00, total 44.95. Due 2026-11-26.
+Ticket 1042: brake pads 18.50, labor 20.00, total 38.50. Due 2026-11-25.
+Ticket 1043: chain 34.99, cassette 62.49, labor 35.00, total 132.48. Due 2026-11-27.
+Tire pressure: 85 psi front, 90 psi rear. Chain wear: 0.5 percent, replace at 0.75 percent.
+Spokes: 32 front, 36 rear, tension 110 to 130 kgf. Wheel size: 700 x 28 mm, 622 mm bead seat.
+Order 4417-0093-2815, shipped 2026-11-20, 3 boxes, 14.2 kg.

@@ -1,0 +1,298 @@
+% PE101's confirmed sources, for biblatex's authoryear style with biber.
+% Each documentation page was read on its urldate. Each paper was checked against its publisher,
+% arXiv, or Crossref on 2026-11-25 or 2026-11-26. "and others" stands for authors not listed here.
+% The pages that Modules 10-13 cite (prompt caching, citations, hallucinations, injections, and
+% Claude Code's documentation) are added when those modules are built and their pages read.
+
+% Claude API documentation
+
+@online{anthropic-prompting,
+  author       = {{Anthropic}},
+  title        = {Prompting best practices},
+  organization = {Claude API Docs},
+  url          = {https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices},
+  urldate      = {2026-11-25},
+}
+
+@online{anthropic-messages,
+  author       = {{Anthropic}},
+  title        = {Using the Messages API},
+  organization = {Claude API Docs},
+  url          = {https://platform.claude.com/docs/en/build-with-claude/working-with-messages},
+  urldate      = {2026-11-26},
+}
+
+@online{anthropic-messages-reference,
+  author       = {{Anthropic}},
+  title        = {Messages},
+  subtitle     = {API reference},
+  organization = {Claude API Docs},
+  url          = {https://platform.claude.com/docs/en/api/messages},
+  urldate      = {2026-11-26},
+}
+
+@online{anthropic-stop-reasons,
+  author       = {{Anthropic}},
+  title        = {Handling stop reasons},
+  organization = {Claude API Docs},
+  url          = {https://platform.claude.com/docs/en/build-with-claude/handling-stop-reasons},
+  urldate      = {2026-11-26},
+}
+
+@online{anthropic-models,
+  author       = {{Anthropic}},
+  title        = {Models overview},
+  organization = {Claude API Docs},
+  url          = {https://platform.claude.com/docs/en/about-claude/models/overview},
+  urldate      = {2026-11-26},
+}
+
+@online{anthropic-pricing,
+  author       = {{Anthropic}},
+  title        = {Pricing},
+  organization = {Claude API Docs},
+  url          = {https://platform.claude.com/docs/en/about-claude/pricing},
+  urldate      = {2026-11-26},
+}
+
+@online{anthropic-token-counting,
+  author       = {{Anthropic}},
+  title        = {Token counting},
+  organization = {Claude API Docs},
+  url          = {https://platform.claude.com/docs/en/build-with-claude/token-counting},
+  urldate      = {2026-11-26},
+}
+
+@online{anthropic-thinking,
+  author       = {{Anthropic}},
+  title        = {Thinking},
+  organization = {Claude API Docs},
+  url          = {https://platform.claude.com/docs/en/build-with-claude/thinking},
+  urldate      = {2026-11-26},
+}
+
+@online{anthropic-effort,
+  author       = {{Anthropic}},
+  title        = {Effort},
+  organization = {Claude API Docs},
+  url          = {https://platform.claude.com/docs/en/build-with-claude/effort},
+  urldate      = {2026-11-26},
+}
+
+@online{anthropic-develop-tests,
+  author       = {{Anthropic}},
+  title        = {Define success criteria and build evaluations},
+  organization = {Claude API Docs},
+  url          = {https://platform.claude.com/docs/en/test-and-evaluate/develop-tests},
+  urldate      = {2026-11-25},
+}
+
+@online{anthropic-structured-outputs,
+  author       = {{Anthropic}},
+  title        = {Structured outputs},
+  organization = {Claude API Docs},
+  url          = {https://platform.claude.com/docs/en/build-with-claude/structured-outputs},
+  urldate      = {2026-11-25},
+}
+
+@online{anthropic-tool-use,
+  author       = {{Anthropic}},
+  title        = {Tool use with {Claude}},
+  organization = {Claude API Docs},
+  url          = {https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview},
+  urldate      = {2026-11-25},
+}
+
+@online{anthropic-agents,
+  author       = {{Erik S.} and Zhang, Barry},
+  title        = {Building effective agents},
+  organization = {Anthropic},
+  date         = {2024-12-19},
+  url          = {https://www.anthropic.com/engineering/building-effective-agents},
+  urldate      = {2026-11-25},
+}
+
+% Security
+
+@online{owasp2025llm01,
+  author       = {{OWASP Gen AI Security Project}},
+  title        = {{LLM01:2025} Prompt Injection},
+  date         = {2025},
+  url          = {https://genai.owasp.org/llmrisk/llm01-prompt-injection/},
+  urldate      = {2026-11-25},
+}
+
+@online{willison2025trifecta,
+  author       = {Willison, Simon},
+  title        = {The lethal trifecta for {AI} agents},
+  date         = {2025-06-16},
+  organization = {Simon Willison's Weblog},
+  url          = {https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/},
+  urldate      = {2026-11-26},
+}
+
+% Papers and books
+
+@article{shannon1948,
+  author       = {Shannon, Claude E.},
+  title        = {A Mathematical Theory of Communication},
+  journaltitle = {Bell System Technical Journal},
+  volume       = {27},
+  number       = {3},
+  pages        = {379--423},
+  date         = {1948},
+  doi          = {10.1002/j.1538-7305.1948.tb01338.x},
+}
+
+@inproceedings{sennrich2016,
+  author       = {Sennrich, Rico and Haddow, Barry and Birch, Alexandra},
+  title        = {Neural Machine Translation of Rare Words with Subword Units},
+  booktitle    = {Proceedings of the 54th Annual Meeting of the Association for Computational
+                  Linguistics (Volume 1: Long Papers)},
+  pages        = {1715--1725},
+  publisher    = {Association for Computational Linguistics},
+  date         = {2016},
+  doi          = {10.18653/v1/P16-1162},
+}
+
+@inproceedings{holtzman2020,
+  author       = {Holtzman, Ari and Buys, Jan and Du, Li and Forbes, Maxwell and Choi, Yejin},
+  title        = {The Curious Case of Neural Text Degeneration},
+  booktitle    = {International Conference on Learning Representations ({ICLR})},
+  date         = {2020},
+  eprint       = {1904.09751},
+  eprinttype   = {arxiv},
+}
+
+@inproceedings{brown2020,
+  author       = {Brown, Tom B. and others},
+  title        = {Language Models are Few-Shot Learners},
+  booktitle    = {Advances in Neural Information Processing Systems ({NeurIPS})},
+  volume       = {33},
+  date         = {2020},
+  eprint       = {2005.14165},
+  eprinttype   = {arxiv},
+}
+
+@inproceedings{min2022,
+  author       = {Min, Sewon and others},
+  title        = {Rethinking the Role of Demonstrations: What Makes In-Context Learning Work?},
+  booktitle    = {Proceedings of the 2022 Conference on Empirical Methods in Natural Language
+                  Processing},
+  pages        = {11048--11064},
+  publisher    = {Association for Computational Linguistics},
+  date         = {2022},
+  doi          = {10.18653/v1/2022.emnlp-main.759},
+}
+
+@inproceedings{zhao2021,
+  author       = {Zhao, Tony Z. and Wallace, Eric and Feng, Shi and Klein, Dan and Singh, Sameer},
+  title        = {Calibrate Before Use: Improving Few-Shot Performance of Language Models},
+  booktitle    = {Proceedings of the 38th International Conference on Machine Learning},
+  series       = {Proceedings of Machine Learning Research},
+  volume       = {139},
+  pages        = {12697--12706},
+  publisher    = {PMLR},
+  date         = {2021},
+}
+
+@inproceedings{wei2022,
+  author       = {Wei, Jason and others},
+  title        = {Chain-of-Thought Prompting Elicits Reasoning in Large Language Models},
+  booktitle    = {Advances in Neural Information Processing Systems ({NeurIPS})},
+  volume       = {35},
+  date         = {2022},
+  doi          = {10.52202/068431-1800},
+}
+
+@inproceedings{zheng2023,
+  author       = {Zheng, Lianmin and others},
+  title        = {Judging {LLM}-as-a-Judge with {MT-Bench} and {Chatbot Arena}},
+  booktitle    = {Advances in Neural Information Processing Systems ({NeurIPS}), Datasets and
+                  Benchmarks Track},
+  volume       = {36},
+  date         = {2023},
+  doi          = {10.52202/075280-2020},
+}
+
+@article{cohen1960,
+  author       = {Cohen, Jacob},
+  title        = {A Coefficient of Agreement for Nominal Scales},
+  journaltitle = {Educational and Psychological Measurement},
+  volume       = {20},
+  number       = {1},
+  pages        = {37--46},
+  date         = {1960},
+  doi          = {10.1177/001316446002000104},
+}
+
+@article{wilson1927,
+  author       = {Wilson, Edwin B.},
+  title        = {Probable Inference, the Law of Succession, and Statistical Inference},
+  journaltitle = {Journal of the American Statistical Association},
+  volume       = {22},
+  number       = {158},
+  pages        = {209--212},
+  date         = {1927},
+  doi          = {10.1080/01621459.1927.10502953},
+}
+
+@book{efron1993,
+  author       = {Efron, Bradley and Tibshirani, Robert J.},
+  title        = {An Introduction to the Bootstrap},
+  publisher    = {Chapman \& Hall},
+  date         = {1993},
+  isbn         = {978-0-412-04231-7},
+}
+
+@inproceedings{yao2023,
+  author       = {Yao, Shunyu and others},
+  title        = {{ReAct}: Synergizing Reasoning and Acting in Language Models},
+  booktitle    = {International Conference on Learning Representations ({ICLR})},
+  date         = {2023},
+  eprint       = {2210.03629},
+  eprinttype   = {arxiv},
+}
+
+@inproceedings{lewis2020,
+  author       = {Lewis, Patrick and others},
+  title        = {Retrieval-Augmented Generation for Knowledge-Intensive {NLP} Tasks},
+  booktitle    = {Advances in Neural Information Processing Systems ({NeurIPS})},
+  volume       = {33},
+  date         = {2020},
+  eprint       = {2005.11401},
+  eprinttype   = {arxiv},
+}
+
+@article{robertson2009,
+  author       = {Robertson, Stephen and Zaragoza, Hugo},
+  title        = {The Probabilistic Relevance Framework: {BM25} and Beyond},
+  journaltitle = {Foundations and Trends in Information Retrieval},
+  volume       = {3},
+  number       = {4},
+  pages        = {333--389},
+  date         = {2009},
+  doi          = {10.1561/1500000019},
+}
+
+@article{liu2024,
+  author       = {Liu, Nelson F. and others},
+  title        = {Lost in the Middle: How Language Models Use Long Contexts},
+  journaltitle = {Transactions of the Association for Computational Linguistics},
+  volume       = {12},
+  pages        = {157--173},
+  date         = {2024},
+  doi          = {10.1162/tacl_a_00638},
+}
+
+@inproceedings{greshake2023,
+  author       = {Greshake, Kai and others},
+  title        = {Not What You've Signed Up For: Compromising Real-World {LLM}-Integrated
+                  Applications with Indirect Prompt Injection},
+  booktitle    = {Proceedings of the 16th {ACM} Workshop on Artificial Intelligence and Security
+                  ({AISec} '23)},
+  pages        = {79--90},
+  publisher    = {ACM},
+  date         = {2023},
+  doi          = {10.1145/3605764.3623985},
+}
