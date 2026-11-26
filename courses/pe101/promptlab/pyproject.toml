@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "promptlab"
+version = "1.0.0"
+description = "Stand-ins for a language model, and data loaders, for PE101's offline Jupyter labs."
+requires-python = ">=3.12"
+license = "MIT"
+dependencies = []
+
+[tool.setuptools]
+packages = ["promptlab"]

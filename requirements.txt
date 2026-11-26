@@ -18,3 +18,9 @@ jupyter-book==2.1.7
 lupa==2.8
 hererocks==0.25.1
 -e ./courses/lua101/lualab
+
+# PE101: figures, JSON Schema validation, front matter, and the labs' offline stand-ins
+matplotlib==3.11.2
+jsonschema==4.26.0
+pyyaml==6.0.4
+-e ./courses/pe101/promptlab
