@@ -50,11 +50,14 @@ jobs:
           .venv/bin/pip install -r requirements.txt
           echo "$PWD/.venv/bin" >> "$GITHUB_PATH"
 
+      # The runner has no readline headers, and readline only adds line editing to the interactive
+      # prompt, which CI never uses, so build without it, as setup.md allows.
       - name: "Build Lua 5.4.8 and LuaRocks 3.13.0 into .venv/lua"
         run: >-
           hererocks .venv/lua
           -l "https://github.com/lua/lua@v5.4.8"
           -r "https://github.com/luarocks/luarocks@v3.13.0"
+          --no-readline
 
       - name: "Install busted, luacheck, and LuaCov"
         run: |

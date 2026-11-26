@@ -40,7 +40,10 @@ that has the Lua interpreter built in, so the notebooks need no separate Lua.
 From module 1 you also run Lua scripts with the `lua` command, and from module 6 you install test
 tools with LuaRocks. hererocks, which the notebook environment installed, builds both into a
 folder of their own. It needs a C compiler: `gcc` or `clang` on Linux, and the Xcode Command Line
-Tools on macOS (`xcode-select --install`).
+Tools on macOS (`xcode-select --install`). On Linux it also needs the headers of GNU Readline, the
+library that lets you edit a line and recall earlier ones at the interactive `lua` prompt. Install
+them with `sudo apt install libreadline-dev` on Debian and Ubuntu, or
+`sudo dnf install readline-devel` on Fedora.
 
 1. Build Lua 5.4.8 and LuaRocks 3.13.0 into `.venv/lua`:
 
@@ -51,6 +54,11 @@ Tools on macOS (`xcode-select --install`).
    hererocks downloads both from GitHub, builds them, and ends with `Done.` The command names the
    releases from GitHub because hererocks' own list of Lua versions stops at 5.4.4. Version 5.4.8
    matches the Lua in the notebooks, so a script behaves the same in both.
+
+   If the build stops with `readline/readline.h: No such file or directory`, the readline headers
+   are missing. Install them and run the command again, or add `--no-readline` to the end of the
+   command. Without readline, scripts run the same, but the interactive prompt can't edit a line
+   or recall earlier ones.
 2. Put the new `lua` and `luarocks` commands first on your `PATH` for this terminal:
 
    ```bash

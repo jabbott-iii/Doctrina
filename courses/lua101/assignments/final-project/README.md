@@ -89,7 +89,7 @@ jobs:
       - name: "Build Lua 5.4.8 and LuaRocks 3.13.0"
         run: |
           pip install hererocks==0.25.1
-          hererocks .lua -l "https://github.com/lua/lua@v5.4.8" -r "https://github.com/luarocks/luarocks@v3.13.0"
+          hererocks .lua -l "https://github.com/lua/lua@v5.4.8" -r "https://github.com/luarocks/luarocks@v3.13.0" --no-readline
       - name: "Install busted and luacheck"
         run: |
           .lua/bin/luarocks install busted 2.3.0-1
@@ -101,8 +101,10 @@ jobs:
 ```
 
 Each `uses:` line names an action by the hash of one exact commit, with its version in a comment,
-so the workflow runs the same code every time. Add `.lua/` to your `.gitignore`, so a local run of
-the same commands doesn't commit the built Lua.
+so the workflow runs the same code every time. The build passes `--no-readline` because GitHub's
+`ubuntu-latest` machines don't have the readline headers. Readline only adds line editing to the
+interactive `lua` prompt, which the workflow never uses. Add `.lua/` to your `.gitignore`, so a
+local run of the same commands doesn't commit the built Lua.
 
 ## Checking your project
 
