@@ -1,0 +1,5 @@
+<dispatch>
+  <ticket>$ticket</ticket>
+  <instructions>$rules</instructions>
+  <question>Which queue owns the current request?</question>
+</dispatch>

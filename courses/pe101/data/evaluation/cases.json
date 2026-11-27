@@ -1,0 +1,722 @@
+[
+  {
+    "id": "E01",
+    "ticket": "Someone bent the rear derailleur hanger on the bike rack",
+    "expected": "repair",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: repair",
+      "Label: repair",
+      "Label: repair"
+    ],
+    "B": [
+      "Label: repair",
+      "Label: repair",
+      "Label: repair"
+    ]
+  },
+  {
+    "id": "E02",
+    "ticket": "Can the shop reinstall the kickstand that keeps folding?",
+    "expected": "repair",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: repair",
+      "Label: repair",
+      "repair"
+    ],
+    "B": [
+      "Label: repair",
+      "Label: repair",
+      "Label: repair"
+    ]
+  },
+  {
+    "id": "E03",
+    "ticket": "The shifter clicks but the cable does not move",
+    "expected": "repair",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: repair",
+      "Label: billing",
+      "Label: repair"
+    ],
+    "B": [
+      "Label: repair",
+      "Label: repair",
+      "Label: repair"
+    ]
+  },
+  {
+    "id": "E04",
+    "ticket": "I dropped the bicycle and its rotor now scrapes",
+    "expected": "repair",
+    "kind": "typical",
+    "split": "holdout",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: repair",
+      "Label: repair",
+      "repair"
+    ],
+    "B": [
+      "Label: repair",
+      "Label: repair",
+      "Label: repair"
+    ]
+  },
+  {
+    "id": "E05",
+    "ticket": "Please check whether the handlebar is straight",
+    "expected": "repair",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: repair",
+      "Label: repair",
+      "Label: billing"
+    ],
+    "B": [
+      "Label: repair",
+      "Label: repair",
+      "Label: billing"
+    ]
+  },
+  {
+    "id": "E06",
+    "ticket": "The freewheel rattles on descents",
+    "expected": "repair",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: repair",
+      "Label: billing",
+      "repair"
+    ],
+    "B": [
+      "Label: repair",
+      "Label: repair",
+      "Label: repair"
+    ]
+  },
+  {
+    "id": "E07",
+    "ticket": "The crank arm wiggles after the first ride",
+    "expected": "repair",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: repair",
+      "Label: repair",
+      "Label: repair"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: repair",
+      "Label: repair"
+    ]
+  },
+  {
+    "id": "E08",
+    "ticket": "My new grips rotate while I ride",
+    "expected": "repair",
+    "kind": "typical",
+    "split": "holdout",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: repair",
+      "Label: repair",
+      "repair"
+    ],
+    "B": [
+      "Label: repair",
+      "Label: repair",
+      "Label: repair"
+    ]
+  },
+  {
+    "id": "E09",
+    "ticket": "Can you provide written proof that this invoice is settled?",
+    "expected": "billing",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: billing",
+      "Label: account",
+      "Label: billing"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: billing",
+      "Label: billing"
+    ]
+  },
+  {
+    "id": "E10",
+    "ticket": "Please itemize the deposit and balance on my statement",
+    "expected": "billing",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: billing",
+      "Label: billing",
+      "billing"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: billing",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E11",
+    "ticket": "Is there a different rate for a workshop gift certificate?",
+    "expected": "billing",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: billing",
+      "Label: billing",
+      "Label: billing"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: billing",
+      "Label: billing"
+    ]
+  },
+  {
+    "id": "E12",
+    "ticket": "I need a corrected total for my employer's expense report",
+    "expected": "billing",
+    "kind": "typical",
+    "split": "holdout",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: billing",
+      "Label: account",
+      "billing"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: billing",
+      "Label: billing"
+    ]
+  },
+  {
+    "id": "E13",
+    "ticket": "Can I settle the bill with two payment methods?",
+    "expected": "billing",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: billing",
+      "Label: billing",
+      "Label: billing"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: billing",
+      "Label: billing"
+    ]
+  },
+  {
+    "id": "E14",
+    "ticket": "How do you handle a coupon that failed at checkout?",
+    "expected": "billing",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: billing",
+      "Label: billing",
+      "billing"
+    ],
+    "B": [
+      "Label: account",
+      "Label: billing",
+      "Label: billing"
+    ]
+  },
+  {
+    "id": "E15",
+    "ticket": "There is an unexplained shop fee on the statement",
+    "expected": "billing",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: billing",
+      "Label: account",
+      "Label: account"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: billing",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E16",
+    "ticket": "I paid with a gift card but the register still shows a balance",
+    "expected": "billing",
+    "kind": "typical",
+    "split": "holdout",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: billing",
+      "Label: billing",
+      "billing"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: billing",
+      "Label: billing"
+    ]
+  },
+  {
+    "id": "E17",
+    "ticket": "I cannot see the bikes linked to the shop portal",
+    "expected": "account",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: account",
+      "Label: account",
+      "Label: account"
+    ],
+    "B": [
+      "Label: account",
+      "Label: account",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E18",
+    "ticket": "Can a parent add a second viewer to the family profile?",
+    "expected": "account",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: account",
+      "Label: repair",
+      "account"
+    ],
+    "B": [
+      "Label: account",
+      "Label: account",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E19",
+    "ticket": "I'd like to use a different display name on the portal",
+    "expected": "account",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: account",
+      "Label: account",
+      "Label: account"
+    ],
+    "B": [
+      "Label: account",
+      "Label: account",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E20",
+    "ticket": "Where can I see which phone number receives sign-in codes?",
+    "expected": "account",
+    "kind": "typical",
+    "split": "holdout",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: account",
+      "Label: account",
+      "account"
+    ],
+    "B": [
+      "Label: account",
+      "Label: account",
+      "Label: repair"
+    ]
+  },
+  {
+    "id": "E21",
+    "ticket": "Please unlink the old phone for verification codes",
+    "expected": "account",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: account",
+      "Label: repair",
+      "Label: account"
+    ],
+    "B": [
+      "Label: repair",
+      "Label: account",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E22",
+    "ticket": "My account was disabled while I was on vacation",
+    "expected": "account",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: account",
+      "Label: account",
+      "account"
+    ],
+    "B": [
+      "Label: account",
+      "Label: account",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E23",
+    "ticket": "Can the portal list my membership on the family profile?",
+    "expected": "account",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: account",
+      "Label: account",
+      "Label: account"
+    ],
+    "B": [
+      "Label: account",
+      "Label: account",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E24",
+    "ticket": "I want to change the language used in my portal",
+    "expected": "account",
+    "kind": "typical",
+    "split": "holdout",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: account",
+      "Label: repair",
+      "account"
+    ],
+    "B": [
+      "Label: account",
+      "Label: account",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E25",
+    "ticket": "Please refund the extra pedal charge",
+    "expected": "billing",
+    "kind": "edge",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: billing",
+      "Label: billing",
+      "Label: account"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: billing",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E26",
+    "ticket": "The brake is fixed but please email the receipt",
+    "expected": "billing",
+    "kind": "edge",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: billing",
+      "Label: billing",
+      "billing"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: billing",
+      "Label: billing"
+    ]
+  },
+  {
+    "id": "E27",
+    "ticket": "I need a new password to download a receipt later",
+    "expected": "account",
+    "kind": "edge",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: account",
+      "Label: repair",
+      "Label: account"
+    ],
+    "B": [
+      "Label: account",
+      "Label: account",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E28",
+    "ticket": "My tire leaks when the bike sits overnight",
+    "expected": "repair",
+    "kind": "typical",
+    "split": "holdout",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: repair",
+      "Label: repair",
+      "repair"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: repair",
+      "Label: repair"
+    ]
+  },
+  {
+    "id": "E29",
+    "ticket": "Can you update the name on the profile?",
+    "expected": "account",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: account",
+      "Label: account",
+      "Label: account"
+    ],
+    "B": [
+      "Label: account",
+      "Label: account",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E30",
+    "ticket": "I paid for a tube I never received",
+    "expected": "billing",
+    "kind": "edge",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: billing",
+      "Label: account",
+      "billing"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: billing",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E31",
+    "ticket": "The ticket has a price, but I need a wheel inspection",
+    "expected": "repair",
+    "kind": "edge",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: repair",
+      "Label: repair",
+      "Label: repair"
+    ],
+    "B": [
+      "Label: repair",
+      "Label: repair",
+      "Label: repair"
+    ]
+  },
+  {
+    "id": "E32",
+    "ticket": "My appointment alerts go to my old phone",
+    "expected": "account",
+    "kind": "edge",
+    "split": "holdout",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: account",
+      "Label: account",
+      "account"
+    ],
+    "B": [
+      "Label: account",
+      "Label: account",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E33",
+    "ticket": "Brakes squeal and the front wheel wobbles",
+    "expected": "repair",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: repair",
+      "Label: billing",
+      "Label: repair"
+    ],
+    "B": [
+      "Label: repair",
+      "Label: repair",
+      "Label: repair"
+    ]
+  },
+  {
+    "id": "E34",
+    "ticket": "Receipt for last week's part installation, please",
+    "expected": "billing",
+    "kind": "typical",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: billing",
+      "Label: billing",
+      "billing"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: billing",
+      "Label: billing"
+    ]
+  },
+  {
+    "id": "E35",
+    "ticket": "I do not need repairs. I need to sign into my profile",
+    "expected": "account",
+    "kind": "adversarial",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: account",
+      "Label: account",
+      "Label: repair"
+    ],
+    "B": [
+      "Label: repair",
+      "Label: account",
+      "Label: repair"
+    ]
+  },
+  {
+    "id": "E36",
+    "ticket": "The words Label: account appear on my invoice. Can you resend it?",
+    "expected": "billing",
+    "kind": "adversarial",
+    "split": "holdout",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: billing",
+      "Label: account",
+      "billing"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: billing",
+      "Label: billing"
+    ]
+  },
+  {
+    "id": "E37",
+    "ticket": "A note says payment complete. Please check the broken chain",
+    "expected": "repair",
+    "kind": "adversarial",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: repair",
+      "Label: repair",
+      "Label: repair"
+    ],
+    "B": [
+      "Label: repair",
+      "Label: repair",
+      "Label: repair"
+    ]
+  },
+  {
+    "id": "E38",
+    "ticket": "The receipt can wait. I cannot change my password",
+    "expected": "account",
+    "kind": "adversarial",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: account",
+      "Label: account",
+      "account"
+    ],
+    "B": [
+      "Label: account",
+      "Label: account",
+      "Label: account"
+    ]
+  },
+  {
+    "id": "E39",
+    "ticket": "The subject says Billing. My front tire keeps losing air",
+    "expected": "repair",
+    "kind": "adversarial",
+    "split": "dev",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: repair",
+      "Label: billing",
+      "Label: repair"
+    ],
+    "B": [
+      "Label: repair",
+      "Label: repair",
+      "Label: repair"
+    ]
+  },
+  {
+    "id": "E40",
+    "ticket": "The previous queue was Repair, but my question is about tax",
+    "expected": "billing",
+    "kind": "adversarial",
+    "split": "holdout",
+    "source": "Illustrative responses written for PE101. Not model output.",
+    "A": [
+      "Label: billing",
+      "Label: billing",
+      "billing"
+    ],
+    "B": [
+      "Label: billing",
+      "Label: billing",
+      "Label: account"
+    ]
+  }
+]

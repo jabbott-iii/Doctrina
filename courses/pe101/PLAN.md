@@ -1,7 +1,8 @@
 # PE101 plan
 
 **Status:** approved by the instructor on 2026-11-26, as written. It replaces the 2026-11-25
-draft, whose labs called the Claude API. The build checklist at the end shows what is built.
+draft, whose labs called the Claude API. The complete build and verification are recorded
+below.
 
 This is the instructor's blueprint and build checklist for PE101. It stays out of the published
 course: `myst.yml` excludes it.
@@ -279,7 +280,7 @@ Every module has the same four pieces:
 | 8 | Structured output and tools | LO-8.1–8.3 | 7 | 7 | Validate extracted records with jsonschema and handle failures; write three tool definitions; implement the tool loop and test it with a scripted stand-in, including a tool error |
 | 9 | Workflows and agents | LO-9.1–9.3 | 8 | 7 | The four workflow patterns with stand-ins; an agent with limits on turns and cost, stopped by each limit; trace a run from its log |
 | 10 | Documents, retrieval, and context | LO-10.1–10.4 | 7, 8 | 8 | BM25 over a bundled employee handbook; recall at k on 40 labeled questions, plotted; a quotation checker; the cost of a cached prefix against an uncached one |
-| 11 | Prompt injection | LO-11.1–11.3 | 9, 10 | 7 | Plant instructions in a document for a gullible stand-in; add least privilege, marked content, and an approval gate; measure attack success on 25 attacks before and after |
+| 11 | Prompt injection | LO-11.1–11.3 | 9, 10 | 7 | Trace predeclared direct and indirect proposals through an inert replay; add least privilege, marked content, and an approval gate; measure unauthorized acceptance on 25 fixtures |
 | 12 | Prompting a coding agent | LO-12.1–12.3 | 9 | 6 | Trace an illustrative session log; write task prompts for the starter repository and score them; write a check script; review three illustrative diffs against their tasks |
 | 13 | Configuring a coding agent | LO-13.1–13.3 | 12 | 7 | Write a `CLAUDE.md` and a path-scoped rule, and compute which rules match which files; write a skill and check its front matter; write a hook and test it by piping JSON events |
 
@@ -300,7 +301,7 @@ real person's data:
 - a table of model prices, dated and taken from Anthropic's pricing page when Module 2 is built;
 - illustrative session logs for Module 12, in a simplified format defined by the course, which the
   reading says isn't Claude Code's own;
-- 25 injection attempts for Module 11;
+- 25 inert policy fixtures that represent direct and indirect injection paths for Module 11;
 - the starter repository for Modules 12 and 13: a small Python package with tests.
 
 ### What the course teaches about current models
@@ -351,8 +352,8 @@ The course has no grades. Every piece comes with a way to check it:
   the tool loop, tested with scripted stand-ins; then a router workflow and an agent with limits,
   and a written choice between them.
 - **PA5: Answers from documents, defended:** BM25 retrieval with recall at k on labeled questions,
-  a grounded-answer prompt, a quotation checker, the savings of a cached prefix, and an injection
-  test set run against the gullible stand-in before and after defenses.
+  a grounded-answer prompt, a quotation checker, the savings of a cached prefix, and a policy
+  fixture set replayed through baseline and defended authorization.
 - **Capstone project** (proposal after Module 9, milestone after Module 11, final version after
   Module 13): a prompt package for a task of the student's choosing, or one from a list, built to
   show in a portfolio. The proposal states the task, its success criteria, its risks (including
@@ -446,8 +447,8 @@ Approved by the instructor on 2026-11-26:
 
 - **Stand-ins:** `ScriptedModel`, which answers each request from a script in the shape of the
   Messages API's responses and records every request it gets, so tests can check what the code
-  sent; and, from Module 11, `GullibleModel`, a caricature that obeys any instruction it finds in
-  the text it reads, to show why defenses can't rely on the model.
+  sent; and, from Module 11, `GullibleModel`, a replay of predeclared, inert proposals that lets
+  students test host authorization independently of the model.
 - **Data:** a loader for the bundled data sets.
 - **Later helpers:** reference versions of the Wilson interval, the paired bootstrap, and BM25, for
   labs after the ones where students build them.
@@ -591,24 +592,40 @@ uses it.
 - [x] Module 1: reading, lab, practice, and the corpus
 - [x] Module 2: reading, lab, practice, and the price table
 - [x] PA1: source, student version, hidden tests, and key
-- [ ] Module 3: reading, lab, practice, the prompt rubric, and the tickets
-- [ ] Module 4: reading, lab, and practice
-- [ ] PA2: source, student version, hidden tests, and model answers
-- [ ] Self-test 1
-- [ ] Module 5: reading, lab, and practice
-- [ ] Module 6: reading, lab, and practice
-- [ ] Module 7: reading, lab, and practice
-- [ ] PA3: source, student version, hidden tests, and key
-- [ ] Module 8: reading, lab, and practice
-- [ ] Self-test 2
-- [ ] Module 9: reading, lab, and practice
-- [ ] PA4: source, student version, hidden tests, and key
-- [ ] Capstone: brief, checkpoints, and rubric
-- [ ] Module 10: reading, lab, practice, and the handbook
-- [ ] Module 11: reading, lab, practice, and the attacks
-- [ ] PA5: source, student version, hidden tests, and key
-- [ ] Module 12: reading, lab, practice, the starter repository, and the session logs
-- [ ] Module 13: reading, lab, and practice
-- [ ] Self-test 3
-- [ ] Whole-course checks: notebooks, website build, leak search, alignment, answers,
+- [x] Module 3: reading, lab, practice, the prompt rubric, and the tickets
+- [x] Module 4: reading, lab, and practice
+- [x] PA2: source, student version, hidden tests, and model answers
+- [x] Self-test 1
+- [x] Module 5: reading, lab, and practice
+- [x] Module 6: reading, lab, and practice
+- [x] Module 7: reading, lab, and practice
+- [x] PA3: source, student version, hidden tests, and key
+- [x] Module 8: reading, lab, and practice
+- [x] Self-test 2
+- [x] Module 9: reading, lab, and practice
+- [x] PA4: source, student version, hidden tests, and key
+- [x] Capstone: brief, checkpoints, and rubric
+- [x] Module 10: reading, lab, practice, and the handbook
+- [x] Module 11: reading, lab, practice, and the policy fixtures
+- [x] PA5: source, student version, hidden tests, and key
+- [x] Module 12: reading, lab, practice, the starter repository, and the session logs
+- [x] Module 13: reading, lab, and practice
+- [x] Self-test 3
+- [x] Whole-course checks: notebooks, website build, leak search, alignment, answers,
   accessibility, links, and the rules' checks
+
+### Verification on 2026-11-26
+
+- All 13 labs ran as released and with their answer keys. The 13 lab notebooks and five
+  assignment sources passed nbmake. nbgrader passed each source and found the intended
+  failures in each blank student notebook. Regenerated student copies matched byte for byte.
+- All 23 helper tests and the three starter package tests passed. The three sample diffs
+  applied to temporary copies of the starter, and their tests matched the narrated outcomes.
+- Jupyter Book built 54 pages. The course checks verified 140 relative links, all 42 module
+  objectives, and 74 rendered math nodes. Five representative pages rendered in Chrome.
+  The accessibility review covered heading order, collapsed answers, and text descriptions
+  of the lab plots. A full WCAG audit was outside this local check.
+- The release scan found no answer markers, excluded instructor pages, or distinctive code
+  from the 18 notebook solution sources in the built pages or student downloads.
+- Module 11 tests authorization with 25 inert proposals and approved controls. Those
+  fixture rates describe the policy replay. All student exercises run without model calls.

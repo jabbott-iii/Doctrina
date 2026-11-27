@@ -11,8 +11,10 @@ In short:
 
 - `rules/` and `skills/` hold the portable library. Their **Project details** values stay
   `[FILL IN: …]` placeholders, because other repositories copy the files as they are.
-- `.claude/rules/` and `.claude/skills/` hold the copies that Doctrina follows itself. A change to
-  a rule or a skill goes into both, in the same commit.
+- `.claude/rules/` and `.claude/skills/` hold the copies that Doctrina follows itself. Change a
+  portable rule or skill and its adopted copy in the same commit.
+- `.agents/rules/` links to the adopted rules. `.agents/skills/` holds the Codex copies of the
+  adopted skills and their invocation settings.
 - `courses/`, `workbooks/`, and `articles/` hold the course materials, which follow
   [`.claude/rules/teaching-materials.md`](.claude/rules/teaching-materials.md). Answer keys live in
   each course's `solutions/` folder, and the coursework never links to them.
@@ -104,5 +106,5 @@ course states.
 
 ## Coding agents
 
-Agents follow [`AGENTS.md`](AGENTS.md) and every rule in `.claude/rules/`. Claude Code loads the
-rules on its own.
+Claude Code loads the adopted rules from `.claude/rules/`. Codex and other agents follow the
+repository's instructions for reading them through `.agents/rules/`. See [AGENTS.md](AGENTS.md).

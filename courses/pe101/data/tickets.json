@@ -1,0 +1,146 @@
+[
+  {
+    "id": "T01",
+    "text": "Rear brake rubs after a wheel change",
+    "label": "repair",
+    "topic": "brake"
+  },
+  {
+    "id": "T02",
+    "text": "Chain skips under load in two gears",
+    "label": "repair",
+    "topic": "chain"
+  },
+  {
+    "id": "T03",
+    "text": "Rear tire goes flat after each ride",
+    "label": "repair",
+    "topic": "tire"
+  },
+  {
+    "id": "T04",
+    "text": "Can you check a loose headset?",
+    "label": "repair",
+    "topic": "steering"
+  },
+  {
+    "id": "T05",
+    "text": "One spoke snapped on the rear wheel",
+    "label": "repair",
+    "topic": "wheel"
+  },
+  {
+    "id": "T06",
+    "text": "Front light mount has become loose",
+    "label": "repair",
+    "topic": "mount"
+  },
+  {
+    "id": "T07",
+    "text": "Brake lever feels soft after rain",
+    "label": "repair",
+    "topic": "brake"
+  },
+  {
+    "id": "T08",
+    "text": "Pedal creaks when I stand up",
+    "label": "repair",
+    "topic": "pedal"
+  },
+  {
+    "id": "T09",
+    "text": "The invoice lists two inspection fees",
+    "label": "billing",
+    "topic": "duplicate"
+  },
+  {
+    "id": "T10",
+    "text": "Can I get the receipt for Tuesday's repair?",
+    "label": "billing",
+    "topic": "receipt"
+  },
+  {
+    "id": "T11",
+    "text": "I was charged for a part I returned",
+    "label": "billing",
+    "topic": "return"
+  },
+  {
+    "id": "T12",
+    "text": "The quote and the final charge differ",
+    "label": "billing",
+    "topic": "price"
+  },
+  {
+    "id": "T13",
+    "text": "Where can I pay the remaining balance?",
+    "label": "billing",
+    "topic": "payment"
+  },
+  {
+    "id": "T14",
+    "text": "I need the brake repair receipt as a PDF",
+    "label": "billing",
+    "topic": "receipt"
+  },
+  {
+    "id": "T15",
+    "text": "Does the tube price include tax?",
+    "label": "billing",
+    "topic": "tax"
+  },
+  {
+    "id": "T16",
+    "text": "My card shows two identical payments",
+    "label": "billing",
+    "topic": "duplicate"
+  },
+  {
+    "id": "T17",
+    "text": "How do I update the email on my profile?",
+    "label": "account",
+    "topic": "email"
+  },
+  {
+    "id": "T18",
+    "text": "I cannot sign in to view appointment history",
+    "label": "account",
+    "topic": "login"
+  },
+  {
+    "id": "T19",
+    "text": "Where do I change the address on my profile?",
+    "label": "account",
+    "topic": "address"
+  },
+  {
+    "id": "T20",
+    "text": "Please remove the saved bike from my profile",
+    "label": "account",
+    "topic": "bike"
+  },
+  {
+    "id": "T21",
+    "text": "I want to turn off appointment reminders",
+    "label": "account",
+    "topic": "reminders"
+  },
+  {
+    "id": "T22",
+    "text": "Can I combine my two profiles?",
+    "label": "account",
+    "topic": "merge"
+  },
+  {
+    "id": "T23",
+    "text": "The account name is spelled incorrectly",
+    "label": "account",
+    "topic": "name"
+  },
+  {
+    "id": "T24",
+    "text": "How can I add a second bicycle to my profile?",
+    "label": "account",
+    "topic": "bike"
+  }
+]

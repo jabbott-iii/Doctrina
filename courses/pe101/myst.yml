@@ -22,6 +22,7 @@ project:
     - file: setup.md
     - file: python-primer.md
     - file: notation.md
+    - file: prompt-rubric.md
     - title: "Module 1: How language models produce text"
       children:
         - file: modules/01-how-models-produce-text/index.md
@@ -32,9 +33,72 @@ project:
         - file: modules/02-anatomy-of-a-request/index.md
         - file: modules/02-anatomy-of-a-request/lab02.ipynb
         - file: modules/02-anatomy-of-a-request/practice.md
+    - title: "Module 3: Clear instructions"
+      children:
+        - file: modules/03-clear-instructions/index.md
+        - file: modules/03-clear-instructions/lab03.ipynb
+        - file: modules/03-clear-instructions/practice.md
+    - title: "Module 4: Structure, data, and templates"
+      children:
+        - file: modules/04-structure-data-and-templates/index.md
+        - file: modules/04-structure-data-and-templates/lab04.ipynb
+        - file: modules/04-structure-data-and-templates/practice.md
+    - file: self-tests/self-test-1.md
+    - title: "Module 5: Examples"
+      children:
+        - file: modules/05-examples/index.md
+        - file: modules/05-examples/lab05.ipynb
+        - file: modules/05-examples/practice.md
+    - title: "Module 6: Reasoning and chains"
+      children:
+        - file: modules/06-reasoning-and-chains/index.md
+        - file: modules/06-reasoning-and-chains/lab06.ipynb
+        - file: modules/06-reasoning-and-chains/practice.md
+    - title: "Module 7: Evaluating prompts"
+      children:
+        - file: modules/07-evaluating-prompts/index.md
+        - file: modules/07-evaluating-prompts/lab07.ipynb
+        - file: modules/07-evaluating-prompts/practice.md
+    - title: "Module 8: Structured output and tools"
+      children:
+        - file: modules/08-structured-output-and-tools/index.md
+        - file: modules/08-structured-output-and-tools/lab08.ipynb
+        - file: modules/08-structured-output-and-tools/practice.md
+    - file: self-tests/self-test-2.md
+    - title: "Module 9: Workflows and agents"
+      children:
+        - file: modules/09-workflows-and-agents/index.md
+        - file: modules/09-workflows-and-agents/lab09.ipynb
+        - file: modules/09-workflows-and-agents/practice.md
+    - title: "Module 10: Documents, retrieval, and context"
+      children:
+        - file: modules/10-documents-retrieval-and-context/index.md
+        - file: modules/10-documents-retrieval-and-context/lab10.ipynb
+        - file: modules/10-documents-retrieval-and-context/practice.md
+    - title: "Module 11: Prompt injection"
+      children:
+        - file: modules/11-prompt-injection/index.md
+        - file: modules/11-prompt-injection/lab11.ipynb
+        - file: modules/11-prompt-injection/practice.md
+    - title: "Module 12: Prompting a coding agent"
+      children:
+        - file: modules/12-prompting-a-coding-agent/index.md
+        - file: modules/12-prompting-a-coding-agent/lab12.ipynb
+        - file: modules/12-prompting-a-coding-agent/practice.md
+    - title: "Module 13: Configuring a coding agent"
+      children:
+        - file: modules/13-configuring-a-coding-agent/index.md
+        - file: modules/13-configuring-a-coding-agent/lab13.ipynb
+        - file: modules/13-configuring-a-coding-agent/practice.md
+    - file: self-tests/self-test-3.md
     - title: "Assignments"
       children:
         - file: assignments/pa1/pa1.ipynb
+        - file: assignments/pa2/pa2.ipynb
+        - file: assignments/pa3/pa3.ipynb
+        - file: assignments/pa4/pa4.ipynb
+        - file: assignments/pa5/pa5.ipynb
+        - file: assignments/final-project/README.md
     - file: ERRATA.md
 site:
   template: book-theme

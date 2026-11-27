@@ -1,0 +1,45 @@
+{
+  "source": "Illustrative session written for PE101. Not model output or a Claude Code log.",
+  "turns": [
+    {
+      "event": "user",
+      "origin": "task",
+      "detail": "Support both hyphens and underscores in service_label."
+    },
+    {
+      "event": "model",
+      "origin": "task",
+      "detail": "Plan to inspect current labels and tests."
+    },
+    {
+      "event": "tool",
+      "origin": "repository",
+      "detail": "Read repair_shop.py and test_repair_shop.py."
+    },
+    {
+      "event": "model",
+      "origin": "tool_result",
+      "detail": "Underscores currently become spaces. Add a regression case."
+    },
+    {
+      "event": "tool",
+      "origin": "repository",
+      "detail": "A regression test for brake-adjustment fails with Brake-Adjustment."
+    },
+    {
+      "event": "model",
+      "origin": "tool_result",
+      "detail": "Replace both separators, preserving title casing."
+    },
+    {
+      "event": "tool",
+      "origin": "repository",
+      "detail": "The existing suite and the regression case pass in the illustrative replay."
+    },
+    {
+      "event": "model",
+      "origin": "conversation",
+      "detail": "Summarize changed files and verification."
+    }
+  ]
+}

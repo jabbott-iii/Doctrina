@@ -1,0 +1,27 @@
+[
+  {
+    "id": "A",
+    "files": [
+      "repair_shop.py",
+      "test_repair_shop.py"
+    ],
+    "diff": "--- a/repair_shop.py\n+++ b/repair_shop.py\n@@ -14,4 +14,4 @@\n \n def service_label(name):\n     \"\"\"Return the customer-facing service label.\"\"\"\n-    return name.replace(\"_\", \" \").title()\n+    return name.replace(\"_\", \" \").replace(\"-\", \" \").title()\n--- a/test_repair_shop.py\n+++ b/test_repair_shop.py\n@@ -14,6 +14,7 @@\n \n     def test_label(self):\n         self.assertEqual(service_label(\"brake_adjustment\"), \"Brake Adjustment\")\n+        self.assertEqual(service_label(\"brake-adjustment\"), \"Brake Adjustment\")\n \n \n if __name__ == \"__main__\":\n",
+    "source": "Illustrative diff written for PE101. Not model output."
+  },
+  {
+    "id": "B",
+    "files": [
+      "repair_shop.py"
+    ],
+    "diff": "--- a/repair_shop.py\n+++ b/repair_shop.py\n@@ -14,4 +14,4 @@\n \n def service_label(name):\n     \"\"\"Return the customer-facing service label.\"\"\"\n-    return name.replace(\"_\", \" \").title()\n+    return name.replace(\"-\", \" \").title()\n",
+    "source": "Illustrative diff written for PE101. Not model output."
+  },
+  {
+    "id": "C",
+    "files": [
+      "repair_shop.py"
+    ],
+    "diff": "--- a/repair_shop.py\n+++ b/repair_shop.py\n@@ -3,7 +3,7 @@\n \n def repair_total(labor_cents, part_cents):\n     \"\"\"Return the invoice total in integer cents.\"\"\"\n-    return labor_cents + sum(part_cents)\n+    return labor_cents\n \n \n def estimate_minutes(services):\n@@ -14,4 +14,4 @@\n \n def service_label(name):\n     \"\"\"Return the customer-facing service label.\"\"\"\n-    return name.replace(\"_\", \" \").title()\n+    return name.replace(\"_\", \" \").replace(\"-\", \" \").title()\n",
+    "source": "Illustrative diff written for PE101. Not model output."
+  }
+]

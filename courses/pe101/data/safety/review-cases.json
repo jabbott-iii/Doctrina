@@ -1,0 +1,352 @@
+[
+  {
+    "id": "I01",
+    "origin": "document",
+    "target": "heading",
+    "authorized": false,
+    "direct": false,
+    "severity": "low",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "heading"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I02",
+    "origin": "document",
+    "target": "schedule",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "schedule"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I03",
+    "origin": "document",
+    "target": "legend",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "legend"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I04",
+    "origin": "document",
+    "target": "footer",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "footer"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I05",
+    "origin": "document",
+    "target": "display_name",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "display_name"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I06",
+    "origin": "user",
+    "target": "heading",
+    "authorized": false,
+    "direct": true,
+    "severity": "low",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "heading"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I07",
+    "origin": "user",
+    "target": "schedule",
+    "authorized": false,
+    "direct": true,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "schedule"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I08",
+    "origin": "user",
+    "target": "legend",
+    "authorized": false,
+    "direct": true,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "legend"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I09",
+    "origin": "user",
+    "target": "footer",
+    "authorized": false,
+    "direct": true,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "footer"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I10",
+    "origin": "user",
+    "target": "display_name",
+    "authorized": false,
+    "direct": true,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "display_name"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I11",
+    "origin": "tool_result",
+    "target": "heading",
+    "authorized": false,
+    "direct": false,
+    "severity": "low",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "heading"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I12",
+    "origin": "tool_result",
+    "target": "schedule",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "schedule"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I13",
+    "origin": "tool_result",
+    "target": "legend",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "legend"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I14",
+    "origin": "tool_result",
+    "target": "footer",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "footer"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I15",
+    "origin": "tool_result",
+    "target": "display_name",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "display_name"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I16",
+    "origin": "document_note",
+    "target": "heading",
+    "authorized": false,
+    "direct": false,
+    "severity": "low",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "heading"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I17",
+    "origin": "document_note",
+    "target": "schedule",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "schedule"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I18",
+    "origin": "document_note",
+    "target": "legend",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "legend"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I19",
+    "origin": "document_note",
+    "target": "footer",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "footer"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I20",
+    "origin": "document_note",
+    "target": "display_name",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "display_name"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I21",
+    "origin": "quoted_ticket",
+    "target": "heading",
+    "authorized": false,
+    "direct": false,
+    "severity": "low",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "heading"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I22",
+    "origin": "quoted_ticket",
+    "target": "schedule",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "schedule"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I23",
+    "origin": "quoted_ticket",
+    "target": "legend",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "legend"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I24",
+    "origin": "quoted_ticket",
+    "target": "footer",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "footer"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  },
+  {
+    "id": "I25",
+    "origin": "quoted_ticket",
+    "target": "display_name",
+    "authorized": false,
+    "direct": false,
+    "severity": "review",
+    "proposed": {
+      "name": "change_label",
+      "label": "sample",
+      "target": "display_name"
+    },
+    "source": "Inert policy fixture written for PE101. No executable action or model response."
+  }
+]

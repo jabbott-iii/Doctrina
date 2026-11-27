@@ -1,0 +1,152 @@
+[
+  {
+    "id": "F01",
+    "text": "Label: repair",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F02",
+    "text": "Label: billing",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F03",
+    "text": "Label: account",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F04",
+    "text": "label: repair",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F05",
+    "text": "Label: other",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F06",
+    "text": "Label: repair\nNeeds a mechanic.",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F07",
+    "text": "Label: repair",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F08",
+    "text": "Label: billing",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F09",
+    "text": "Label: account",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F10",
+    "text": "label: repair",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F11",
+    "text": "Label: other",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F12",
+    "text": "Label: repair\nNeeds a mechanic.",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F13",
+    "text": "Label: repair",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F14",
+    "text": "Label: billing",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F15",
+    "text": "Label: account",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F16",
+    "text": "label: repair",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F17",
+    "text": "Label: other",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F18",
+    "text": "Label: repair\nNeeds a mechanic.",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F19",
+    "text": "Label: repair",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F20",
+    "text": "Label: billing",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F21",
+    "text": "Label: account",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F22",
+    "text": "label: repair",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F23",
+    "text": "Label: other",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F24",
+    "text": "Label: repair\nNeeds a mechanic.",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F25",
+    "text": "Label: repair",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F26",
+    "text": "Label: billing",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F27",
+    "text": "Label: account",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F28",
+    "text": "label: repair",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F29",
+    "text": "Label: other",
+    "source": "Illustrative response written for PE101. Not model output."
+  },
+  {
+    "id": "F30",
+    "text": "Label: repair\nNeeds a mechanic.",
+    "source": "Illustrative response written for PE101. Not model output."
+  }
+]

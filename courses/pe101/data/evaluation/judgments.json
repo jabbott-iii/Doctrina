@@ -1,0 +1,182 @@
+[
+  {
+    "id": "J01",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J02",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J03",
+    "human": false,
+    "judge": false,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J04",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J05",
+    "human": true,
+    "judge": false,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J06",
+    "human": false,
+    "judge": false,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J07",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J08",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J09",
+    "human": false,
+    "judge": false,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J10",
+    "human": true,
+    "judge": false,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J11",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J12",
+    "human": false,
+    "judge": false,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J13",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J14",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J15",
+    "human": false,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J16",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J17",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J18",
+    "human": false,
+    "judge": false,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J19",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J20",
+    "human": true,
+    "judge": false,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J21",
+    "human": false,
+    "judge": false,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J22",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J23",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J24",
+    "human": false,
+    "judge": false,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J25",
+    "human": true,
+    "judge": false,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J26",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J27",
+    "human": false,
+    "judge": false,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J28",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J29",
+    "human": true,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  },
+  {
+    "id": "J30",
+    "human": false,
+    "judge": true,
+    "source": "Illustrative paired judgments written for PE101. Not model output."
+  }
+]

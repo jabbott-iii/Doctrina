@@ -1,0 +1,13 @@
+{
+  "goal": "Extend service_label to accept hyphens as separators alongside underscores.",
+  "files": [
+    "repair_shop.py",
+    "test_repair_shop.py"
+  ],
+  "constraints": [
+    "Keep Title Case.",
+    "Preserve underscore support.",
+    "Leave prices and estimates unchanged."
+  ],
+  "verification": "python -m unittest discover -v"
+}

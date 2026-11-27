@@ -3,10 +3,10 @@
 Doctrina is a library of portable rules for AI coding agents. Any repository can copy a rule into
 its own `.claude/rules/` folder and fill in the values that are specific to it. Doctrina is also
 where classes are built: courses, workbooks, and articles go in `courses/`, `workbooks/`, and
-`articles/`. It follows three of its own rules and uses two of its own skills, so it keeps rules
-and skills in two folders each, with different jobs.
+`articles/`. Doctrina uses three of its own rules and two of its own skills in Claude Code and
+Codex.
 
-## The two rule folders
+## Repository rules and skills
 
 | | `rules/` | `.claude/rules/` |
 | --- | --- | --- |
@@ -22,9 +22,12 @@ and skills in two folders each, with different jobs.
   Doctrina uses two itself, as copies in `.claude/skills/`: `build-course/`, for the courses
   built here, and `set-up-github/`, for Doctrina's own GitHub files. Claude Code offers them as
   `/build-course` and `/set-up-github`.
-- **`.claude/rules/` is for this repository.** Its rules govern all work in Doctrina, including
-  edits to `rules/`. Claude Code loads them on its own. If you are another agent, read every file
-  in `.claude/rules/` before you start, and follow them as this repository's rules.
+- **`.claude/rules/` holds this repository's rules.** They also govern edits to `rules/`.
+  Claude Code loads them on its own.
+- **`.agents/` holds Doctrina's Codex imports.** `.agents/rules/` links to `.claude/rules/`.
+  If you use Codex or another coding agent, read every Markdown file in `.agents/rules/` before
+  starting work. Follow each rule within its stated scope. Codex discovers `build-course` and
+  `set-up-github` in `.agents/skills/` and makes them available for explicit invocation.
 - Not every portable rule has a copy. `web-front-end.md`, `typescript.md`, `rust.md`, `kotlin.md`,
   `java.md`, `android.md`, `kotlin-multiplatform.md`, `swift.md`, `flutter.md`, `lua.md`, and
   `roadmap-and-docs.md` have none, because Doctrina has no web pages, TypeScript, JavaScript, Rust,
@@ -58,6 +61,10 @@ for d in .claude/skills/*/; do
   diff -r "skills/$(basename "$d")" "$d" && echo "$d matches"
 done
 ```
+
+When you update an imported skill in `.claude/skills/`, copy its `SKILL.md` to the matching
+folder in `.agents/skills/` in the same commit. Each Codex skill keeps its explicit-invocation
+setting in `agents/openai.yaml` inside its skill folder.
 
 ## Write a portable rule
 

@@ -1,0 +1,283 @@
+[
+  {
+    "id": "HQ01",
+    "question": "At what time does morning staff unlock the front door?",
+    "relevant": [
+      "H01"
+    ]
+  },
+  {
+    "id": "HQ02",
+    "question": "Which entrance is used before opening?",
+    "relevant": [
+      "H01"
+    ]
+  },
+  {
+    "id": "HQ03",
+    "question": "When should I hang the open sign?",
+    "relevant": [
+      "H01"
+    ]
+  },
+  {
+    "id": "HQ04",
+    "question": "What is the attendance instruction for early staff?",
+    "relevant": [
+      "H01"
+    ]
+  },
+  {
+    "id": "HQ05",
+    "question": "How long is a repair booking slot?",
+    "relevant": [
+      "H02"
+    ]
+  },
+  {
+    "id": "HQ06",
+    "question": "What does the rider bring to a service appointment?",
+    "relevant": [
+      "H02"
+    ]
+  },
+  {
+    "id": "HQ07",
+    "question": "When can a walk-in get a repair?",
+    "relevant": [
+      "H02"
+    ]
+  },
+  {
+    "id": "HQ08",
+    "question": "Where is the expected paperwork for an appointment described?",
+    "relevant": [
+      "H02"
+    ]
+  },
+  {
+    "id": "HQ09",
+    "question": "What reference is needed for a receipt copy?",
+    "relevant": [
+      "H03"
+    ]
+  },
+  {
+    "id": "HQ10",
+    "question": "Does a cash sale get a printed receipt?",
+    "relevant": [
+      "H03"
+    ]
+  },
+  {
+    "id": "HQ11",
+    "question": "How do staff send electronic receipts?",
+    "relevant": [
+      "H03"
+    ]
+  },
+  {
+    "id": "HQ12",
+    "question": "How do I obtain proof of a purchase a second time?",
+    "relevant": [
+      "H03"
+    ]
+  },
+  {
+    "id": "HQ13",
+    "question": "How many loan bicycles are available?",
+    "relevant": [
+      "H04"
+    ]
+  },
+  {
+    "id": "HQ14",
+    "question": "What form does a rider sign when collecting a loan bicycle?",
+    "relevant": [
+      "H04"
+    ]
+  },
+  {
+    "id": "HQ15",
+    "question": "When is a loan bicycle due back?",
+    "relevant": [
+      "H04"
+    ]
+  },
+  {
+    "id": "HQ16",
+    "question": "What's the policy for borrowing transportation until pickup?",
+    "relevant": [
+      "H04"
+    ]
+  },
+  {
+    "id": "HQ17",
+    "question": "Which rack takes completed repairs?",
+    "relevant": [
+      "H05"
+    ]
+  },
+  {
+    "id": "HQ18",
+    "question": "Where should I park a bicycle awaiting inspection?",
+    "relevant": [
+      "H05"
+    ]
+  },
+  {
+    "id": "HQ19",
+    "question": "Where should I return the floor pump?",
+    "relevant": [
+      "H05"
+    ]
+  },
+  {
+    "id": "HQ20",
+    "question": "Where do ready bikes go?",
+    "relevant": [
+      "H05"
+    ]
+  },
+  {
+    "id": "HQ21",
+    "question": "Where do I put bags relative to the workbench?",
+    "relevant": [
+      "H06"
+    ]
+  },
+  {
+    "id": "HQ22",
+    "question": "What must I wear when cutting a cable?",
+    "relevant": [
+      "H06"
+    ]
+  },
+  {
+    "id": "HQ23",
+    "question": "Where do used blades go?",
+    "relevant": [
+      "H06"
+    ]
+  },
+  {
+    "id": "HQ24",
+    "question": "What eye protection policy applies in the shop?",
+    "relevant": [
+      "H06"
+    ]
+  },
+  {
+    "id": "HQ25",
+    "question": "What does a work order name?",
+    "relevant": [
+      "H07"
+    ]
+  },
+  {
+    "id": "HQ26",
+    "question": "What must staff ask before adding paid service?",
+    "relevant": [
+      "H07"
+    ]
+  },
+  {
+    "id": "HQ27",
+    "question": "Where do staff record completed work?",
+    "relevant": [
+      "H07"
+    ]
+  },
+  {
+    "id": "HQ28",
+    "question": "What documents parts and requested maintenance?",
+    "relevant": [
+      "H07"
+    ]
+  },
+  {
+    "id": "HQ29",
+    "question": "Which list supplies common tubes?",
+    "relevant": [
+      "H08"
+    ]
+  },
+  {
+    "id": "HQ30",
+    "question": "What should staff do when the last brake cable is used?",
+    "relevant": [
+      "H08"
+    ]
+  },
+  {
+    "id": "HQ31",
+    "question": "When does the stock count run?",
+    "relevant": [
+      "H08"
+    ]
+  },
+  {
+    "id": "HQ32",
+    "question": "Where is the policy for replenishing inner tubes?",
+    "relevant": [
+      "H08"
+    ]
+  },
+  {
+    "id": "HQ33",
+    "question": "Can unopened accessories be returned?",
+    "relevant": [
+      "H09"
+    ]
+  },
+  {
+    "id": "HQ34",
+    "question": "Who records an approved return?",
+    "relevant": [
+      "H09"
+    ]
+  },
+  {
+    "id": "HQ35",
+    "question": "How are installed parts handled on return?",
+    "relevant": [
+      "H09"
+    ]
+  },
+  {
+    "id": "HQ36",
+    "question": "How many days are allowed for an accessory refund?",
+    "relevant": [
+      "H09"
+    ]
+  },
+  {
+    "id": "HQ37",
+    "question": "Which latch should I check before leaving?",
+    "relevant": [
+      "H10"
+    ]
+  },
+  {
+    "id": "HQ38",
+    "question": "Who counts the till at closing?",
+    "relevant": [
+      "H10"
+    ]
+  },
+  {
+    "id": "HQ39",
+    "question": "Which lamps should be turned off?",
+    "relevant": [
+      "H10"
+    ]
+  },
+  {
+    "id": "HQ40",
+    "question": "Which section covers the opening sign and the closing alarm?",
+    "relevant": [
+      "H01",
+      "H10"
+    ]
+  }
+]

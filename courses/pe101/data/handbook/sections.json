@@ -1,0 +1,52 @@
+[
+  {
+    "id": "H01",
+    "title": "Arrivals",
+    "text": "Morning staff unlock the front door at 08:45. Use the side entrance before opening. Hang the open sign at 09:00."
+  },
+  {
+    "id": "H02",
+    "title": "Service appointments",
+    "text": "Book repairs in 30-minute slots. Ask the rider to bring the bicycle and the service ticket. A walk-in repair gets the next open slot."
+  },
+  {
+    "id": "H03",
+    "title": "Receipts and payments",
+    "text": "A receipt copy needs an invoice reference. A cash sale gets a printed receipt. Send electronic receipts only through the shop register."
+  },
+  {
+    "id": "H04",
+    "title": "Loan bicycles",
+    "text": "The shop has two loan bicycles. A rider signs the loan form before collecting one. A loan bicycle is due back by 17:00 the same day."
+  },
+  {
+    "id": "H05",
+    "title": "Storage",
+    "text": "Put completed repairs on the green rack. Park bicycles awaiting inspection on the orange rack. Return floor pumps to the wall hooks after use."
+  },
+  {
+    "id": "H06",
+    "title": "Workshop safety",
+    "text": "Keep the workbench clear of bags. Wear safety glasses when cutting a cable. Place used blades in the marked container."
+  },
+  {
+    "id": "H07",
+    "title": "Work orders",
+    "text": "A work order names the requested service and parts. Ask for approval before adding any paid service. Record completed work in the service ticket."
+  },
+  {
+    "id": "H08",
+    "title": "Stock requests",
+    "text": "Order common tubes from the weekly stock list. Write a note when the last brake cable is used. The stock count runs on Friday afternoon."
+  },
+  {
+    "id": "H09",
+    "title": "Returns",
+    "text": "Unopened accessories may be returned within 14 days with a receipt. Installed parts go through a service review. The shift lead records each approved return."
+  },
+  {
+    "id": "H10",
+    "title": "Closing",
+    "text": "Check the rear door latch before leaving. Count the till with the shift lead. Turn off the workbench lamps and set the alarm."
+  }
+]

@@ -194,6 +194,7 @@ experience with language models.
 4. Run a program from a terminal with a file path as its argument, and read its error message.
 5. Clone a Git repository, change a file, and commit the change.
 
+(how-the-course-teaches-without-a-model)=
 ## How the course teaches without a model
 
 Prompt engineering is usually learned by trying prompts on a model, which costs money for every
@@ -222,6 +223,7 @@ instead:
 Your capstone project ends with an evaluation that is ready to run against a real model, and a
 report that says what you measured and what still needs a model.
 
+(suggested-pace)=
 ## Suggested pace
 
 The course is self-paced, so it has no deadlines: take as long as you need. This pace takes 16
@@ -233,18 +235,18 @@ self-test about 2, and the capstone project about 20.
 | :- | :- | :- | :- |
 | 1 | How language models produce text | [Module 1](modules/01-how-models-produce-text/index.md) | |
 | 2 | The anatomy of a request | [Module 2](modules/02-anatomy-of-a-request/index.md) | [PA1](assignments/pa1/pa1.ipynb) |
-| 3 | Clear instructions | Module 3 | |
-| 4 | Structure, data, and templates | Module 4 | PA2, Self-test 1, on Modules 1–4 |
-| 5 | Examples | Module 5 | |
-| 6 | Reasoning and chains | Module 6 | |
-| 7 | Evaluating prompts | Module 7 | PA3 |
-| 8 | Structured output and tools | Module 8 | Self-test 2, on Modules 1–8 |
-| 9 | Workflows and agents | Module 9 | PA4, and the capstone project's proposal |
-| 10 | Documents, retrieval, and context | Module 10 | |
-| 11 | Prompt injection | Module 11 | PA5, and the capstone project's milestone |
-| 12 | Prompting a coding agent | Module 12 | |
-| 13 | Configuring a coding agent | Module 13 | Self-test 3, on all modules |
-| 14–16 | The capstone project | The capstone brief | The capstone project's final version |
+| 3 | Clear instructions | [Module 3](modules/03-clear-instructions/index.md) | |
+| 4 | Structure, data, and templates | [Module 4](modules/04-structure-data-and-templates/index.md) | [PA2](assignments/pa2/pa2.ipynb), [Self-test 1](self-tests/self-test-1.md) |
+| 5 | Examples | [Module 5](modules/05-examples/index.md) | |
+| 6 | Reasoning and chains | [Module 6](modules/06-reasoning-and-chains/index.md) | |
+| 7 | Evaluating prompts | [Module 7](modules/07-evaluating-prompts/index.md) | [PA3](assignments/pa3/pa3.ipynb) |
+| 8 | Structured output and tools | [Module 8](modules/08-structured-output-and-tools/index.md) | [Self-test 2](self-tests/self-test-2.md) |
+| 9 | Workflows and agents | [Module 9](modules/09-workflows-and-agents/index.md) | [PA4](assignments/pa4/pa4.ipynb), [capstone proposal](assignments/final-project/README.md#proposal) |
+| 10 | Documents, retrieval, and context | [Module 10](modules/10-documents-retrieval-and-context/index.md) | |
+| 11 | Prompt injection | [Module 11](modules/11-prompt-injection/index.md) | [PA5](assignments/pa5/pa5.ipynb), [capstone milestone](assignments/final-project/README.md#milestone) |
+| 12 | Prompting a coding agent | [Module 12](modules/12-prompting-a-coding-agent/index.md) | |
+| 13 | Configuring a coding agent | [Module 13](modules/13-configuring-a-coding-agent/index.md) | [Self-test 3](self-tests/self-test-3.md) |
+| 14–16 | The capstone project | [The capstone brief](assignments/final-project/README.md) | [Final version](assignments/final-project/README.md#final-version) |
 
 ## Checking your work
 
@@ -277,6 +279,7 @@ you have learned and what to review:
 
 Later pieces revisit earlier objectives on purpose, so that you keep practicing them.
 
+(policies)=
 ## Policies
 
 - **Pace:** the course is self-paced and has no deadlines. The suggested pace is a guide, not a
@@ -303,6 +306,7 @@ Later pieces revisit earlier objectives on purpose, so that you keep practicing 
 
 - [Setting up your environment](setup.md)
 - [Python for the labs](python-primer.md)
+- [Prompt rubric](prompt-rubric.md)
 - [Notation and conventions](notation.md)
 - [Errata](ERRATA.md): corrections to published material, by edition
 - Text and figures are under the Creative Commons Attribution 4.0 International license (CC BY
